@@ -1,0 +1,19 @@
+<!DOCTYPE html>  
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">  
+    <head>  
+        <title>Hello World!</title>  
+        <script type="text/javascript" th:src="@{/test.js}"></script>
+    </head>  
+    <body>  
+        <h1 th:inline="text">Hello.v.2</h1>  
+        <p th:text="${good}"></p>
+       	<div th:text=${customerUser.userid}>asdfasdf</div>  
+       	<div th:inline="text">Good every day</div>
+    </body>  
+    
+    <script type="text/javascript">
+    	test();
+    </script>
+    
+</html>
