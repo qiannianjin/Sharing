@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.arexstorm.sharing.mapper.OrderDetailMapper">
-  <resultMap id="BaseResultMap" type="top.arexstorm.sharing.bean.info.OrderDetail">
+  <resultMap id="BaseResultMap" type="top.arexstorm.sharing.bean.order.OrderDetail">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="orderdetailid" jdbcType="VARCHAR" property="orderdetailid" />
     <result column="orderid" jdbcType="VARCHAR" property="orderid" />
     <result column="informationid" jdbcType="VARCHAR" property="informationid" />
+    <result column="buyerid" jdbcType="VARCHAR" property="buyerid" />
     <result column="count" jdbcType="INTEGER" property="count" />
     <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
     <result column="lasttime" jdbcType="TIMESTAMP" property="lasttime" />
+    <result column="seller" jdbcType="VARCHAR" property="seller" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,9 +71,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, orderdetailid, orderid, informationid, count, createtime, lasttime
+    id, orderdetailid, orderid, informationid, buyerid, count, createtime, lasttime, 
+    seller
   </sql>
-  <select id="selectByExample" parameterType="top.arexstorm.sharing.bean.info.OrderDetailQuery" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="top.arexstorm.sharing.bean.order.OrderDetailQuery" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -95,21 +98,23 @@
     delete from s_orderdetail
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="top.arexstorm.sharing.bean.info.OrderDetailQuery">
+  <delete id="deleteByExample" parameterType="top.arexstorm.sharing.bean.order.OrderDetailQuery">
     delete from s_orderdetail
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="top.arexstorm.sharing.bean.info.OrderDetail">
+  <insert id="insert" parameterType="top.arexstorm.sharing.bean.order.OrderDetail">
     insert into s_orderdetail (id, orderdetailid, orderid, 
-      informationid, count, createtime, 
-      lasttime)
+      informationid, buyerid, count, 
+      createtime, lasttime, seller
+      )
     values (#{id,jdbcType=BIGINT}, #{orderdetailid,jdbcType=VARCHAR}, #{orderid,jdbcType=VARCHAR}, 
-      #{informationid,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
-      #{lasttime,jdbcType=TIMESTAMP})
+      #{informationid,jdbcType=VARCHAR}, #{buyerid,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{lasttime,jdbcType=TIMESTAMP}, #{seller,jdbcType=VARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="top.arexstorm.sharing.bean.info.OrderDetail">
+  <insert id="insertSelective" parameterType="top.arexstorm.sharing.bean.order.OrderDetail">
     insert into s_orderdetail
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -124,6 +129,9 @@
       <if test="informationid != null">
         informationid,
       </if>
+      <if test="buyerid != null">
+        buyerid,
+      </if>
       <if test="count != null">
         count,
       </if>
@@ -132,6 +140,9 @@
       </if>
       <if test="lasttime != null">
         lasttime,
+      </if>
+      <if test="seller != null">
+        seller,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -147,6 +158,9 @@
       <if test="informationid != null">
         #{informationid,jdbcType=VARCHAR},
       </if>
+      <if test="buyerid != null">
+        #{buyerid,jdbcType=VARCHAR},
+      </if>
       <if test="count != null">
         #{count,jdbcType=INTEGER},
       </if>
@@ -156,9 +170,12 @@
       <if test="lasttime != null">
         #{lasttime,jdbcType=TIMESTAMP},
       </if>
+      <if test="seller != null">
+        #{seller,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="top.arexstorm.sharing.bean.info.OrderDetailQuery" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="top.arexstorm.sharing.bean.order.OrderDetailQuery" resultType="java.lang.Long">
     select count(*) from s_orderdetail
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -179,6 +196,9 @@
       <if test="record.informationid != null">
         informationid = #{record.informationid,jdbcType=VARCHAR},
       </if>
+      <if test="record.buyerid != null">
+        buyerid = #{record.buyerid,jdbcType=VARCHAR},
+      </if>
       <if test="record.count != null">
         count = #{record.count,jdbcType=INTEGER},
       </if>
@@ -187,6 +207,9 @@
       </if>
       <if test="record.lasttime != null">
         lasttime = #{record.lasttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.seller != null">
+        seller = #{record.seller,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -199,14 +222,16 @@
       orderdetailid = #{record.orderdetailid,jdbcType=VARCHAR},
       orderid = #{record.orderid,jdbcType=VARCHAR},
       informationid = #{record.informationid,jdbcType=VARCHAR},
+      buyerid = #{record.buyerid,jdbcType=VARCHAR},
       count = #{record.count,jdbcType=INTEGER},
       createtime = #{record.createtime,jdbcType=TIMESTAMP},
-      lasttime = #{record.lasttime,jdbcType=TIMESTAMP}
+      lasttime = #{record.lasttime,jdbcType=TIMESTAMP},
+      seller = #{record.seller,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="top.arexstorm.sharing.bean.info.OrderDetail">
+  <update id="updateByPrimaryKeySelective" parameterType="top.arexstorm.sharing.bean.order.OrderDetail">
     update s_orderdetail
     <set>
       <if test="orderdetailid != null">
@@ -218,6 +243,9 @@
       <if test="informationid != null">
         informationid = #{informationid,jdbcType=VARCHAR},
       </if>
+      <if test="buyerid != null">
+        buyerid = #{buyerid,jdbcType=VARCHAR},
+      </if>
       <if test="count != null">
         count = #{count,jdbcType=INTEGER},
       </if>
@@ -227,17 +255,22 @@
       <if test="lasttime != null">
         lasttime = #{lasttime,jdbcType=TIMESTAMP},
       </if>
+      <if test="seller != null">
+        seller = #{seller,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="top.arexstorm.sharing.bean.info.OrderDetail">
+  <update id="updateByPrimaryKey" parameterType="top.arexstorm.sharing.bean.order.OrderDetail">
     update s_orderdetail
     set orderdetailid = #{orderdetailid,jdbcType=VARCHAR},
       orderid = #{orderid,jdbcType=VARCHAR},
       informationid = #{informationid,jdbcType=VARCHAR},
+      buyerid = #{buyerid,jdbcType=VARCHAR},
       count = #{count,jdbcType=INTEGER},
       createtime = #{createtime,jdbcType=TIMESTAMP},
-      lasttime = #{lasttime,jdbcType=TIMESTAMP}
+      lasttime = #{lasttime,jdbcType=TIMESTAMP},
+      seller = #{seller,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

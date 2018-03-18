@@ -10,8 +10,6 @@ import top.arexstorm.sharing.bean.user.UserQuery;
 
 public interface UserMapper {
 	
-	CustomerUser selectByUserId(String userid);
-	
     long countByExample(UserQuery example);
 
     int deleteByExample(UserQuery example);

@@ -3,6 +3,7 @@
 <mapper namespace="top.arexstorm.sharing.mapper.InformationTypeMapper">
   <resultMap id="BaseResultMap" type="top.arexstorm.sharing.bean.info.InformationType">
     <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="informationid" jdbcType="VARCHAR" property="informationid" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="shortname" jdbcType="VARCHAR" property="shortname" />
     <result column="icon" jdbcType="VARCHAR" property="icon" />
@@ -70,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, shortname, icon, summary, status, createtime, lasttime
+    id, informationid, name, shortname, icon, summary, status, createtime, lasttime
   </sql>
   <select id="selectByExample" parameterType="top.arexstorm.sharing.bean.info.InformationTypeQuery" resultMap="BaseResultMap">
     select
@@ -103,18 +104,23 @@
     </if>
   </delete>
   <insert id="insert" parameterType="top.arexstorm.sharing.bean.info.InformationType">
-    insert into s_informationtype (id, name, shortname, 
-      icon, summary, status, 
-      createtime, lasttime)
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{shortname,jdbcType=VARCHAR}, 
-      #{icon,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, #{status,jdbcType=SMALLINT}, 
-      #{createtime,jdbcType=TIMESTAMP}, #{lasttime,jdbcType=TIMESTAMP})
+    insert into s_informationtype (id, informationid, name, 
+      shortname, icon, summary, 
+      status, createtime, lasttime
+      )
+    values (#{id,jdbcType=BIGINT}, #{informationid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{shortname,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, 
+      #{status,jdbcType=SMALLINT}, #{createtime,jdbcType=TIMESTAMP}, #{lasttime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="top.arexstorm.sharing.bean.info.InformationType">
     insert into s_informationtype
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
+      </if>
+      <if test="informationid != null">
+        informationid,
       </if>
       <if test="name != null">
         name,
@@ -141,6 +147,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=BIGINT},
+      </if>
+      <if test="informationid != null">
+        #{informationid,jdbcType=VARCHAR},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
@@ -177,6 +186,9 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
+      <if test="record.informationid != null">
+        informationid = #{record.informationid,jdbcType=VARCHAR},
+      </if>
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
       </if>
@@ -206,6 +218,7 @@
   <update id="updateByExample" parameterType="map">
     update s_informationtype
     set id = #{record.id,jdbcType=BIGINT},
+      informationid = #{record.informationid,jdbcType=VARCHAR},
       name = #{record.name,jdbcType=VARCHAR},
       shortname = #{record.shortname,jdbcType=VARCHAR},
       icon = #{record.icon,jdbcType=VARCHAR},
@@ -220,6 +233,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="top.arexstorm.sharing.bean.info.InformationType">
     update s_informationtype
     <set>
+      <if test="informationid != null">
+        informationid = #{informationid,jdbcType=VARCHAR},
+      </if>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
@@ -246,7 +262,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="top.arexstorm.sharing.bean.info.InformationType">
     update s_informationtype
-    set name = #{name,jdbcType=VARCHAR},
+    set informationid = #{informationid,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
       shortname = #{shortname,jdbcType=VARCHAR},
       icon = #{icon,jdbcType=VARCHAR},
       summary = #{summary,jdbcType=VARCHAR},

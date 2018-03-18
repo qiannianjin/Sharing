@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.arexstorm.sharing.mapper.CustomerInformationTypeMapper">
+  <sql id="Base_Column_List">
+    id, informationid, name, shortname, icon, summary, status, createtime, lasttime
+  </sql>
+
+  <select id="findInformationTypeById" parameterType="java.lang.String" resultType="top.arexstorm.sharing.bean.info.CustomerInformationype">
+  	select <include refid="Base_Column_List"/> from s_informationtype
+  	<where>
+  		<if test="value!=null">
+  			and informationtypeid = #{value}
+  		</if>
+  	</where>
+  </select>
+  
+  <select id="findAllInformationType" parameterType="top.arexstorm.sharing.bean.info.CustomerInformationType" resultType="top.arexstorm.sharing.bean.info.CustomerInformationType">
+  	select <include refid="Base_Column_List"/> from s_informationtype
+  	<where>
+  		<if test="status!=null">
+  			and status = #{status}
+  		</if>
+  	</where>
+  </select>
+  
+  <select id="findAllInfomationByInformationTypeId" parameterType="top.arexstorm.sharing.bean.info.CustomerInformationType" resultType="top.arexstorm.sharing.bean.info.CustomerInformation">
+  	select <include refid="top.arexstorm.sharing.mapper.InformationMapper.Base_Column_List"/> from s_information
+  	<where>
+  		<if test="informationtypeid">
+  		 	and typeid = #{informationtypeid}
+  		</if>
+  	</where>
+  
+  </select>
+</mapper>

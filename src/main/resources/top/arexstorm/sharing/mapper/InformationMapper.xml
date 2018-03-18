@@ -9,7 +9,7 @@
     <result column="userid" jdbcType="VARCHAR" property="userid" />
     <result column="pic" jdbcType="VARCHAR" property="pic" />
     <result column="typeid" jdbcType="VARCHAR" property="typeid" />
-    <result column="typeName" jdbcType="VARCHAR" property="typename" />
+    <result column="typename" jdbcType="VARCHAR" property="typename" />
     <result column="summary" jdbcType="VARCHAR" property="summary" />
     <result column="price" jdbcType="DECIMAL" property="price" />
     <result column="status" jdbcType="SMALLINT" property="status" />
@@ -74,7 +74,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, informationid, name, shortname, userid, pic, typeid, typeName, summary, price, 
+    id, informationid, name, shortname, userid, pic, typeid, typename, summary, price, 
     status, ceatetime
   </sql>
   <select id="selectByExample" parameterType="top.arexstorm.sharing.bean.info.InformationQuery" resultMap="BaseResultMap">
@@ -110,7 +110,7 @@
   <insert id="insert" parameterType="top.arexstorm.sharing.bean.info.Information">
     insert into s_information (id, informationid, name, 
       shortname, userid, pic, 
-      typeid, typeName, summary, 
+      typeid, typename, summary, 
       price, status, ceatetime
       )
     values (#{id,jdbcType=BIGINT}, #{informationid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
@@ -144,7 +144,7 @@
         typeid,
       </if>
       <if test="typename != null">
-        typeName,
+        typename,
       </if>
       <if test="summary != null">
         summary,
@@ -229,7 +229,7 @@
         typeid = #{record.typeid,jdbcType=VARCHAR},
       </if>
       <if test="record.typename != null">
-        typeName = #{record.typename,jdbcType=VARCHAR},
+        typename = #{record.typename,jdbcType=VARCHAR},
       </if>
       <if test="record.summary != null">
         summary = #{record.summary,jdbcType=VARCHAR},
@@ -257,7 +257,7 @@
       userid = #{record.userid,jdbcType=VARCHAR},
       pic = #{record.pic,jdbcType=VARCHAR},
       typeid = #{record.typeid,jdbcType=VARCHAR},
-      typeName = #{record.typename,jdbcType=VARCHAR},
+      typename = #{record.typename,jdbcType=VARCHAR},
       summary = #{record.summary,jdbcType=VARCHAR},
       price = #{record.price,jdbcType=DECIMAL},
       status = #{record.status,jdbcType=SMALLINT},
@@ -288,7 +288,7 @@
         typeid = #{typeid,jdbcType=VARCHAR},
       </if>
       <if test="typename != null">
-        typeName = #{typename,jdbcType=VARCHAR},
+        typename = #{typename,jdbcType=VARCHAR},
       </if>
       <if test="summary != null">
         summary = #{summary,jdbcType=VARCHAR},
@@ -313,7 +313,7 @@
       userid = #{userid,jdbcType=VARCHAR},
       pic = #{pic,jdbcType=VARCHAR},
       typeid = #{typeid,jdbcType=VARCHAR},
-      typeName = #{typename,jdbcType=VARCHAR},
+      typename = #{typename,jdbcType=VARCHAR},
       summary = #{summary,jdbcType=VARCHAR},
       price = #{price,jdbcType=DECIMAL},
       status = #{status,jdbcType=SMALLINT},

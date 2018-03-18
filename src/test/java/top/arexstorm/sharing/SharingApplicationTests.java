@@ -13,12 +13,12 @@ import top.arexstorm.sharing.mapper.UserMapper;
 @SpringBootTest
 public class SharingApplicationTests {
 
-	@Autowired
-	private UserMapper userMapper;
+//	@Autowired
+//	private UserMapper userMapper;
 	
 	@Test
 	public void contextLoads() {
-		CustomerUser customerUser = userMapper.selectByUserId("shenzhaoquan");
-		System.err.println(customerUser);
+//		CustomerUser customerUser = userMapper.selectByUserId("shenzhaoquan");
+//		System.err.println(customerUser);
 	}
 }

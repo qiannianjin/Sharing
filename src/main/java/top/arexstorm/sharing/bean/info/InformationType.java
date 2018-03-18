@@ -6,6 +6,8 @@ import java.util.Date;
 public class InformationType implements Serializable {
     private Long id;
 
+    private String informationid;
+
     private String name;
 
     private String shortname;
@@ -28,6 +30,14 @@ public class InformationType implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getInformationid() {
+        return informationid;
+    }
+
+    public void setInformationid(String informationid) {
+        this.informationid = informationid == null ? null : informationid.trim();
     }
 
     public String getName() {
@@ -93,6 +103,7 @@ public class InformationType implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
+        sb.append(", informationid=").append(informationid);
         sb.append(", name=").append(name);
         sb.append(", shortname=").append(shortname);
         sb.append(", icon=").append(icon);

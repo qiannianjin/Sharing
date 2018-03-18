@@ -1,4 +1,4 @@
-package top.arexstorm.sharing.bean.info;
+package top.arexstorm.sharing.bean.order;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -12,11 +12,15 @@ public class OrderDetail implements Serializable {
 
     private String informationid;
 
+    private String buyerid;
+
     private Integer count;
 
     private Date createtime;
 
     private Date lasttime;
+
+    private String seller;
 
     private static final long serialVersionUID = 1L;
 
@@ -52,6 +56,14 @@ public class OrderDetail implements Serializable {
         this.informationid = informationid == null ? null : informationid.trim();
     }
 
+    public String getBuyerid() {
+        return buyerid;
+    }
+
+    public void setBuyerid(String buyerid) {
+        this.buyerid = buyerid == null ? null : buyerid.trim();
+    }
+
     public Integer getCount() {
         return count;
     }
@@ -76,6 +88,14 @@ public class OrderDetail implements Serializable {
         this.lasttime = lasttime;
     }
 
+    public String getSeller() {
+        return seller;
+    }
+
+    public void setSeller(String seller) {
+        this.seller = seller == null ? null : seller.trim();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -86,9 +106,11 @@ public class OrderDetail implements Serializable {
         sb.append(", orderdetailid=").append(orderdetailid);
         sb.append(", orderid=").append(orderid);
         sb.append(", informationid=").append(informationid);
+        sb.append(", buyerid=").append(buyerid);
         sb.append(", count=").append(count);
         sb.append(", createtime=").append(createtime);
         sb.append(", lasttime=").append(lasttime);
+        sb.append(", seller=").append(seller);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

@@ -73,6 +73,16 @@
   <sql id="Base_Column_List">
     id, userid, createtime, lasttime, status, summary, password, avatar, credit
   </sql>
+  <select id="findUserList" parameterType="top.arexstorm.sharing.bean.user.CustomerUser" resultType="top.arexstorm.sharing.bean.user.CustomerUser">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from s_user
+  	<where>
+  		<if test="status!=null">
+  			and status = #{status}
+  		</if>
+  	</where>
+  </select>
   <select id="selectByUserId" parameterType="java.lang.String" resultType="top.arexstorm.sharing.bean.user.CustomerUser">
   	select 
   	<include refid="Base_Column_List" />
@@ -190,6 +200,19 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+  <update id="updateUserStatus" parameterType="top.arexstorm.sharing.bean.user.CustomerUser">
+  	<if test="userid!=null">
+	  	update s_user
+	  	<set>
+	  		<if test="status!=null">
+	  			status = #{status}
+	  		</if>
+	  	</set>
+	  	<where>
+	  		and userid = #{userid}
+	  	</where>
+  	</if>
+  </update>
   <update id="updateByExampleSelective" parameterType="map">
     update s_user
     <set>
