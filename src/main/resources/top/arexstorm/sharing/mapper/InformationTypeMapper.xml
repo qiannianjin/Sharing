@@ -3,7 +3,6 @@
 <mapper namespace="top.arexstorm.sharing.mapper.InformationTypeMapper">
   <resultMap id="BaseResultMap" type="top.arexstorm.sharing.bean.info.InformationType">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="informationid" jdbcType="VARCHAR" property="informationid" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="shortname" jdbcType="VARCHAR" property="shortname" />
     <result column="icon" jdbcType="VARCHAR" property="icon" />
@@ -11,6 +10,7 @@
     <result column="status" jdbcType="SMALLINT" property="status" />
     <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
     <result column="lasttime" jdbcType="TIMESTAMP" property="lasttime" />
+    <result column="informationtypeid" jdbcType="VARCHAR" property="informationtypeid" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -71,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, informationid, name, shortname, icon, summary, status, createtime, lasttime
+    id, name, shortname, icon, summary, status, createtime, lasttime, informationtypeid
   </sql>
   <select id="selectByExample" parameterType="top.arexstorm.sharing.bean.info.InformationTypeQuery" resultMap="BaseResultMap">
     select
@@ -104,13 +104,13 @@
     </if>
   </delete>
   <insert id="insert" parameterType="top.arexstorm.sharing.bean.info.InformationType">
-    insert into s_informationtype (id, informationid, name, 
-      shortname, icon, summary, 
-      status, createtime, lasttime
+    insert into s_informationtype (id, name, shortname, 
+      icon, summary, status, 
+      createtime, lasttime, informationtypeid
       )
-    values (#{id,jdbcType=BIGINT}, #{informationid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{shortname,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, 
-      #{status,jdbcType=SMALLINT}, #{createtime,jdbcType=TIMESTAMP}, #{lasttime,jdbcType=TIMESTAMP}
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{shortname,jdbcType=VARCHAR}, 
+      #{icon,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, #{status,jdbcType=SMALLINT}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{lasttime,jdbcType=TIMESTAMP}, #{informationtypeid,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="top.arexstorm.sharing.bean.info.InformationType">
@@ -118,9 +118,6 @@
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
-      </if>
-      <if test="informationid != null">
-        informationid,
       </if>
       <if test="name != null">
         name,
@@ -143,13 +140,13 @@
       <if test="lasttime != null">
         lasttime,
       </if>
+      <if test="informationtypeid != null">
+        informationtypeid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=BIGINT},
-      </if>
-      <if test="informationid != null">
-        #{informationid,jdbcType=VARCHAR},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
@@ -172,6 +169,9 @@
       <if test="lasttime != null">
         #{lasttime,jdbcType=TIMESTAMP},
       </if>
+      <if test="informationtypeid != null">
+        #{informationtypeid,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="top.arexstorm.sharing.bean.info.InformationTypeQuery" resultType="java.lang.Long">
@@ -185,9 +185,6 @@
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
-      </if>
-      <if test="record.informationid != null">
-        informationid = #{record.informationid,jdbcType=VARCHAR},
       </if>
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
@@ -210,6 +207,9 @@
       <if test="record.lasttime != null">
         lasttime = #{record.lasttime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.informationtypeid != null">
+        informationtypeid = #{record.informationtypeid,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -218,14 +218,14 @@
   <update id="updateByExample" parameterType="map">
     update s_informationtype
     set id = #{record.id,jdbcType=BIGINT},
-      informationid = #{record.informationid,jdbcType=VARCHAR},
       name = #{record.name,jdbcType=VARCHAR},
       shortname = #{record.shortname,jdbcType=VARCHAR},
       icon = #{record.icon,jdbcType=VARCHAR},
       summary = #{record.summary,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=SMALLINT},
       createtime = #{record.createtime,jdbcType=TIMESTAMP},
-      lasttime = #{record.lasttime,jdbcType=TIMESTAMP}
+      lasttime = #{record.lasttime,jdbcType=TIMESTAMP},
+      informationtypeid = #{record.informationtypeid,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -233,9 +233,6 @@
   <update id="updateByPrimaryKeySelective" parameterType="top.arexstorm.sharing.bean.info.InformationType">
     update s_informationtype
     <set>
-      <if test="informationid != null">
-        informationid = #{informationid,jdbcType=VARCHAR},
-      </if>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
@@ -257,19 +254,22 @@
       <if test="lasttime != null">
         lasttime = #{lasttime,jdbcType=TIMESTAMP},
       </if>
+      <if test="informationtypeid != null">
+        informationtypeid = #{informationtypeid,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="top.arexstorm.sharing.bean.info.InformationType">
     update s_informationtype
-    set informationid = #{informationid,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR},
+    set name = #{name,jdbcType=VARCHAR},
       shortname = #{shortname,jdbcType=VARCHAR},
       icon = #{icon,jdbcType=VARCHAR},
       summary = #{summary,jdbcType=VARCHAR},
       status = #{status,jdbcType=SMALLINT},
       createtime = #{createtime,jdbcType=TIMESTAMP},
-      lasttime = #{lasttime,jdbcType=TIMESTAMP}
+      lasttime = #{lasttime,jdbcType=TIMESTAMP},
+      informationtypeid = #{informationtypeid,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

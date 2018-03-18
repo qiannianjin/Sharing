@@ -165,76 +165,6 @@ public class InformationTypeQuery {
             return (Criteria) this;
         }
 
-        public Criteria andInformationidIsNull() {
-            addCriterion("informationid is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andInformationidIsNotNull() {
-            addCriterion("informationid is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andInformationidEqualTo(String value) {
-            addCriterion("informationid =", value, "informationid");
-            return (Criteria) this;
-        }
-
-        public Criteria andInformationidNotEqualTo(String value) {
-            addCriterion("informationid <>", value, "informationid");
-            return (Criteria) this;
-        }
-
-        public Criteria andInformationidGreaterThan(String value) {
-            addCriterion("informationid >", value, "informationid");
-            return (Criteria) this;
-        }
-
-        public Criteria andInformationidGreaterThanOrEqualTo(String value) {
-            addCriterion("informationid >=", value, "informationid");
-            return (Criteria) this;
-        }
-
-        public Criteria andInformationidLessThan(String value) {
-            addCriterion("informationid <", value, "informationid");
-            return (Criteria) this;
-        }
-
-        public Criteria andInformationidLessThanOrEqualTo(String value) {
-            addCriterion("informationid <=", value, "informationid");
-            return (Criteria) this;
-        }
-
-        public Criteria andInformationidLike(String value) {
-            addCriterion("informationid like", value, "informationid");
-            return (Criteria) this;
-        }
-
-        public Criteria andInformationidNotLike(String value) {
-            addCriterion("informationid not like", value, "informationid");
-            return (Criteria) this;
-        }
-
-        public Criteria andInformationidIn(List<String> values) {
-            addCriterion("informationid in", values, "informationid");
-            return (Criteria) this;
-        }
-
-        public Criteria andInformationidNotIn(List<String> values) {
-            addCriterion("informationid not in", values, "informationid");
-            return (Criteria) this;
-        }
-
-        public Criteria andInformationidBetween(String value1, String value2) {
-            addCriterion("informationid between", value1, value2, "informationid");
-            return (Criteria) this;
-        }
-
-        public Criteria andInformationidNotBetween(String value1, String value2) {
-            addCriterion("informationid not between", value1, value2, "informationid");
-            return (Criteria) this;
-        }
-
         public Criteria andNameIsNull() {
             addCriterion("name is null");
             return (Criteria) this;
@@ -692,6 +622,76 @@ public class InformationTypeQuery {
 
         public Criteria andLasttimeNotBetween(Date value1, Date value2) {
             addCriterion("lasttime not between", value1, value2, "lasttime");
+            return (Criteria) this;
+        }
+
+        public Criteria andInformationtypeidIsNull() {
+            addCriterion("informationtypeid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andInformationtypeidIsNotNull() {
+            addCriterion("informationtypeid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andInformationtypeidEqualTo(String value) {
+            addCriterion("informationtypeid =", value, "informationtypeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andInformationtypeidNotEqualTo(String value) {
+            addCriterion("informationtypeid <>", value, "informationtypeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andInformationtypeidGreaterThan(String value) {
+            addCriterion("informationtypeid >", value, "informationtypeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andInformationtypeidGreaterThanOrEqualTo(String value) {
+            addCriterion("informationtypeid >=", value, "informationtypeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andInformationtypeidLessThan(String value) {
+            addCriterion("informationtypeid <", value, "informationtypeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andInformationtypeidLessThanOrEqualTo(String value) {
+            addCriterion("informationtypeid <=", value, "informationtypeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andInformationtypeidLike(String value) {
+            addCriterion("informationtypeid like", value, "informationtypeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andInformationtypeidNotLike(String value) {
+            addCriterion("informationtypeid not like", value, "informationtypeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andInformationtypeidIn(List<String> values) {
+            addCriterion("informationtypeid in", values, "informationtypeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andInformationtypeidNotIn(List<String> values) {
+            addCriterion("informationtypeid not in", values, "informationtypeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andInformationtypeidBetween(String value1, String value2) {
+            addCriterion("informationtypeid between", value1, value2, "informationtypeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andInformationtypeidNotBetween(String value1, String value2) {
+            addCriterion("informationtypeid not between", value1, value2, "informationtypeid");
             return (Criteria) this;
         }
     }

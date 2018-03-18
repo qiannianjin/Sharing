@@ -51,7 +51,7 @@ public class InformationTypeServiceImpl implements InformationTypeService {
 
 	@Override
 	public void addInformationType(InformationType informationType) {
-		informationTypeMapper.insert(informationType);
+		informationTypeMapper.insertSelective(informationType);
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class InformationTypeServiceImpl implements InformationTypeService {
 		
 		CustomerInformationType customerInformationType = new CustomerInformationType();
 		if (StringUtils.isNotEmpty(informationTypeId)) {
-			customerInformationType.setInformationid(informationTypeId);
+			customerInformationType.setInformationtypeid(informationTypeId);
 			list = customerInformationTypeMapper.findAllInfomationByInformationTypeId(customerInformationType);
 		}
 		
@@ -87,8 +87,17 @@ public class InformationTypeServiceImpl implements InformationTypeService {
 			InformationType informationType = this.findInformationTypeById(informationTypeId);
 			if (informationType!=null) {
 				informationType.setStatus(Short.parseShort(status.toString()));
-				informationTypeMapper.updateByPrimaryKey(informationType);
+				informationTypeMapper.updateByPrimaryKeySelective(informationType);
 			}
+		}
+	}
+
+	@Override
+	public void updateInformationType(InformationType informationType, String informationTypeId) {
+		CustomerInformationType find = customerInformationTypeMapper.findInformationTypeById(informationTypeId);
+		if (find != null) {
+			informationType.setId(find.getId());
+			informationTypeMapper.updateByPrimaryKeySelective(informationType);
 		}
 	}
 

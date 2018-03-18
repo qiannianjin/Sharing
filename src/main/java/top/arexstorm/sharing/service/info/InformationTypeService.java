@@ -48,4 +48,6 @@ public interface InformationTypeService {
 	 */
 	public void updateInformationTypeStatus(String informationTypeId, String status);
 	
+	public void updateInformationType(InformationType informationType, String informationTypeId);
+	
 }

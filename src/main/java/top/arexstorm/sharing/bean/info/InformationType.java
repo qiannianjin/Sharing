@@ -6,8 +6,6 @@ import java.util.Date;
 public class InformationType implements Serializable {
     private Long id;
 
-    private String informationid;
-
     private String name;
 
     private String shortname;
@@ -22,6 +20,8 @@ public class InformationType implements Serializable {
 
     private Date lasttime;
 
+    private String informationtypeid;
+
     private static final long serialVersionUID = 1L;
 
     public Long getId() {
@@ -30,14 +30,6 @@ public class InformationType implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getInformationid() {
-        return informationid;
-    }
-
-    public void setInformationid(String informationid) {
-        this.informationid = informationid == null ? null : informationid.trim();
     }
 
     public String getName() {
@@ -96,6 +88,14 @@ public class InformationType implements Serializable {
         this.lasttime = lasttime;
     }
 
+    public String getInformationtypeid() {
+        return informationtypeid;
+    }
+
+    public void setInformationtypeid(String informationtypeid) {
+        this.informationtypeid = informationtypeid == null ? null : informationtypeid.trim();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -103,7 +103,6 @@ public class InformationType implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", informationid=").append(informationid);
         sb.append(", name=").append(name);
         sb.append(", shortname=").append(shortname);
         sb.append(", icon=").append(icon);
@@ -111,6 +110,7 @@ public class InformationType implements Serializable {
         sb.append(", status=").append(status);
         sb.append(", createtime=").append(createtime);
         sb.append(", lasttime=").append(lasttime);
+        sb.append(", informationtypeid=").append(informationtypeid);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
