@@ -34,14 +34,17 @@ public class InformationServiceImpl implements InformationService {
 	}
 
 	@Override
-	public List<CustomerInformation> findAllInformation(Integer status) {
+	public List<CustomerInformation> findAllInformation(Integer status, String userid) {
 		
 		List<CustomerInformation> list = new ArrayList<CustomerInformation>();
 		CustomerInformation customerInformation = new CustomerInformation();
 		if (status != null) {
 			customerInformation.setStatus(Short.parseShort(status.toString()));
-			list = customerInformationMapper.findAllInformation(customerInformation);
 		}
+		if (StringUtils.isNotBlank(userid)) {
+			customerInformation.setUserid(userid);
+		}
+		list = customerInformationMapper.findAllInformation(customerInformation);
 		
 		return list;
 	}

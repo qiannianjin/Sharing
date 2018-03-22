@@ -19,9 +19,10 @@ public interface InformationService {
 	 * 
 	 * 查找所有的信息 可扩展 
 	 * @param status
+	 * @param userid
 	 * @return
 	 */
-	public List<CustomerInformation> findAllInformation(Integer status);
+	public List<CustomerInformation> findAllInformation(Integer status, String userid);
 	
 	/**
 	 * 根据信息id(informationid) 来查询相关的信息类型信息

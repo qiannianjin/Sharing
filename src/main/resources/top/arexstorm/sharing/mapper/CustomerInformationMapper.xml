@@ -9,26 +9,29 @@
   <select id="findInformationById" parameterType="java.lang.String" resultType="top.arexstorm.sharing.bean.info.CustomerInformation">
   	select <include refid="Base_Column_List"/> from s_information
   	<where>
-  		<if test="informationid != null">
-  		 and informationid = #{informationid}
+  		<if test="value != null">
+  		 	and informationid = #{value}
   		</if>
   	</where>
   </select>
   
   <select id="findAllInformation" parameterType="top.arexstorm.sharing.bean.info.CustomerInformation" resultType="top.arexstorm.sharing.bean.info.CustomerInformation">
-  	select <include refid="Base_Column_list"/> from s_information
+  	select <include refid="Base_Column_List"/> from s_information
   	<where>
   		<if test="status != null">
   			and status = #{status}
+  		</if>
+  		<if test="userid != null">
+  			and userid = #{userid}
   		</if>
   	</where>
   </select>
   
   <select id="findInformationTypeByInformationId" parameterType="java.lang.String" resultType="top.arexstorm.sharing.bean.info.CustomerInformationType">
   	<if test="value!=null">
-	  	select <include refid="top.arexstorm.sharing.mapper.CustomerInformationTypeMapper.Base_Column_List"/> from s_informationtype t, s_information i
+	  	select <include refid="top.arexstorm.sharing.mapper.CustomerInformationTypeMapper.Base_Column_List_WITH_TABLE"/> from s_informationtype informationtype, s_information information
 	  	<where>
-	  		and t.informationtypeid = i.typeid and i.informationid = #{value}
+	  		and informationtype.informationtypeid = information.typeid and information.informationid = #{value}
 	  	</where>
   	</if>
   </select>

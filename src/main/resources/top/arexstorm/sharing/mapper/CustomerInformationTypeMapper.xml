@@ -4,6 +4,9 @@
   <sql id="Base_Column_List">
     id, name, shortname, icon, summary, status, createtime, lasttime
   </sql>
+  <sql id="Base_Column_List_WITH_TABLE">
+    informationtype.id, informationtype.name, informationtype.shortname, informationtype.icon, informationtype.summary, informationtype.status, informationtype.createtime, informationtype.lasttime
+  </sql>
 
   <select id="findInformationTypeById" parameterType="java.lang.String" resultType="top.arexstorm.sharing.bean.info.CustomerInformationType">
   	select <include refid="Base_Column_List"/> from s_informationtype
