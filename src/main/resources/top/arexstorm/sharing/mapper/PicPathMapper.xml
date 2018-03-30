@@ -8,6 +8,8 @@
     <result column="status" jdbcType="SMALLINT" property="status" />
     <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
     <result column="lasttime" jdbcType="TIMESTAMP" property="lasttime" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="picpathid" jdbcType="VARCHAR" property="picpathid" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, path, status, createtime, lasttime
+    id, name, path, status, createtime, lasttime, type, picpathid
   </sql>
   <select id="selectByExample" parameterType="top.arexstorm.sharing.bean.file.PicPathQuery" resultMap="BaseResultMap">
     select
@@ -102,11 +104,11 @@
   </delete>
   <insert id="insert" parameterType="top.arexstorm.sharing.bean.file.PicPath">
     insert into s_pic_path (id, name, path, 
-      status, createtime, lasttime
-      )
+      status, createtime, lasttime, 
+      type, picpathid)
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, 
-      #{status,jdbcType=SMALLINT}, #{createtime,jdbcType=TIMESTAMP}, #{lasttime,jdbcType=TIMESTAMP}
-      )
+      #{status,jdbcType=SMALLINT}, #{createtime,jdbcType=TIMESTAMP}, #{lasttime,jdbcType=TIMESTAMP}, 
+      #{type,jdbcType=VARCHAR}, #{picpathid,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="top.arexstorm.sharing.bean.file.PicPath">
     insert into s_pic_path
@@ -129,6 +131,12 @@
       <if test="lasttime != null">
         lasttime,
       </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="picpathid != null">
+        picpathid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -148,6 +156,12 @@
       </if>
       <if test="lasttime != null">
         #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="picpathid != null">
+        #{picpathid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -178,6 +192,12 @@
       <if test="record.lasttime != null">
         lasttime = #{record.lasttime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picpathid != null">
+        picpathid = #{record.picpathid,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -190,7 +210,9 @@
       path = #{record.path,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=SMALLINT},
       createtime = #{record.createtime,jdbcType=TIMESTAMP},
-      lasttime = #{record.lasttime,jdbcType=TIMESTAMP}
+      lasttime = #{record.lasttime,jdbcType=TIMESTAMP},
+      type = #{record.type,jdbcType=VARCHAR},
+      picpathid = #{record.picpathid,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -213,6 +235,12 @@
       <if test="lasttime != null">
         lasttime = #{lasttime,jdbcType=TIMESTAMP},
       </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="picpathid != null">
+        picpathid = #{picpathid,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -222,7 +250,9 @@
       path = #{path,jdbcType=VARCHAR},
       status = #{status,jdbcType=SMALLINT},
       createtime = #{createtime,jdbcType=TIMESTAMP},
-      lasttime = #{lasttime,jdbcType=TIMESTAMP}
+      lasttime = #{lasttime,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=VARCHAR},
+      picpathid = #{picpathid,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

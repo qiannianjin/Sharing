@@ -484,6 +484,146 @@ public class PicPathQuery {
             addCriterion("lasttime not between", value1, value2, "lasttime");
             return (Criteria) this;
         }
+
+        public Criteria andTypeIsNull() {
+            addCriterion("type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIsNotNull() {
+            addCriterion("type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeEqualTo(String value) {
+            addCriterion("type =", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeNotEqualTo(String value) {
+            addCriterion("type <>", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeGreaterThan(String value) {
+            addCriterion("type >", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("type >=", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeLessThan(String value) {
+            addCriterion("type <", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeLessThanOrEqualTo(String value) {
+            addCriterion("type <=", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeLike(String value) {
+            addCriterion("type like", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeNotLike(String value) {
+            addCriterion("type not like", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIn(List<String> values) {
+            addCriterion("type in", values, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeNotIn(List<String> values) {
+            addCriterion("type not in", values, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeBetween(String value1, String value2) {
+            addCriterion("type between", value1, value2, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeNotBetween(String value1, String value2) {
+            addCriterion("type not between", value1, value2, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicpathidIsNull() {
+            addCriterion("picpathid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicpathidIsNotNull() {
+            addCriterion("picpathid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicpathidEqualTo(String value) {
+            addCriterion("picpathid =", value, "picpathid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicpathidNotEqualTo(String value) {
+            addCriterion("picpathid <>", value, "picpathid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicpathidGreaterThan(String value) {
+            addCriterion("picpathid >", value, "picpathid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicpathidGreaterThanOrEqualTo(String value) {
+            addCriterion("picpathid >=", value, "picpathid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicpathidLessThan(String value) {
+            addCriterion("picpathid <", value, "picpathid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicpathidLessThanOrEqualTo(String value) {
+            addCriterion("picpathid <=", value, "picpathid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicpathidLike(String value) {
+            addCriterion("picpathid like", value, "picpathid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicpathidNotLike(String value) {
+            addCriterion("picpathid not like", value, "picpathid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicpathidIn(List<String> values) {
+            addCriterion("picpathid in", values, "picpathid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicpathidNotIn(List<String> values) {
+            addCriterion("picpathid not in", values, "picpathid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicpathidBetween(String value1, String value2) {
+            addCriterion("picpathid between", value1, value2, "picpathid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicpathidNotBetween(String value1, String value2) {
+            addCriterion("picpathid not between", value1, value2, "picpathid");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

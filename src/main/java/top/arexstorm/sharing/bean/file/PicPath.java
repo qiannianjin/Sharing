@@ -16,6 +16,10 @@ public class PicPath implements Serializable {
 
     private Date lasttime;
 
+    private String type;
+
+    private String picpathid;
+
     private static final long serialVersionUID = 1L;
 
     public Long getId() {
@@ -66,6 +70,22 @@ public class PicPath implements Serializable {
         this.lasttime = lasttime;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type == null ? null : type.trim();
+    }
+
+    public String getPicpathid() {
+        return picpathid;
+    }
+
+    public void setPicpathid(String picpathid) {
+        this.picpathid = picpathid == null ? null : picpathid.trim();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -78,6 +98,8 @@ public class PicPath implements Serializable {
         sb.append(", status=").append(status);
         sb.append(", createtime=").append(createtime);
         sb.append(", lasttime=").append(lasttime);
+        sb.append(", type=").append(type);
+        sb.append(", picpathid=").append(picpathid);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

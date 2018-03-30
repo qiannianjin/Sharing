@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.arexstorm.sharing.mapper.CustomerPicPathMapper">
+	<resultMap id="BaseResultMap" type="top.arexstorm.sharing.bean.file.PicPath">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="path" jdbcType="VARCHAR" property="path" />
+		<result column="status" jdbcType="SMALLINT" property="status" />
+		<result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+		<result column="lasttime" jdbcType="TIMESTAMP" property="lasttime" />
+		<result column="type" jdbcType="VARCHAR" property="type" />
+		<result column="picpathid" jdbcType="VARCHAR" property="picpathid" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, name, path, status, createtime, lasttime, type, picpathid
+	</sql>
+
+	<select id="findPicPathById" parameterType="java.lang.String" resultType="top.arexstorm.sharing.bean.file.CustomerPicPath">
+		<if test="value != null">
+			select <include refid="Base_Column_List" /> from s_pic_path
+			where picpathid = #{value}
+		</if>
+	</select>
+	
+	<select id="findAllPicPath" parameterType="top.arexstorm.sharing.bean.file.CustomerPicPath" resultType="top.arexstorm.sharing.bean.file.CustomerPicPath">
+		select <include refid="Base_Column_List" /> from s_pic_path
+		<where>
+			<if test="status != null">
+				and status = #{status}
+			</if>
+			<if test="type != null">
+				and type = #{type}
+			</if>
+		</where>
+	</select>
+	
+	<update id="updatePicPathStatus" parameterType="top.arexstorm.sharing.bean.file.CustomerPicPath">
+		<if test="picpathid != null and status != null">
+			update s_pic_path set status = #{status} where picpathid = #{picpathid}
+		</if>
+	</update>
+</mapper>
