@@ -8,6 +8,9 @@
     <result column="back" jdbcType="SMALLINT" property="back" />
     <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
     <result column="lasttime" jdbcType="TIMESTAMP" property="lasttime" />
+    <result column="status" jdbcType="SMALLINT" property="status" />
+    <result column="buyerid" jdbcType="VARCHAR" property="buyerid" />
+    <result column="sellerid" jdbcType="VARCHAR" property="sellerid" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, orderid, count, back, createtime, lasttime
+    id, orderid, count, back, createtime, lasttime, status, buyerid, sellerid
   </sql>
   <select id="selectByExample" parameterType="top.arexstorm.sharing.bean.order.OrderQuery" resultMap="BaseResultMap">
     select
@@ -102,10 +105,12 @@
   </delete>
   <insert id="insert" parameterType="top.arexstorm.sharing.bean.order.Order">
     insert into s_order (id, orderid, count, 
-      back, createtime, lasttime
+      back, createtime, lasttime, 
+      status, buyerid, sellerid
       )
     values (#{id,jdbcType=BIGINT}, #{orderid,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER}, 
-      #{back,jdbcType=SMALLINT}, #{createtime,jdbcType=TIMESTAMP}, #{lasttime,jdbcType=TIMESTAMP}
+      #{back,jdbcType=SMALLINT}, #{createtime,jdbcType=TIMESTAMP}, #{lasttime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=SMALLINT}, #{buyerid,jdbcType=VARCHAR}, #{sellerid,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="top.arexstorm.sharing.bean.order.Order">
@@ -129,6 +134,15 @@
       <if test="lasttime != null">
         lasttime,
       </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="buyerid != null">
+        buyerid,
+      </if>
+      <if test="sellerid != null">
+        sellerid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -148,6 +162,15 @@
       </if>
       <if test="lasttime != null">
         #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="buyerid != null">
+        #{buyerid,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerid != null">
+        #{sellerid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -178,6 +201,15 @@
       <if test="record.lasttime != null">
         lasttime = #{record.lasttime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=SMALLINT},
+      </if>
+      <if test="record.buyerid != null">
+        buyerid = #{record.buyerid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sellerid != null">
+        sellerid = #{record.sellerid,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -190,7 +222,10 @@
       count = #{record.count,jdbcType=INTEGER},
       back = #{record.back,jdbcType=SMALLINT},
       createtime = #{record.createtime,jdbcType=TIMESTAMP},
-      lasttime = #{record.lasttime,jdbcType=TIMESTAMP}
+      lasttime = #{record.lasttime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=SMALLINT},
+      buyerid = #{record.buyerid,jdbcType=VARCHAR},
+      sellerid = #{record.sellerid,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -213,6 +248,15 @@
       <if test="lasttime != null">
         lasttime = #{lasttime,jdbcType=TIMESTAMP},
       </if>
+      <if test="status != null">
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="buyerid != null">
+        buyerid = #{buyerid,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerid != null">
+        sellerid = #{sellerid,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -222,7 +266,10 @@
       count = #{count,jdbcType=INTEGER},
       back = #{back,jdbcType=SMALLINT},
       createtime = #{createtime,jdbcType=TIMESTAMP},
-      lasttime = #{lasttime,jdbcType=TIMESTAMP}
+      lasttime = #{lasttime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=SMALLINT},
+      buyerid = #{buyerid,jdbcType=VARCHAR},
+      sellerid = #{sellerid,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

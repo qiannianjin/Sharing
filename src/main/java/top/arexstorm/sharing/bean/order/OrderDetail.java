@@ -20,7 +20,7 @@ public class OrderDetail implements Serializable {
 
     private Date lasttime;
 
-    private String seller;
+    private String sellerid;
 
     private static final long serialVersionUID = 1L;
 
@@ -88,12 +88,12 @@ public class OrderDetail implements Serializable {
         this.lasttime = lasttime;
     }
 
-    public String getSeller() {
-        return seller;
+    public String getSellerid() {
+        return sellerid;
     }
 
-    public void setSeller(String seller) {
-        this.seller = seller == null ? null : seller.trim();
+    public void setSellerid(String sellerid) {
+        this.sellerid = sellerid == null ? null : sellerid.trim();
     }
 
     @Override
@@ -110,7 +110,7 @@ public class OrderDetail implements Serializable {
         sb.append(", count=").append(count);
         sb.append(", createtime=").append(createtime);
         sb.append(", lasttime=").append(lasttime);
-        sb.append(", seller=").append(seller);
+        sb.append(", sellerid=").append(sellerid);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

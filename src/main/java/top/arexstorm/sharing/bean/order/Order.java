@@ -16,6 +16,12 @@ public class Order implements Serializable {
 
     private Date lasttime;
 
+    private Short status;
+
+    private String buyerid;
+
+    private String sellerid;
+
     private static final long serialVersionUID = 1L;
 
     public Long getId() {
@@ -66,6 +72,30 @@ public class Order implements Serializable {
         this.lasttime = lasttime;
     }
 
+    public Short getStatus() {
+        return status;
+    }
+
+    public void setStatus(Short status) {
+        this.status = status;
+    }
+
+    public String getBuyerid() {
+        return buyerid;
+    }
+
+    public void setBuyerid(String buyerid) {
+        this.buyerid = buyerid == null ? null : buyerid.trim();
+    }
+
+    public String getSellerid() {
+        return sellerid;
+    }
+
+    public void setSellerid(String sellerid) {
+        this.sellerid = sellerid == null ? null : sellerid.trim();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -78,6 +108,9 @@ public class Order implements Serializable {
         sb.append(", back=").append(back);
         sb.append(", createtime=").append(createtime);
         sb.append(", lasttime=").append(lasttime);
+        sb.append(", status=").append(status);
+        sb.append(", buyerid=").append(buyerid);
+        sb.append(", sellerid=").append(sellerid);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

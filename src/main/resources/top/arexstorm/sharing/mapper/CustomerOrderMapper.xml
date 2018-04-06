@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.arexstorm.sharing.mapper.CustomerOrderMapper">
+  
+   <sql id="Base_Column_List">
+    id, orderid, count, back, createtime, lasttime, status, buyerid, sellerid
+  </sql>
+  
+  <select id="findOrderById" parameterType="java.lang.String" resultType="top.arexstorm.sharing.bean.order.CustomerOrder">
+  	select <include refid="Base_Column_List"/> from s_order 
+  	<where>	
+  		<if test="value != null">
+  			and orderid = #{orderid}
+  		</if>
+  	</where>
+  </select>
+  
+  <select id="findAllOrder" parameterType="top.arexstorm.sharing.bean.order.CustomerOrder" resultType="top.arexstorm.sharing.bean.order.CustomerOrder">
+  	select <include refid="Base_Column_List"/> from s_order 
+  	<where>	
+  		<if test="status != null">
+  			and status = #{status}
+  		</if>
+  		<if test="buyerid != null">
+  			and buyerid = #{buyerid}
+  		</if>
+  		<if test="sellerid != null">
+  			and sellerid = #{sellerid}
+  		</if>
+  	</where>
+  </select>
+</mapper>
