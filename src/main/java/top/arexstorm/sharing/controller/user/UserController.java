@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,7 +62,7 @@ public class UserController {
 	 * 跳转注册页面
 	 */
 	@GetMapping(value="/reg")
-	public String reg() {
+	public String regUI() {
 		return "user/reg";
 	}
 	
@@ -92,6 +93,12 @@ public class UserController {
 		}
 	}
 	
+	/**
+	 * 退出登录
+	 * @param session
+	 * @param resp
+	 * @return
+	 */
 	@GetMapping(value="/logout")
 	public String logout(HttpSession session, HttpServletResponse resp) {
 		
@@ -102,5 +109,64 @@ public class UserController {
 		resp.addCookie(cookie);
 		
 		return "index";
+	}
+	
+	/**
+	 * 用户注册
+	 * @param customerUser
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value="/reg")
+	@ResponseBody
+	public AppResponse reg(@ModelAttribute(value="customerUser") CustomerUser customerUser, Model model) throws Exception {
+		
+		//验证用户输入的密码是否一致
+		String password = customerUser.getPassword();
+		String repassword = customerUser.getRepassword();
+		if (password != null && repassword!=null && password.equals(repassword)) {
+			if (customerUser.getUserid() != null) {
+				CustomerUser findUser = userService.findUserById(customerUser.getUserid());
+				if (findUser == null) {
+					userService.addUser(customerUser);
+					return AppResponse.okData(null, 0, "注册成功", "/user/login");
+				} else {
+					return AppResponse.okData(-1, "该邮箱已被注册，请更换邮箱");
+				}
+			} else {
+				return AppResponse.okData(-1, "请输入用户邮箱");
+			}
+		} else {
+			//两次密码不一致
+			return AppResponse.okData(-1, "两次输入的密码不一致");
+		}
+	}
+	
+	/**
+	 * 我的主页
+	 * @return
+	 */
+	@GetMapping(value="home")
+	public String home() {
+		return "user/home";
+	}
+	
+	/**
+	 * 我的设置
+	 * @return
+	 */
+	@GetMapping(value="set")
+	public String set() {
+		return "user/set";
+	}
+	
+	/**
+	 * 我的消息
+	 * @return
+	 */
+	@GetMapping(value="message")
+	public String message() {
+		return "user/message";
 	}
 }

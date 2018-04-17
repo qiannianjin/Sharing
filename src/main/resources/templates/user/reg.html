@@ -1,7 +1,6 @@
 
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
   <title>注册</title>
@@ -63,7 +62,7 @@
           <div class="layui-form layui-form-pane">
             <form method="post">
               <div class="layui-form-item">
-                <label for="L_email" class="layui-form-label">用户名</label>
+                <label for="L_email" class="layui-form-label">邮箱</label>
                 <div class="layui-input-inline">
                   <input type="text" id="L_email" name="userid" required lay-verify="email" autocomplete="off" class="layui-input">
                 </div>
@@ -72,7 +71,7 @@
               <div class="layui-form-item">
                 <label for="L_username" class="layui-form-label">昵称</label>
                 <div class="layui-input-inline">
-                  <input type="text" id="L_username" name="username" required lay-verify="required" autocomplete="off" class="layui-input">
+                  <input type="text" id="L_username" name="nickname" required lay-verify="required" autocomplete="off" class="layui-input">
                 </div>
               </div>
               <div class="layui-form-item">
@@ -85,7 +84,7 @@
               <div class="layui-form-item">
                 <label for="L_repass" class="layui-form-label">确认密码</label>
                 <div class="layui-input-inline">
-                  <input type="password" id="L_repass" name="repass" required lay-verify="required" autocomplete="off" class="layui-input">
+                  <input type="password" id="L_repass" name="repassword" required lay-verify="required" autocomplete="off" class="layui-input">
                 </div>
               </div>
               <div class="layui-form-item">
