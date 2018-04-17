@@ -1,6 +1,8 @@
 package top.arexstorm.sharing.bean.user;
 
-public class CustomerUser extends User {
+import java.io.Serializable;
+
+public class CustomerUser extends User implements Serializable{
 
 	/**
 	 * 
