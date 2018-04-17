@@ -110,7 +110,7 @@
             <div class="layui-form-item">
               <label for="L_username" class="layui-form-label">昵称</label>
               <div class="layui-input-inline">
-                <input type="text" id="L_username" name="username" required lay-verify="required" autocomplete="off" value="" class="layui-input">
+                <input type="text" id="L_username" name="nickname" required lay-verify="required" autocomplete="off" value="" class="layui-input">
               </div>
               <div class="layui-inline">
                 <div class="layui-input-inline">
@@ -143,7 +143,7 @@
                 <button type="button" class="layui-btn upload-img">
                   <i class="layui-icon">&#xe67c;</i>上传头像
                 </button>
-                <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg">
+                <img/>
                 <span class="loading"></span>
               </div>
             </div>
@@ -213,6 +213,9 @@
 </div>
 
 <script th:src="@{/layui/layui.js}"></script>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/jquery.cookie.js}"></script>
+<script th:src="@{/js/set.js}"></script>
 <script>
 layui.cache.page = 'user';
 layui.cache.user = {

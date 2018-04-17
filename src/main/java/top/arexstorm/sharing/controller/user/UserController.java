@@ -1,6 +1,12 @@
 package top.arexstorm.sharing.controller.user;
 
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -14,10 +20,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import top.arexstorm.sharing.bean.user.CustomerUser;
+import top.arexstorm.sharing.config.Constants;
 import top.arexstorm.sharing.service.user.UserService;
 import top.arexstorm.sharing.utils.AppResponse;
+import top.arexstorm.sharing.utils.FastDFSUtils;
+import top.arexstorm.sharing.utils.JSONUtils;
 
 @Controller
 @RequestMapping(value="/user")
@@ -80,7 +90,8 @@ public class UserController {
 			if (findUser.getPassword().equals(password)) {
 				//添加session
 				session.setAttribute("user", findUser);
-				Cookie cookie = new Cookie("userid", findUser.getUserid());
+				
+				Cookie cookie = new Cookie("user", URLEncoder.encode(JSONUtils.toJSON(findUser), "utf-8"));
 				cookie.setPath("/");
 				cookie.setMaxAge(60*60);
 				resp.addCookie(cookie);
@@ -157,7 +168,7 @@ public class UserController {
 	 * @return
 	 */
 	@GetMapping(value="set")
-	public String set() {
+	public String setUI() {
 		return "user/set";
 	}
 	
@@ -169,4 +180,43 @@ public class UserController {
 	public String message() {
 		return "user/message";
 	}
+	
+	/**
+	 * 上传图片
+	 * @param img
+	 * @return
+	 * @throws IOException 
+	 */
+	@PostMapping(value="/upload")
+	@ResponseBody
+	public AppResponse upload(MultipartFile file, HttpServletRequest req) throws IOException {
+		
+		String path = FastDFSUtils.savePic(file.getBytes(), file);
+		String url = Constants.IMG_URL + path;
+		Map map = new HashMap<String, Object>();
+		map.put("url",url);
+		
+		return AppResponse.okData(map, 0, "图片上传成功", null);
+	}
+	
+	@PostMapping(value="/set")
+	@ResponseBody
+	public AppResponse set(@ModelAttribute(value="customerUser") CustomerUser customerUser, 
+			HttpSession session, Model model, HttpServletResponse resp) throws Exception {
+		
+		CustomerUser user = (CustomerUser) session.getAttribute("user");
+		if (user != null) {
+			userService.updateUser(user.getUserid(), customerUser);
+			CustomerUser findUser = userService.findUserById(user.getUserid());
+			session.setAttribute("user", findUser);
+			Cookie cookie = new Cookie("user", URLEncoder.encode(JSONUtils.toJSON(findUser), "utf-8"));
+			cookie.setPath("/");
+			cookie.setMaxAge(60*60);
+			resp.addCookie(cookie);
+			return AppResponse.okData(findUser, 0, "修改成功", null);
+		} else {
+			return AppResponse.okData(-1, "请登录.");
+		}
+	}
+	
 }
