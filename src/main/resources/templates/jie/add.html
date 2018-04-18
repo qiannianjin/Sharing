@@ -86,13 +86,9 @@
                   <label class="layui-form-label">所在专栏</label>
                   <div class="layui-input-block">
                     <select lay-verify="required" name="typeid" lay-filter="column"> 
-                      <option></option> 
-                      <option value="0">提问</option> 
-                      <option value="99">分享</option> 
-                      <option value="100">讨论</option> 
-                      <option value="101">建议</option> 
-                      <option value="168">公告</option> 
-                      <option value="169">动态</option> 
+                      <option></option>
+                     <!--  <option value="1">新生类</option>
+                      <option value="5">test类</option> -->
                     </select>
                   </div>
                 </div>
@@ -185,6 +181,8 @@
 <script th:src="@{/js/jquery.min.js}"></script>
 <script th:src="@{/js/jquery.cookie.js}"></script>
 <script th:src="@{/js/common.js}"></script>
+<script th:src="@{/js/jie/add.js}"></script>
+
 <script>
 layui.cache.page = 'jie';
 layui.cache.user = {
