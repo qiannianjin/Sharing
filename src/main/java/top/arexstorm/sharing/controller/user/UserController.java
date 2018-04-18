@@ -114,7 +114,7 @@ public class UserController {
 	public String logout(HttpSession session, HttpServletResponse resp) {
 		
 		session.invalidate();
-		Cookie cookie = new Cookie("userid", null);
+		Cookie cookie = new Cookie("user", null);
 		cookie.setPath("/");
 		cookie.setMaxAge(0);
 		resp.addCookie(cookie);
@@ -157,28 +157,55 @@ public class UserController {
 	/**
 	 * 我的主页
 	 * @return
+	 * @throws Exception 
 	 */
-	@GetMapping(value="home")
-	public String home() {
-		return "user/home";
+	@GetMapping(value="/home")
+	public String home(HttpSession session, Model model) throws Exception {
+		CustomerUser customerUser = (CustomerUser) session.getAttribute("user");
+		if (customerUser != null) {
+			CustomerUser findUser = userService.findUserById(customerUser.getUserid());
+			model.addAttribute("user", findUser);
+			return "user/home";
+		} else {
+			return "redirect:/user/login";
+		}
 	}
 	
 	/**
 	 * 我的设置
 	 * @return
+	 * @throws Exception 
 	 */
-	@GetMapping(value="set")
-	public String setUI() {
-		return "user/set";
+	@GetMapping(value="/set")
+	public String setUI(HttpSession session, Model model) throws Exception {
+		
+		CustomerUser customerUser = (CustomerUser) session.getAttribute("user");
+		if (customerUser != null) {
+			CustomerUser findUser = userService.findUserById(customerUser.getUserid());
+			model.addAttribute("user", findUser);
+			return "user/set";
+		} else {
+			return "redirect:/user/login";
+		}
 	}
 	
 	/**
 	 * 我的消息
 	 * @return
 	 */
-	@GetMapping(value="message")
+	@GetMapping(value="/message")
 	public String message() {
 		return "user/message";
+	}
+	
+	/**
+	 * 用户中心
+	 * @return
+	 */
+	@GetMapping(value="/index")
+	public String index() {
+		
+		return "user/index";
 	}
 	
 	/**

@@ -3,7 +3,7 @@
  @Name: Fly社区主入口
 
  */
- 
+
 
 layui.define(['layer', 'laytpl', 'form', 'element', 'upload', 'util'], function(exports){
   
@@ -556,6 +556,11 @@ layui.define(['layer', 'laytpl', 'form', 'element', 'upload', 'util'], function(
 //          if (res.action == '/' && window.location.pathname == '/user/login') {
 //        	  $.cookie("user1", res.data.userid, {expires:1, path:'/'})
 //          }
+        	
+        	 /*layer.msg(res.msg, {
+        	        time: 10000, //20s后自动关闭
+        	 });
+        	 sleep(1000);*/
           location.href = res.action;
         } else {
           fly.form[action||button.attr('key')](data.field, data.form);
@@ -571,6 +576,17 @@ layui.define(['layer', 'laytpl', 'form', 'element', 'upload', 'util'], function(
     });
     return false;
   });
+  
+  var sleep = function(mill) {
+	  var now = new Date();
+	  var exitTime = now.getTime() + mill;
+	  while (true) {
+		  now = new Date();
+		  if (now.getTime() > exitTime) {
+			  return;
+		  }
+	  }
+  }
 
   //加载特定模块
   if(layui.cache.page && layui.cache.page !== 'index'){

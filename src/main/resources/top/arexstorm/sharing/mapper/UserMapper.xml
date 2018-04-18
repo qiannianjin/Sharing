@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="top.arexstorm.sharing.bean.user.User">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="userid" jdbcType="VARCHAR" property="userid" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
     <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
     <result column="lasttime" jdbcType="TIMESTAMP" property="lasttime" />
     <result column="status" jdbcType="TINYINT" property="status" />
@@ -11,6 +12,8 @@
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="avatar" jdbcType="VARCHAR" property="avatar" />
     <result column="credit" jdbcType="DECIMAL" property="credit" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -71,28 +74,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, userid, createtime, lasttime, status, summary, password, avatar, credit
+    id, userid, nickname, createtime, lasttime, status, summary, password, avatar, credit, 
+    sex, city
   </sql>
-  <select id="findUserList" parameterType="top.arexstorm.sharing.bean.user.CustomerUser" resultType="top.arexstorm.sharing.bean.user.CustomerUser">
-  	select 
-  	<include refid="Base_Column_List" />
-  	from s_user
-  	<where>
-  		<if test="status!=null">
-  			and status = #{status}
-  		</if>
-  	</where>
-  </select>
-  <select id="selectByUserId" parameterType="java.lang.String" resultType="top.arexstorm.sharing.bean.user.CustomerUser">
-  	select 
-  	<include refid="Base_Column_List" />
-  	from s_user
-  	<where>
-  		<if test="value!=null">
-  			and userid = #{userid}
-  		</if>
-  	</where>
-  </select>
   <select id="selectByExample" parameterType="top.arexstorm.sharing.bean.user.UserQuery" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -124,14 +108,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="top.arexstorm.sharing.bean.user.User">
-    insert into s_user (id, userid, createtime, 
-      lasttime, status, summary, 
-      password, avatar, credit
-      )
-    values (#{id,jdbcType=BIGINT}, #{userid,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
-      #{lasttime,jdbcType=TIMESTAMP}, #{status,jdbcType=TINYINT}, #{summary,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, #{credit,jdbcType=DECIMAL}
-      )
+    insert into s_user (id, userid, nickname, 
+      createtime, lasttime, status, 
+      summary, password, avatar, 
+      credit, sex, city)
+    values (#{id,jdbcType=BIGINT}, #{userid,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{lasttime,jdbcType=TIMESTAMP}, #{status,jdbcType=TINYINT}, 
+      #{summary,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, 
+      #{credit,jdbcType=DECIMAL}, #{sex,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="top.arexstorm.sharing.bean.user.User">
     insert into s_user
@@ -141,6 +125,9 @@
       </if>
       <if test="userid != null">
         userid,
+      </if>
+      <if test="nickname != null">
+        nickname,
       </if>
       <if test="createtime != null">
         createtime,
@@ -163,6 +150,12 @@
       <if test="credit != null">
         credit,
       </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -170,6 +163,9 @@
       </if>
       <if test="userid != null">
         #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
       </if>
       <if test="createtime != null">
         #{createtime,jdbcType=TIMESTAMP},
@@ -192,6 +188,12 @@
       <if test="credit != null">
         #{credit,jdbcType=DECIMAL},
       </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="top.arexstorm.sharing.bean.user.UserQuery" resultType="java.lang.Long">
@@ -200,19 +202,6 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateUserStatus" parameterType="top.arexstorm.sharing.bean.user.CustomerUser">
-  	<if test="userid!=null">
-	  	update s_user
-	  	<set>
-	  		<if test="status!=null">
-	  			status = #{status}
-	  		</if>
-	  	</set>
-	  	<where>
-	  		and userid = #{userid}
-	  	</where>
-  	</if>
-  </update>
   <update id="updateByExampleSelective" parameterType="map">
     update s_user
     <set>
@@ -221,6 +210,9 @@
       </if>
       <if test="record.userid != null">
         userid = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nickname != null">
+        nickname = #{record.nickname,jdbcType=VARCHAR},
       </if>
       <if test="record.createtime != null">
         createtime = #{record.createtime,jdbcType=TIMESTAMP},
@@ -243,6 +235,12 @@
       <if test="record.credit != null">
         credit = #{record.credit,jdbcType=DECIMAL},
       </if>
+      <if test="record.sex != null">
+        sex = #{record.sex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null">
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -252,13 +250,16 @@
     update s_user
     set id = #{record.id,jdbcType=BIGINT},
       userid = #{record.userid,jdbcType=VARCHAR},
+      nickname = #{record.nickname,jdbcType=VARCHAR},
       createtime = #{record.createtime,jdbcType=TIMESTAMP},
       lasttime = #{record.lasttime,jdbcType=TIMESTAMP},
       status = #{record.status,jdbcType=TINYINT},
       summary = #{record.summary,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
       avatar = #{record.avatar,jdbcType=VARCHAR},
-      credit = #{record.credit,jdbcType=DECIMAL}
+      credit = #{record.credit,jdbcType=DECIMAL},
+      sex = #{record.sex,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -268,6 +269,9 @@
     <set>
       <if test="userid != null">
         userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=VARCHAR},
       </if>
       <if test="createtime != null">
         createtime = #{createtime,jdbcType=TIMESTAMP},
@@ -290,19 +294,28 @@
       <if test="credit != null">
         credit = #{credit,jdbcType=DECIMAL},
       </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="top.arexstorm.sharing.bean.user.User">
     update s_user
     set userid = #{userid,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=TIMESTAMP},
       lasttime = #{lasttime,jdbcType=TIMESTAMP},
       status = #{status,jdbcType=TINYINT},
       summary = #{summary,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       avatar = #{avatar,jdbcType=VARCHAR},
-      credit = #{credit,jdbcType=DECIMAL}
+      credit = #{credit,jdbcType=DECIMAL},
+      sex = #{sex,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

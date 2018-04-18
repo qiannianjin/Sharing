@@ -9,6 +9,8 @@ public class User implements Serializable {
 
     private String userid;
 
+    private String nickname;
+
     private Date createtime;
 
     private Date lasttime;
@@ -22,6 +24,10 @@ public class User implements Serializable {
     private String avatar;
 
     private BigDecimal credit;
+
+    private String sex;
+
+    private String city;
 
     private static final long serialVersionUID = 1L;
 
@@ -39,6 +45,14 @@ public class User implements Serializable {
 
     public void setUserid(String userid) {
         this.userid = userid == null ? null : userid.trim();
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname == null ? null : nickname.trim();
     }
 
     public Date getCreatetime() {
@@ -97,6 +111,22 @@ public class User implements Serializable {
         this.credit = credit;
     }
 
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex == null ? null : sex.trim();
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city == null ? null : city.trim();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -105,6 +135,7 @@ public class User implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", userid=").append(userid);
+        sb.append(", nickname=").append(nickname);
         sb.append(", createtime=").append(createtime);
         sb.append(", lasttime=").append(lasttime);
         sb.append(", status=").append(status);
@@ -112,6 +143,8 @@ public class User implements Serializable {
         sb.append(", password=").append(password);
         sb.append(", avatar=").append(avatar);
         sb.append(", credit=").append(credit);
+        sb.append(", sex=").append(sex);
+        sb.append(", city=").append(city);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
