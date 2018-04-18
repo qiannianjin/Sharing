@@ -41,8 +41,6 @@ public class UserController {
 		return "Hello world " + username;
 	}
 	
-	
-	
 	/**
 	 * 个人中心
 	 * @param userId
@@ -76,6 +74,16 @@ public class UserController {
 		return "user/reg";
 	}
 	
+	/**
+	 * 用户登录
+	 * @param userid
+	 * @param password
+	 * @param model
+	 * @param session
+	 * @param resp
+	 * @return
+	 * @throws Exception
+	 */
 	@PostMapping(value="/login")
 	@ResponseBody
 	public AppResponse login(@RequestParam(required=true) String userid, @RequestParam(required=true) String password,
@@ -226,6 +234,15 @@ public class UserController {
 		return AppResponse.okData(map, 0, "图片上传成功", null);
 	}
 	
+	/**
+	 * 修改个人资料
+	 * @param customerUser
+	 * @param session
+	 * @param model
+	 * @param resp
+	 * @return
+	 * @throws Exception
+	 */
 	@PostMapping(value="/set")
 	@ResponseBody
 	public AppResponse set(@ModelAttribute(value="customerUser") CustomerUser customerUser, 
@@ -242,7 +259,29 @@ public class UserController {
 			resp.addCookie(cookie);
 			return AppResponse.okData(findUser, 0, "修改成功", null);
 		} else {
-			return AppResponse.okData(-1, "请登录.");
+			return AppResponse.okData(null, -1, "请登录.", "/user/login");
+		}
+	}
+	
+	@PostMapping(value="/repass")
+	@ResponseBody
+	public AppResponse repass(HttpSession session, @RequestParam(required=true) String nowpass, @RequestParam(required=true) String pass, 
+			@RequestParam(required=true) String repass) throws Exception {
+		if (pass.equals(repass)) {
+			CustomerUser user = (CustomerUser) session.getAttribute("user");
+			if (user != null) {
+				if (user.getPassword().equals(nowpass)) {
+					user.setPassword(pass);
+					userService.updateUser(user.getUserid(), user);
+					return AppResponse.okData(null, 0, "修改成功", "/user/login");
+				} else {
+					return AppResponse.okData(-1, "原密码输入有误");
+				}
+			} else {
+				return AppResponse.okData(0, -1, "请登录.", "/user/login");
+			}
+		} else {
+			return AppResponse.okData(-1, "两次输入密码不一致");
 		}
 	}
 	
