@@ -134,16 +134,9 @@
               </div>
               <div class="layui-form-item">
                 <div class="layui-inline">
-                  <label class="layui-form-label">信息费</label>
+                  <label for="L_price" class="layui-form-label">信息费</label>
                   <div class="layui-input-inline" style="width: 190px;">
-                    <select name="price">
-                      <option value="0">0</option>
-                      <option value="20">20</option>
-                      <option value="30">30</option>
-                      <option value="50">50</option>
-                      <option value="60">60</option>
-                      <option value="80">80</option>
-                    </select>
+                  <input type="text" id="L_price" name="price" required lay-verify="required" autocomplete="off" class="layui-input">
                   </div>
                   <div class="layui-form-mid layui-word-aux">发表后无法更改哦</div>
                 </div>
