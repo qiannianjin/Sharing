@@ -2,10 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.arexstorm.sharing.mapper.CustomerInformationTypeMapper">
   <sql id="Base_Column_List">
-    id, name, shortname, icon, summary, status, createtime, lasttime
-  </sql>
-  <sql id="Base_Column_List_WITH_TABLE">
-    informationtype.id, informationtype.name, informationtype.shortname, informationtype.icon, informationtype.summary, informationtype.status, informationtype.createtime, informationtype.lasttime
+    s_informationtype.id, s_informationtype.name, s_informationtype.shortname, s_informationtype.icon, s_informationtype.summary, s_informationtype.status, s_informationtype.createtime, s_informationtype.lasttime, informationtypeid
   </sql>
 
   <select id="findInformationTypeById" parameterType="java.lang.String" resultType="top.arexstorm.sharing.bean.info.CustomerInformationType">

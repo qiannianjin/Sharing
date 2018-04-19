@@ -7,7 +7,7 @@
 		if (data.status == 0) {
 			var sourceNode = document.getElementById("model");
 			$.each(list, function(i, n) {
-				var option = $('<option value="' + n.id + '">' + n.name + '</option>');
+				var option = $('<option value="' + n.informationtypeid + '">' + n.name + '</option>');
 				$("select[name=typeid]").append(option);
 			});
 			//设置默认选中
