@@ -24,9 +24,9 @@ import top.arexstorm.sharing.utils.AppResponse;
 import top.arexstorm.sharing.utils.UUIDUtils;
 
 @Controller
-@RequestMapping(value="/jie")
+@RequestMapping(value = "/jie")
 public class InformationController {
-	
+
 	@Autowired
 	private InformationService informationService;
 	@Autowired
@@ -36,31 +36,35 @@ public class InformationController {
 
 	/**
 	 * 跳转到发布恭喜信息页面
+	 * 
 	 * @return
 	 */
-	@GetMapping(value="/add")
+	@GetMapping(value = "/add")
 	public String addUI(String informationid, Model model) {
-		
-		CustomerInformation info = informationService.findInformationById(informationid);
-		model.addAttribute("info", info);
+
+		if (StringUtils.isNotBlank(informationid)) {
+			CustomerInformation info = informationService.findInformationById(informationid);
+			model.addAttribute("info", info);
+		}
 		return "jie/add";
 	}
-	
+
 	/**
 	 * 添加或者更新信息
+	 * 
 	 * @param info
 	 * @param session
 	 * @param model
 	 * @return
 	 */
-	@PostMapping(value="/add")
+	@PostMapping(value = "/add")
 	@ResponseBody
-	public AppResponse add(@ModelAttribute(value="info") Information info, HttpSession session, Model model) {
-		
+	public AppResponse add(@ModelAttribute(value = "info") Information info, HttpSession session, Model model) {
+
 		CustomerUser customerUser = (CustomerUser) session.getAttribute("user");
-		
+
 		if (customerUser != null) {
-			if (StringUtils.isNotBlank(info.getInformationid())) { //更新
+			if (StringUtils.isNotBlank(info.getInformationid())) { // 更新
 				CustomerInformation findInfo = informationService.findInformationById(info.getInformationid());
 				if (findInfo != null) {
 					informationService.updateInformation(info, info.getInformationid());
@@ -68,30 +72,30 @@ public class InformationController {
 				} else {
 					return AppResponse.okData(-1, "更新的信息不存在");
 				}
-			} else { //添加
+			} else { // 添加
 				info.setUserid(customerUser.getUserid());
 				info.setShortname(info.getName());
 				info.setInformationid(UUIDUtils.generateUUIDString());
 				CustomerInformationType type = informationTypeService.findInformationTypeById(info.getTypeid());
-				info.setTypename(type!=null ? type.getName() : "");
+				info.setTypename(type != null ? type.getName() : "");
 				informationService.addInformation(info);
 				return AppResponse.okData(null, 0, "添加成功", "/");
 			}
-			
+
 		} else {
 			return AppResponse.okData(null, -1, "请登录", "/user/login");
 		}
 	}
-	
-	@GetMapping(value="/detail")
-	public String detail(@RequestParam(required=true) String informationid, Model model) throws Exception {
-		
+
+	@GetMapping(value = "/detail")
+	public String detail(@RequestParam(required = true) String informationid, Model model) throws Exception {
+
 		CustomerInformation info = informationService.findInformationById(informationid);
 		CustomerUser user = userService.findUserById(info.getUserid());
-		
+
 		model.addAttribute("info", info);
 		model.addAttribute("user", user);
-		
+
 		return "jie/detail";
 	}
 }

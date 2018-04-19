@@ -83,8 +83,8 @@
                 <div class="layui-col-md3">
                   <label class="layui-form-label">所在专栏</label>
                   <div class="layui-input-block">
-                  	<input th:value="${info.typeid}" type="hidden" id="typeidhide"/>
-                  	<input th:value="${info.informationid}" type="hidden"  id="informationid">
+                  	<input th:value="${info?.typeid}" type="hidden" id="typeidhide"/>
+                  	<input th:value="${info?.informationid}" type="hidden"  id="informationid">
                     <select id="typeid" lay-verify="required" name="typeid" lay-filter="column"> 
                       <option></option>
                      <!--  <option value="1">新生类</option>
@@ -95,7 +95,7 @@
                 <div class="layui-col-md9">
                   <label for="L_title" class="layui-form-label">标题</label>
                   <div class="layui-input-block">
-                    <input th:value="${info.name}" type="text" id="L_title" name="name" required lay-verify="required" autocomplete="off" class="layui-input">
+                    <input th:value="${info?.name}" type="text" id="L_title" name="name" required lay-verify="required" autocomplete="off" class="layui-input">
                     <!-- <input type="hidden" name="id" value="{{d.edit.id}}"> -->
                   </div>
                 </div>
@@ -131,21 +131,21 @@
                 <div class="layui-inline">
                   <label for="L_summary" class="layui-form-label">简短说明</label>
                   <div class="layui-input-inline" style="width: 490px;">
-                  <input th:value="${info.summary}" type="text" id="L_summary" name="summary" required lay-verify="required" autocomplete="off" class="layui-input">
+                  <input th:value="${info?.summary}" type="text" id="L_summary" name="summary" required lay-verify="required" autocomplete="off" class="layui-input">
                   </div>
                   <div class="layui-form-mid layui-word-aux">不超过25个字</div>
                 </div>
               </div>
               <div class="layui-form-item layui-form-text">
                 <div class="layui-input-block">
-                  <textarea th:text="${info.content}" d="L_content" name="content" required lay-verify="required" placeholder="详细描述" class="layui-textarea fly-editor" style="height: 260px;"></textarea>
+                  <textarea th:text="${info?.content}" d="L_content" name="content" required lay-verify="required" placeholder="详细描述" class="layui-textarea fly-editor" style="height: 260px;"></textarea>
                 </div>
               </div>
               <div class="layui-form-item">
                 <div class="layui-inline">
                   <label for="L_price" class="layui-form-label">信息费</label>
                   <div class="layui-input-inline" style="width: 190px;">
-                  <input th:value="${info.price}" type="text" id="L_price" name="price" required lay-verify="required" autocomplete="off" class="layui-input">
+                  <input th:value="${info?.price}" type="text" id="L_price" name="price" required lay-verify="required" autocomplete="off" class="layui-input">
                   </div>
                   <div class="layui-form-mid layui-word-aux">发表后无法更改哦</div>
                 </div>
