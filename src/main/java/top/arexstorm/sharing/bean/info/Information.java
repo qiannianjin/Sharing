@@ -21,13 +21,15 @@ public class Information implements Serializable {
 
     private String typename;
 
+    private String content;
+
     private String summary;
 
     private BigDecimal price;
 
     private Short status;
 
-    private Date ceatetime;
+    private Date createtime;
 
     private static final long serialVersionUID = 1L;
 
@@ -95,6 +97,14 @@ public class Information implements Serializable {
         this.typename = typename == null ? null : typename.trim();
     }
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
+    }
+
     public String getSummary() {
         return summary;
     }
@@ -119,12 +129,12 @@ public class Information implements Serializable {
         this.status = status;
     }
 
-    public Date getCeatetime() {
-        return ceatetime;
+    public Date getCreatetime() {
+        return createtime;
     }
 
-    public void setCeatetime(Date ceatetime) {
-        this.ceatetime = ceatetime;
+    public void setCreatetime(Date createtime) {
+        this.createtime = createtime;
     }
 
     @Override
@@ -141,10 +151,11 @@ public class Information implements Serializable {
         sb.append(", pic=").append(pic);
         sb.append(", typeid=").append(typeid);
         sb.append(", typename=").append(typename);
+        sb.append(", content=").append(content);
         sb.append(", summary=").append(summary);
         sb.append(", price=").append(price);
         sb.append(", status=").append(status);
-        sb.append(", ceatetime=").append(ceatetime);
+        sb.append(", createtime=").append(createtime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

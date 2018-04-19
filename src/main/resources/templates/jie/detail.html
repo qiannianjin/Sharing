@@ -142,7 +142,7 @@
           </div>
           <div class="detail-hits" id="LAY_jieAdmin" data-id="123">
             <span style="padding-right: 10px; color: #FF7200">悬赏：60飞吻</span>  
-            <span class="layui-btn layui-btn-xs jie-admin" type="edit"><a th:href="|/jie/add?informationid=${info.informationid}|">编辑此贴</a></span>
+            <span class="layui-btn layui-btn-xs jie-admin" type="edit"><a th:href="|/jie/add?informationid=${info.informationid}|">编辑此信息</a></span>
           </div>
         </div>
         <div class="detail-body photos">
@@ -155,7 +155,7 @@
           </p>
           封面<hr>
           <p>
-            <img th:src="${info.pic}" src="/images/fly.jpg" alt="Fly社区">
+            <img th:src="${info.pic}" th:alt="${info.name}">
           </p>
         </div>
       </div>
@@ -328,7 +328,7 @@
       </div>
 
       <div class="fly-panel" style="padding: 20px 0; text-align: center;">
-        <img src="../../res/images/weixin.jpg" style="max-width: 100%;" alt="layui">
+        <img src="/images/weixin.jpg" style="max-width: 100%;" alt="layui">
         <p style="position: relative; color: #666;">微信扫码关注 layui 公众号</p>
       </div>
 
@@ -348,7 +348,8 @@
 <script th:src="@{/layui/layui.js}"></script>
 <script th:src="@{/js/jquery.min.js}"></script>
 <script th:src="@{/js/jquery.cookie.js}"></script>
-<script th:src="@{js/common.js}"></script>
+<script th:src="@{/js/common.js}"></script>
+<script th:src="@{/js/jie/detail.js}"></script>
 <script>
 layui.cache.page = 'jie';
 layui.cache.user = {
@@ -360,7 +361,7 @@ layui.cache.user = {
 };
 layui.config({
   version: "3.0.0"
-  ,base: '../../res/mods/'
+  ,base: '/mods/'
 }).extend({
   fly: 'index'
 }).use(['fly', 'face'], function(){

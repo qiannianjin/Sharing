@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.arexstorm.sharing.mapper.CustomerInformationMapper">
   <sql id="Base_Column_List">
-    id, informationid, name, shortname, userid, pic, typeid, typename, summary, price, 
-    status, ceatetime
+    id, informationid, name, shortname, userid, pic, typeid, typename, content, summary, 
+    price, status, createtime
   </sql>
   
   <select id="findInformationById" parameterType="java.lang.String" resultType="top.arexstorm.sharing.bean.info.CustomerInformation">

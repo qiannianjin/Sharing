@@ -10,10 +10,11 @@
     <result column="pic" jdbcType="VARCHAR" property="pic" />
     <result column="typeid" jdbcType="VARCHAR" property="typeid" />
     <result column="typename" jdbcType="VARCHAR" property="typename" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="summary" jdbcType="VARCHAR" property="summary" />
     <result column="price" jdbcType="DECIMAL" property="price" />
     <result column="status" jdbcType="SMALLINT" property="status" />
-    <result column="ceatetime" jdbcType="TIMESTAMP" property="ceatetime" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -74,8 +75,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, informationid, name, shortname, userid, pic, typeid, typename, summary, price, 
-    status, ceatetime
+    id, informationid, name, shortname, userid, pic, typeid, typename, content, summary, 
+    price, status, createtime
   </sql>
   <select id="selectByExample" parameterType="top.arexstorm.sharing.bean.info.InformationQuery" resultMap="BaseResultMap">
     select
@@ -110,14 +111,14 @@
   <insert id="insert" parameterType="top.arexstorm.sharing.bean.info.Information">
     insert into s_information (id, informationid, name, 
       shortname, userid, pic, 
-      typeid, typename, summary, 
-      price, status, ceatetime
-      )
+      typeid, typename, content, 
+      summary, price, status, 
+      createtime)
     values (#{id,jdbcType=BIGINT}, #{informationid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{shortname,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR}, 
-      #{typeid,jdbcType=VARCHAR}, #{typename,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, 
-      #{price,jdbcType=DECIMAL}, #{status,jdbcType=SMALLINT}, #{ceatetime,jdbcType=TIMESTAMP}
-      )
+      #{typeid,jdbcType=VARCHAR}, #{typename,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{summary,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{status,jdbcType=SMALLINT}, 
+      #{createtime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="top.arexstorm.sharing.bean.info.Information">
     insert into s_information
@@ -146,6 +147,9 @@
       <if test="typename != null">
         typename,
       </if>
+      <if test="content != null">
+        content,
+      </if>
       <if test="summary != null">
         summary,
       </if>
@@ -155,8 +159,8 @@
       <if test="status != null">
         status,
       </if>
-      <if test="ceatetime != null">
-        ceatetime,
+      <if test="createtime != null">
+        createtime,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -184,6 +188,9 @@
       <if test="typename != null">
         #{typename,jdbcType=VARCHAR},
       </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
       <if test="summary != null">
         #{summary,jdbcType=VARCHAR},
       </if>
@@ -193,8 +200,8 @@
       <if test="status != null">
         #{status,jdbcType=SMALLINT},
       </if>
-      <if test="ceatetime != null">
-        #{ceatetime,jdbcType=TIMESTAMP},
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -231,6 +238,9 @@
       <if test="record.typename != null">
         typename = #{record.typename,jdbcType=VARCHAR},
       </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
       <if test="record.summary != null">
         summary = #{record.summary,jdbcType=VARCHAR},
       </if>
@@ -240,8 +250,8 @@
       <if test="record.status != null">
         status = #{record.status,jdbcType=SMALLINT},
       </if>
-      <if test="record.ceatetime != null">
-        ceatetime = #{record.ceatetime,jdbcType=TIMESTAMP},
+      <if test="record.createtime != null">
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -258,10 +268,11 @@
       pic = #{record.pic,jdbcType=VARCHAR},
       typeid = #{record.typeid,jdbcType=VARCHAR},
       typename = #{record.typename,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
       summary = #{record.summary,jdbcType=VARCHAR},
       price = #{record.price,jdbcType=DECIMAL},
       status = #{record.status,jdbcType=SMALLINT},
-      ceatetime = #{record.ceatetime,jdbcType=TIMESTAMP}
+      createtime = #{record.createtime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -290,6 +301,9 @@
       <if test="typename != null">
         typename = #{typename,jdbcType=VARCHAR},
       </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
       <if test="summary != null">
         summary = #{summary,jdbcType=VARCHAR},
       </if>
@@ -299,8 +313,8 @@
       <if test="status != null">
         status = #{status,jdbcType=SMALLINT},
       </if>
-      <if test="ceatetime != null">
-        ceatetime = #{ceatetime,jdbcType=TIMESTAMP},
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -314,10 +328,11 @@
       pic = #{pic,jdbcType=VARCHAR},
       typeid = #{typeid,jdbcType=VARCHAR},
       typename = #{typename,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
       summary = #{summary,jdbcType=VARCHAR},
       price = #{price,jdbcType=DECIMAL},
       status = #{status,jdbcType=SMALLINT},
-      ceatetime = #{ceatetime,jdbcType=TIMESTAMP}
+      createtime = #{createtime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

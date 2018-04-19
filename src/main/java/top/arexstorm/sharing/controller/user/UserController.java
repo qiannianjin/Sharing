@@ -49,8 +49,10 @@ public class UserController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value="findUser/{userId}")
-	public String findtUser(@PathVariable(value="userId") String userId, Model model) throws Exception {
+	public String findtUser(@PathVariable(value="userId") String userId, HttpSession session, Model model) throws Exception {
 		
+		String sessionid = session.getId();
+		model.addAttribute("sessionid", sessionid);
 		CustomerUser customerUser = userService.findUserById(userId);
 		model.addAttribute("customerUser", customerUser);
 		model.addAttribute("good", "nam");
