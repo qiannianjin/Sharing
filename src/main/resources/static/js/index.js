@@ -19,7 +19,7 @@
 			$.each(list, function(i, n) {
 				var li = $(sourceNode.cloneNode(true)).attr({"class":"li_" + n.id, "style":"", "id":"li_" + n.id});
 				li.find("a.fly-avatar img").attr("src", n.avatar).attr("alt", n.nickname);
-				li.find("h2 a:eq(1)").attr("href", "/jie/detail?informationid=" + n.id)
+				li.find("h2 a:eq(1)").attr("href", "/jie/detail?informationid=" + n.informationid)
 					.text(n.name);
 				li.find("div.fly-list-info a cite").text(n.nickname);
 				var createtime = new Date(n.createtime);
@@ -31,7 +31,8 @@
 				}
 				li.find("div.fly-list-info span:eq(0)").text(showtime);
 				li.find("div.fly-list-info span.fly-list-kill").html('<i class="iconfont icon-kiss"></i> ' + n.price);
-				$("ul.fly-list:eq(0)").append(li);
+//				$("ul.fly-list:eq(0)").append(li);
+				$("ul.fly-list:eq(1)").append(li);
 			});
 		}
 	});
