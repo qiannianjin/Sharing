@@ -27,6 +27,8 @@ public class Information implements Serializable {
 
     private BigDecimal price;
 
+    private Short important;
+
     private Short status;
 
     private Date createtime;
@@ -121,6 +123,14 @@ public class Information implements Serializable {
         this.price = price;
     }
 
+    public Short getImportant() {
+        return important;
+    }
+
+    public void setImportant(Short important) {
+        this.important = important;
+    }
+
     public Short getStatus() {
         return status;
     }
@@ -154,6 +164,7 @@ public class Information implements Serializable {
         sb.append(", content=").append(content);
         sb.append(", summary=").append(summary);
         sb.append(", price=").append(price);
+        sb.append(", important=").append(important);
         sb.append(", status=").append(status);
         sb.append(", createtime=").append(createtime);
         sb.append(", serialVersionUID=").append(serialVersionUID);

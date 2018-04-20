@@ -16,13 +16,13 @@ public interface InformationService {
 	public CustomerInformation findInformationById(String informationid);
 	
 	/**
-	 * 
 	 * 查找所有的信息 可扩展 
 	 * @param status
+	 * @param important
 	 * @param userid
 	 * @return
 	 */
-	public List<CustomerInformation> findAllInformation(Integer status, String userid);
+	public List<CustomerInformation> findAllInformation(Short status, Short important, String userid);
 	
 	/**
 	 * 根据信息id(informationid) 来查询相关的信息类型信息
