@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.arexstorm.sharing.mapper.CustomerInformationMapper">
   <sql id="Base_Column_List">
-    id, informationid, name, shortname, userid, pic, typeid, typename, content, summary, 
-    price, status, createtime
+    s_information.id, s_information.informationid, s_information.name, s_information.shortname, s_information.userid, s_information.pic, s_information.typeid, s_information.typename, s_information.content, s_information.summary, 
+    s_information.price, s_information.status, s_information.createtime
   </sql>
   
   <select id="findInformationById" parameterType="java.lang.String" resultType="top.arexstorm.sharing.bean.info.CustomerInformation">
@@ -16,15 +16,17 @@
   </select>
   
   <select id="findAllInformation" parameterType="top.arexstorm.sharing.bean.info.CustomerInformation" resultType="top.arexstorm.sharing.bean.info.CustomerInformation">
-  	select <include refid="Base_Column_List"/> from s_information
+  	select <include refid="Base_Column_List"/>, s_user.nickname, s_user.avatar from s_information, s_user
   	<where>
+  		s_information.userid = s_user.userid and s_information.status != 9
   		<if test="status != null">
-  			and status = #{status}
+  			and s_information.status = #{status}
   		</if>
   		<if test="userid != null">
-  			and userid = #{userid}
+  			and s_information.userid = #{userid}
   		</if>
   	</where>
+  	order by s_information.createtime desc
   </select>
   
   <select id="findInformationTypeByInformationId" parameterType="java.lang.String" resultType="top.arexstorm.sharing.bean.info.CustomerInformationType">

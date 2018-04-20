@@ -1,5 +1,7 @@
 package top.arexstorm.sharing.controller.info;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
@@ -73,6 +75,7 @@ public class InformationController {
 					return AppResponse.okData(-1, "更新的信息不存在");
 				}
 			} else { // 添加
+				info.setStatus(Short.parseShort("1"));
 				info.setUserid(customerUser.getUserid());
 				info.setShortname(info.getName());
 				info.setInformationid(UUIDUtils.generateUUIDString());
@@ -97,5 +100,15 @@ public class InformationController {
 		model.addAttribute("user", user);
 
 		return "jie/detail";
+	}
+	
+	@ResponseBody
+	@PostMapping(value = "/list")
+	public AppResponse list(Integer status, String userid) throws Exception {
+		
+		//获取信息列表  返回包含  用户信息(头像, nickname) 信息 (标题, 时间) 
+		List<CustomerInformation> infoList = informationService.findAllInformation(status, userid);
+		
+		return AppResponse.okList(infoList);
 	}
 }
