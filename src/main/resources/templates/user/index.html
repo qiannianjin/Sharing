@@ -12,7 +12,7 @@
 </head>
 <body>
 <!-- header -->
-<div th:include="/common/header.html"></div>  
+<div th:include="@{common/header.html}"></div>  
 
 <div class="layui-container fly-marginTop fly-user-main">
   <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="user">
@@ -101,7 +101,7 @@
   </div>
 </div>
 
-<div th:include="/common/footer.html"></div>
+<div th:include="@{common/footer.html}"></div>
 
 </body>
 </html>

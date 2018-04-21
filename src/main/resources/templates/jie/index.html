@@ -14,10 +14,10 @@
 <body>
 
 <!-- header -->
-<div th:include="/common/header.html"></div>  
+<div th:include="@{common/header.html}"></div>  
 
 <!-- column  -->
-<div th:include="/common/column.html"></div>
+<div th:include="@{common/column.html}"></div>
 
 <div class="layui-container">
   <div class="layui-row layui-col-space15">
@@ -148,7 +148,7 @@
   </div>
 </div>
 
-<div th:include="/common/footer.html"></div>
+<div th:include="@{common/footer.html}"></div>
 
 <script th:src="@{/js/jie/index.js}"></script>
 
