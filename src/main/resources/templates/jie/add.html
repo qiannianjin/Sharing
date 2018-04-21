@@ -27,12 +27,15 @@
           <div class="layui-tab-item layui-show">
             <form action="" method="post">
               <div class="layui-row layui-col-space15 layui-form-item">
+              	<div class="layui-input-block">
+                   	<input th:value="${info?.pic}" type="text" id="pic" class="layui-input">
+                </div>
                 <div class="layui-col-md3">
                   <label class="layui-form-label">所在专栏</label>
                   <div class="layui-input-block">
                   	<input th:value="${info?.typeid}" type="hidden" id="typeidhide"/>
                   	<input th:value="${info?.informationid}" type="hidden"  id="informationid">
-                    <select id="typeid" lay-verify="required" name="typeid" lay-filter="column"> 
+                    <select id="typeid" lay-verify="required" name="typeid" lay-filter="column" > 
                       <option></option>
                      <!--  <option value="1">新生类</option>
                       <option value="5">test类</option> -->
@@ -85,7 +88,7 @@
               </div>
               <div class="layui-form-item layui-form-text">
                 <div class="layui-input-block">
-                  <textarea th:text="${info?.content}" d="L_content" name="content" required lay-verify="required" placeholder="详细描述" class="layui-textarea fly-editor" style="height: 260px;"></textarea>
+                  <textarea th:text="${info?.content}" id="L_content" name="content" required lay-verify="required" placeholder="详细描述" class="layui-textarea fly-editor" style="height: 260px;"></textarea>
                 </div>
               </div>
               <div class="layui-form-item">

@@ -161,6 +161,9 @@ layui.define(['layer', 'laytpl', 'form', 'element', 'upload', 'util'], function(
                 ,done: function(res){
                   if(res.status == 0){
                     image.val(res.data.url);
+                    //信息编辑页 设置url到input hidden pic
+                    alert(res.data.url);
+                    $("#pic").val(res.data.url);
                   } else {
                     layer.msg(res.msg, {icon: 5});
                   }
@@ -552,7 +555,10 @@ layui.define(['layer', 'laytpl', 'form', 'element', 'upload', 'util'], function(
 //	  console.log(data.form) //被执行提交的form对象，一般在存在form标签时才会返回
 //	  console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
 //	  return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+	var temp=$('#updateform').serialize();   
+	alert(temp);
     var action = $(data.form).attr('action'), button = $(data.elem);
+    return false;
     fly.json(action, data.field, function(res){
       var end = function(){
         if(res.action){
