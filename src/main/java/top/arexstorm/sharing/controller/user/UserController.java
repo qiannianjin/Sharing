@@ -219,24 +219,6 @@ public class UserController {
 	}
 	
 	/**
-	 * 上传图片
-	 * @param img
-	 * @return
-	 * @throws IOException 
-	 */
-	@PostMapping(value="/upload")
-	@ResponseBody
-	public AppResponse upload(MultipartFile file, HttpServletRequest req) throws IOException {
-		
-		String path = FastDFSUtils.savePic(file.getBytes(), file);
-		String url = Constants.IMG_URL + path;
-		Map map = new HashMap<String, Object>();
-		map.put("url",url);
-		
-		return AppResponse.okData(map, 0, "图片上传成功", null);
-	}
-	
-	/**
 	 * 修改个人资料
 	 * @param customerUser
 	 * @param session
