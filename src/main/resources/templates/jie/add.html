@@ -27,18 +27,11 @@
           <div class="layui-tab-item layui-show">
             <form action="" method="post">
               <div class="layui-row layui-col-space15 layui-form-item">
-              	<div class="layui-input-block">
-                   	<input th:value="${info?.pic}" type="text" id="pic" class="layui-input">
-                </div>
                 <div class="layui-col-md3">
                   <label class="layui-form-label">所在专栏</label>
                   <div class="layui-input-block">
-                  	<input th:value="${info?.typeid}" type="hidden" id="typeidhide"/>
-                  	<input th:value="${info?.informationid}" type="hidden"  id="informationid">
                     <select id="typeid" lay-verify="required" name="typeid" lay-filter="column" > 
                       <option></option>
-                     <!--  <option value="1">新生类</option>
-                      <option value="5">test类</option> -->
                     </select>
                   </div>
                 </div>
@@ -80,9 +73,9 @@
               <div class="layui-form-item">
                 <div class="layui-inline">
                   <label for="L_summary" class="layui-form-label">简短说明</label>
-                  <div class="layui-input-inline" style="width: 490px;">
-                  <input th:value="${info?.summary}" type="text" id="L_summary" name="summary" required lay-verify="required" autocomplete="off" class="layui-input">
-                  </div>
+	              <div class="layui-input-inline" style="width: 490px;">
+	                 <input th:value="${info?.summary}" type="text" id="L_summary" name="summary" required lay-verify="required" autocomplete="off" class="layui-input">
+	              </div>
                   <div class="layui-form-mid layui-word-aux">不超过25个字</div>
                 </div>
               </div>
@@ -110,6 +103,9 @@
                 </div>
               </div>
               <div class="layui-form-item">
+                <input th:value="${info?.pic}" name="pic"  type="hidden" id="pic">
+                <input th:value="${info?.typeid}" type="hidden" id="typeidhide"/>
+                <input th:value="${info?.informationid}" type="hidden">
                 <button class="layui-btn" lay-filter="*" lay-submit>立即发布</button>
               </div>
             </form>
