@@ -35,6 +35,12 @@ public class InformationController {
 	private UserService userService;
 	@Autowired
 	private InformationTypeService informationTypeService;
+	
+	@GetMapping(value="/index")
+	public String index() {
+		
+		return "jie/index";
+	}
 
 	/**
 	 * 跳转到发布恭喜信息页面
