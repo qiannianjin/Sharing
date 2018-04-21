@@ -33,6 +33,17 @@
 					}
 					li.find("div.fly-list-info span:eq(0)").text(showtime);
 					li.find("div.fly-list-info span.fly-list-kill").html('<i class="iconfont icon-kiss"></i> ' + n.price);
+					if (n.price!=null && n.price!=undefined && n.price == 0) {
+//						li.find("a.wealth").attr("class", li.find("a.wealth").attr("class") + " layui-bg-red").text("免费");
+						li.find("a.wealth").text("免费");
+					}
+					if (n.important == 1) { //置顶
+						li.find("div.fly-list-badge span.layui-badge:eq(0)").show();
+					} else if (n.important == 2) { //推荐
+						li.find("div.fly-list-badge span.layui-badge:eq(1)").show();
+					} else if (n.important == 3) { //精华
+						li.find("div.fly-list-badge span.layui-badge:eq(2)").show();
+					}
 //					$("ul.fly-list:eq(0)").append(li);
 //					$("ul.fly-list:eq(1)").append(li);
 					container.append(li);
