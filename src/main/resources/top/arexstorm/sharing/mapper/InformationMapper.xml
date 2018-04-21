@@ -13,6 +13,7 @@
     <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="summary" jdbcType="VARCHAR" property="summary" />
     <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="important" jdbcType="SMALLINT" property="important" />
     <result column="status" jdbcType="SMALLINT" property="status" />
     <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
   </resultMap>
@@ -76,7 +77,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, informationid, name, shortname, userid, pic, typeid, typename, content, summary, 
-    price, status, createtime
+    price, important, status, createtime
   </sql>
   <select id="selectByExample" parameterType="top.arexstorm.sharing.bean.info.InformationQuery" resultMap="BaseResultMap">
     select
@@ -112,13 +113,13 @@
     insert into s_information (id, informationid, name, 
       shortname, userid, pic, 
       typeid, typename, content, 
-      summary, price, status, 
-      createtime)
+      summary, price, important, 
+      status, createtime)
     values (#{id,jdbcType=BIGINT}, #{informationid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{shortname,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR}, 
       #{typeid,jdbcType=VARCHAR}, #{typename,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
-      #{summary,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{status,jdbcType=SMALLINT}, 
-      #{createtime,jdbcType=TIMESTAMP})
+      #{summary,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{important,jdbcType=SMALLINT}, 
+      #{status,jdbcType=SMALLINT}, #{createtime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="top.arexstorm.sharing.bean.info.Information">
     insert into s_information
@@ -155,6 +156,9 @@
       </if>
       <if test="price != null">
         price,
+      </if>
+      <if test="important != null">
+        important,
       </if>
       <if test="status != null">
         status,
@@ -196,6 +200,9 @@
       </if>
       <if test="price != null">
         #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="important != null">
+        #{important,jdbcType=SMALLINT},
       </if>
       <if test="status != null">
         #{status,jdbcType=SMALLINT},
@@ -247,6 +254,9 @@
       <if test="record.price != null">
         price = #{record.price,jdbcType=DECIMAL},
       </if>
+      <if test="record.important != null">
+        important = #{record.important,jdbcType=SMALLINT},
+      </if>
       <if test="record.status != null">
         status = #{record.status,jdbcType=SMALLINT},
       </if>
@@ -271,6 +281,7 @@
       content = #{record.content,jdbcType=VARCHAR},
       summary = #{record.summary,jdbcType=VARCHAR},
       price = #{record.price,jdbcType=DECIMAL},
+      important = #{record.important,jdbcType=SMALLINT},
       status = #{record.status,jdbcType=SMALLINT},
       createtime = #{record.createtime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
@@ -310,6 +321,9 @@
       <if test="price != null">
         price = #{price,jdbcType=DECIMAL},
       </if>
+      <if test="important != null">
+        important = #{important,jdbcType=SMALLINT},
+      </if>
       <if test="status != null">
         status = #{status,jdbcType=SMALLINT},
       </if>
@@ -331,6 +345,7 @@
       content = #{content,jdbcType=VARCHAR},
       summary = #{summary,jdbcType=VARCHAR},
       price = #{price,jdbcType=DECIMAL},
+      important = #{important,jdbcType=SMALLINT},
       status = #{status,jdbcType=SMALLINT},
       createtime = #{createtime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}

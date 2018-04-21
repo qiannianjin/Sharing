@@ -856,6 +856,66 @@ public class InformationQuery {
             return (Criteria) this;
         }
 
+        public Criteria andImportantIsNull() {
+            addCriterion("important is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andImportantIsNotNull() {
+            addCriterion("important is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andImportantEqualTo(Short value) {
+            addCriterion("important =", value, "important");
+            return (Criteria) this;
+        }
+
+        public Criteria andImportantNotEqualTo(Short value) {
+            addCriterion("important <>", value, "important");
+            return (Criteria) this;
+        }
+
+        public Criteria andImportantGreaterThan(Short value) {
+            addCriterion("important >", value, "important");
+            return (Criteria) this;
+        }
+
+        public Criteria andImportantGreaterThanOrEqualTo(Short value) {
+            addCriterion("important >=", value, "important");
+            return (Criteria) this;
+        }
+
+        public Criteria andImportantLessThan(Short value) {
+            addCriterion("important <", value, "important");
+            return (Criteria) this;
+        }
+
+        public Criteria andImportantLessThanOrEqualTo(Short value) {
+            addCriterion("important <=", value, "important");
+            return (Criteria) this;
+        }
+
+        public Criteria andImportantIn(List<Short> values) {
+            addCriterion("important in", values, "important");
+            return (Criteria) this;
+        }
+
+        public Criteria andImportantNotIn(List<Short> values) {
+            addCriterion("important not in", values, "important");
+            return (Criteria) this;
+        }
+
+        public Criteria andImportantBetween(Short value1, Short value2) {
+            addCriterion("important between", value1, value2, "important");
+            return (Criteria) this;
+        }
+
+        public Criteria andImportantNotBetween(Short value1, Short value2) {
+            addCriterion("important not between", value1, value2, "important");
+            return (Criteria) this;
+        }
+
         public Criteria andStatusIsNull() {
             addCriterion("status is null");
             return (Criteria) this;

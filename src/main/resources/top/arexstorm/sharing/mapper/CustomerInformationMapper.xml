@@ -3,7 +3,7 @@
 <mapper namespace="top.arexstorm.sharing.mapper.CustomerInformationMapper">
   <sql id="Base_Column_List">
     s_information.id, s_information.informationid, s_information.name, s_information.shortname, s_information.userid, s_information.pic, s_information.typeid, s_information.typename, s_information.content, s_information.summary, 
-    s_information.price, s_information.status, s_information.createtime
+    s_information.price, s_information.important, s_information.status, s_information.createtime
   </sql>
   
   <select id="findInformationById" parameterType="java.lang.String" resultType="top.arexstorm.sharing.bean.info.CustomerInformation">
@@ -24,6 +24,9 @@
   		</if>
   		<if test="userid != null">
   			and s_information.userid = #{userid}
+  		</if>
+  		<if test="important != null">
+  			and s_information.important = #{important}
   		</if>
   	</where>
   	order by s_information.createtime desc
