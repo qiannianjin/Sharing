@@ -6,20 +6,23 @@
     <a href="http://fly.layui.com/jie/2461/" target="_blank">微信公众号</a>
   </p>
 </div>
-
-<script src="../res/layui/layui.js"></script>
+ 
+<script th:src="@{/layui/layui.js}"></script>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/jquery.cookie.js}"></script>
+<script th:src="@{/js/common.js}"></script>
 <script>
 layui.cache.page = '';
 layui.cache.user = {
   username: '游客'
   ,uid: -1
-  ,avatar: '../res/images/avatar/00.jpg'
+  ,avatar: '/images/avatar/00.jpg'
   ,experience: 83
   ,sex: '男'
 };
 layui.config({
   version: "3.0.0"
-  ,base: '../res/mods/'  //这里实际使用时，建议改成绝对路径
+  ,base: '/mods/' //这里实际使用时，建议改成绝对路径
 }).extend({
   fly: 'index'
 }).use('fly');
