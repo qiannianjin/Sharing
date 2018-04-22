@@ -9,4 +9,6 @@ public interface CustomerOrderMapper {
 	public CustomerOrder findOrderById(String orderid);
 	
 	public List<CustomerOrder> findAllOrder(CustomerOrder customerOrder);
+
+	public CustomerOrder findOrderByBuyeridAndInformationid(CustomerOrder search);
 }

@@ -70,4 +70,11 @@ public class OrderServiceTest {
 		orderService.updateOrder(order, orderid);
 	}
 
+	@Test
+	public void testFindOrderByBuyeridAndInformationid() {
+		String buyerid = "xiebo";
+		String informationid = "7f45ab6c13ff49959dc9d9307b56ba4f";
+		CustomerOrder customerOrder = orderService.findOrderByBuyeridAndInformationid(buyerid, informationid);
+		System.err.println(customerOrder);
+	}
 }

@@ -14,13 +14,15 @@ public class OrderDetail implements Serializable {
 
     private String buyerid;
 
+    private String sellerid;
+
     private Integer count;
+
+    private Short status;
 
     private Date createtime;
 
     private Date lasttime;
-
-    private String sellerid;
 
     private static final long serialVersionUID = 1L;
 
@@ -64,12 +66,28 @@ public class OrderDetail implements Serializable {
         this.buyerid = buyerid == null ? null : buyerid.trim();
     }
 
+    public String getSellerid() {
+        return sellerid;
+    }
+
+    public void setSellerid(String sellerid) {
+        this.sellerid = sellerid == null ? null : sellerid.trim();
+    }
+
     public Integer getCount() {
         return count;
     }
 
     public void setCount(Integer count) {
         this.count = count;
+    }
+
+    public Short getStatus() {
+        return status;
+    }
+
+    public void setStatus(Short status) {
+        this.status = status;
     }
 
     public Date getCreatetime() {
@@ -88,14 +106,6 @@ public class OrderDetail implements Serializable {
         this.lasttime = lasttime;
     }
 
-    public String getSellerid() {
-        return sellerid;
-    }
-
-    public void setSellerid(String sellerid) {
-        this.sellerid = sellerid == null ? null : sellerid.trim();
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -107,10 +117,11 @@ public class OrderDetail implements Serializable {
         sb.append(", orderid=").append(orderid);
         sb.append(", informationid=").append(informationid);
         sb.append(", buyerid=").append(buyerid);
+        sb.append(", sellerid=").append(sellerid);
         sb.append(", count=").append(count);
+        sb.append(", status=").append(status);
         sb.append(", createtime=").append(createtime);
         sb.append(", lasttime=").append(lasttime);
-        sb.append(", sellerid=").append(sellerid);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

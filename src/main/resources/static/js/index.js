@@ -32,7 +32,7 @@
 						var showtime = createtime.getFullYear() + "-" + createtime.getMonth()+1 + "-" + createtime.getDate();
 					}
 					li.find("div.fly-list-info span:eq(0)").text(showtime);
-					li.find("div.fly-list-info span.fly-list-kill").html('<i class="iconfont icon-kiss"></i> ' + n.price);
+					li.find("div.fly-list-info>span.fly-list-kiss").html('<i class="iconfont icon-kiss"></i> ' + n.price);
 					if (n.price!=null && n.price!=undefined && n.price == 0) {
 //						li.find("a.wealth").attr("class", li.find("a.wealth").attr("class") + " layui-bg-red").text("免费");
 						li.find("a.wealth").text("免费");

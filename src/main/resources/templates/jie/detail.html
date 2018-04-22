@@ -61,7 +61,7 @@
             <span th:text="${#dates.format(info.createtime, 'yyyy-MM-dd')}"></span>
           </div>
           <div class="detail-hits" id="LAY_jieAdmin" data-id="123">
-            <span style="padding-right: 10px; color: #FF7200">悬赏：60飞吻</span>  
+            <span style="padding-right: 10px; color: #FF7200">售价：<span th:text="${info.price}"></span> s币</span>  
             <span class="layui-btn layui-btn-xs jie-admin" type="edit"><a th:href="|/jie/add?informationid=${info.informationid}|">编辑此信息</a></span>
           </div>
         </div>

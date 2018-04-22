@@ -56,7 +56,7 @@
 						var showtime = createtime.getFullYear() + "-" + createtime.getMonth()+1 + "-" + createtime.getDate();
 					}
 					li.find("div.fly-list-info span:eq(0)").text(showtime);					
-					li.find("div.fly-list-info span.fly-list-kill").html('<i class="iconfont icon-kiss"></i> ' + n.price);
+					li.find("div.fly-list-info span.fly-list-kiss").html('<i class="iconfont icon-kiss"></i> ' + n.price);
 					if (n.price && n.price == 0) {
 						li.find("a.wealth").text("免费");
 					}

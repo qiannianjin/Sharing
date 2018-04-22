@@ -9,11 +9,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import top.arexstorm.sharing.bean.order.CustomerOrder;
 import top.arexstorm.sharing.bean.order.Order;
+import top.arexstorm.sharing.bean.order.OrderDetail;
 import top.arexstorm.sharing.mapper.CustomerOrderMapper;
 import top.arexstorm.sharing.mapper.OrderMapper;
+import top.arexstorm.sharing.service.order.OrderDetailService;
 import top.arexstorm.sharing.service.order.OrderService;
+import top.arexstorm.sharing.utils.UUIDUtils;
 
-@Service(value="orderService")
+@Service(value = "orderService")
 @Transactional
 public class OrderServiceImpl implements OrderService {
 
@@ -21,6 +24,8 @@ public class OrderServiceImpl implements OrderService {
 	private OrderMapper orderMapper;
 	@Autowired
 	private CustomerOrderMapper customerOrderMapper;
+	@Autowired
+	private OrderDetailService orderDetailService;
 
 	@Override
 	public CustomerOrder findOrderById(String orderid) {
@@ -66,12 +71,49 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public void updateOrder(Order order, String orderid) {
-		
+
 		CustomerOrder customerOrder = this.findOrderById(orderid);
 		if (customerOrder != null) {
 			order.setId(customerOrder.getId());
 			orderMapper.updateByPrimaryKeySelective(order);
 		}
 	}
-	
+
+	@Override
+	public void saveOrder(String buyerid, String sellerid, String informationid) {
+		// 形成订单
+		Order order = new Order();
+		order.setBuyerid(buyerid);
+		order.setCount(1);
+		String orderid = UUIDUtils.generateUUIDString();
+		order.setOrderid(orderid);
+		order.setSellerid(sellerid);
+		order.setStatus(Short.parseShort("1"));
+		this.saveOrder(order);
+		
+		//生成订单明细
+		OrderDetail detail = new OrderDetail();
+		detail.setBuyerid(buyerid);
+		detail.setCount(1);
+		detail.setInformationid(informationid);
+		String orderdetailid = UUIDUtils.generateUUIDString();
+		detail.setOrderdetailid(orderdetailid);
+		detail.setOrderid(orderid);
+		detail.setSellerid(sellerid);
+		orderDetailService.saveOrderDetail(detail);
+	}
+
+	@Override
+	public CustomerOrder findOrderByBuyeridAndInformationid(String buyerid, String informationid) {
+		CustomerOrder search = new CustomerOrder();
+		if (StringUtils.isNotBlank(buyerid)) {
+			search.setBuyerid(buyerid);
+		}
+		if (StringUtils.isNotBlank(informationid)) {
+			search.setInformationid(informationid);
+		}
+		
+		return customerOrderMapper.findOrderByBuyeridAndInformationid(search);
+	}
+
 }

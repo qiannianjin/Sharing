@@ -3,7 +3,7 @@
 <mapper namespace="top.arexstorm.sharing.mapper.CustomerOrderMapper">
   
    <sql id="Base_Column_List">
-    id, orderid, count, back, createtime, lasttime, status, buyerid, sellerid
+    s_order.id, s_order.orderid, s_order.count, s_order.back, s_order.createtime, s_order.lasttime, s_order.status, s_order.buyerid, s_order.sellerid
   </sql>
   
   <select id="findOrderById" parameterType="java.lang.String" resultType="top.arexstorm.sharing.bean.order.CustomerOrder">
@@ -26,6 +26,19 @@
   		</if>
   		<if test="sellerid != null">
   			and sellerid = #{sellerid}
+  		</if>
+  	</where>
+  </select>
+  
+  <select id="findOrderByBuyeridAndInformationid" parameterType="top.arexstorm.sharing.bean.order.CustomerOrder" resultType="top.arexstorm.sharing.bean.order.CustomerOrder">
+  	select <include refid="Base_Column_List"/> from s_order, s_orderdetail
+  	<where>
+  		and s_order.orderid = s_orderdetail.orderid
+  		<if test="buyerid != null">
+  			and s_order.buyerid = #{buyerid}
+  		</if>
+  		<if test="informationid != null">
+  			and s_orderdetail.informationid = #{informationid}
   		</if>
   	</where>
   </select>

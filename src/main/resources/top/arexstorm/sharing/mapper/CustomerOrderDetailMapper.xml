@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.arexstorm.sharing.mapper.CustomerOrderDetailMapper">
+ 
+  <sql id="Base_Column_List">
+    s_orderdetail.id, s_orderdetail.orderdetailid, s_orderdetail.orderid, s_orderdetail.informationid, s_orderdetail.buyerid, s_orderdetail.sellerid, s_orderdetail.count, s_orderdetail.status, s_orderdetail.createtime, 
+    s_orderdetail.lasttime
+  </sql>
+ 
+  <select id="findOrderDetailById" parameterType="java.lang.String" resultType="top.arexstorm.sharing.bean.order.CustomerOrderDetail">
+  	<if test="value != null">
+  		select <include refid="Base_Column_List"/> from s_orderdetail
+  		<where>
+  			and orderdetailid = #{orderdetailid}
+  		</where>
+  	</if>
+  </select>
+  
+  <select id="findAllOrderDetail" parameterType="top.arexstorm.sharing.bean.order.CustomerOrderDetail" resultType="top.arexstorm.sharing.bean.order.CustomerOrderDetail">
+  	select <include refid="Base_Column_List"/> from s_orderdetail, s_order
+	<where>
+		and s_orderdetail.orderid = s_order.orderid
+		<if test="orderid != null">
+		    and s_order.orderid = #{orderid}
+		</if>
+		<if test="status != null">
+			and s_order.status = #{status}
+		</if>
+	</where>
+  </select>
+</mapper>

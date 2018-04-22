@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="keywords" content="fly,layui,前端社区">
   <meta name="description" content="Fly社区是模块化前端UI框架Layui的官网社区，致力于为web开发提供强劲动力">
-  <link rel="stylesheet" th:href="@{layui/css/layui.css}">
-  <link rel="stylesheet" th:href="@{css/global.css}">
+  <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+  <link rel="stylesheet" th:href="@{/css/global.css}">
 </head>
 <body>
 
@@ -26,10 +26,9 @@
           <a href="#signin" class="layui-hide-sm layui-show-xs-block fly-right" id="LAY_goSignin" style="color: #FF5722;">去签到</a>
         </div>
         <ul class="fly-list">
-        
-          <li id="info_model" style="display:none">
+        	<li id="info_model" style="display:none">
             <a href="user/home.html" class="fly-avatar">
-              <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt="">
+              <img src="http://101.132.149.194:8633/group1/M00/00/00/wKgBP1rcEf2AV8aHAAAS4shGSnE789.jpg" alt="">
             </a>
             <h2>
               <a class="layui-badge wealth">动态</a>
@@ -37,13 +36,13 @@
             </h2>
             <div class="fly-list-info">
               <a href="user/home.html" link>
-                <cite>贤心</cite>
+                <cite></cite>
                 <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
                 <i class="layui-badge fly-badge-vip">VIP3</i>
               </a>
               <span>刚刚</span>
               
-              <span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻"><i class="iconfont icon-kiss"></i> 60</span>
+              <span class="fly-list-kiss layui-hide-xs" title="售价"></span>
               <span class="layui-badge fly-badge-accept layui-hide-xs">已结</span>
               <span class="fly-list-nums"> 
                 <i class="iconfont icon-pinglun1" title="回答"></i> 66
@@ -274,7 +273,7 @@
 </div>
 
 <div th:include="@{common/footer.html}"></div>
-<script th:src="@{js/index.js}"></script>
+<script th:src="@{/js/index.js}"></script>
 
 <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_30088308'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "w.cnzz.com/c.php%3Fid%3D30088308' type='text/javascript'%3E%3C/script%3E"));</script>
 

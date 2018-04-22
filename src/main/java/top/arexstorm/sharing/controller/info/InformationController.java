@@ -1,5 +1,6 @@
 package top.arexstorm.sharing.controller.info;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -18,9 +19,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import top.arexstorm.sharing.bean.info.CustomerInformation;
 import top.arexstorm.sharing.bean.info.CustomerInformationType;
 import top.arexstorm.sharing.bean.info.Information;
+import top.arexstorm.sharing.bean.order.CustomerOrder;
 import top.arexstorm.sharing.bean.user.CustomerUser;
 import top.arexstorm.sharing.service.info.InformationService;
 import top.arexstorm.sharing.service.info.InformationTypeService;
+import top.arexstorm.sharing.service.order.OrderService;
 import top.arexstorm.sharing.service.user.UserService;
 import top.arexstorm.sharing.utils.AppResponse;
 import top.arexstorm.sharing.utils.UUIDUtils;
@@ -35,6 +38,8 @@ public class InformationController {
 	private UserService userService;
 	@Autowired
 	private InformationTypeService informationTypeService;
+	@Autowired
+	private OrderService orderService;
 	
 	/**
 	 * 跳转信息主页
@@ -101,15 +106,49 @@ public class InformationController {
 	}
 
 	@GetMapping(value = "/detail")
-	public String detail(@RequestParam(required = true) String informationid, Model model) throws Exception {
+	public String detail(@RequestParam(required = true) String informationid, HttpSession session, Model model) throws Exception {
 
+		CustomerUser customerUser = (CustomerUser) session.getAttribute("user");
 		CustomerInformation info = informationService.findInformationById(informationid);
 		CustomerUser user = userService.findUserById(info.getUserid());
-
-		model.addAttribute("info", info);
-		model.addAttribute("user", user);
-
-		return "jie/detail";
+		if (customerUser!=null && customerUser.getUserid().equals(info.getUserid())) {
+			model.addAttribute("info", info);
+			model.addAttribute("user", customerUser);
+			return "jie/detail";
+		}
+		if (info.getPrice() != null && info.getPrice().compareTo(BigDecimal.ZERO)==0) { //免费 直接进入
+			model.addAttribute("info", info);
+			model.addAttribute("user", user);
+			return "jie/detail";
+		} else { //付费信息 跳转确认页面
+			//确认是否已经购买过
+			//结合用户id，informationid综合查询订单
+			CustomerOrder order = orderService.findOrderByBuyeridAndInformationid(customerUser.getUserid(), informationid);
+			if (order != null) { //订购过了 直接进入
+				model.addAttribute("info", info);
+				model.addAttribute("user", user);
+				return "jie/detail";
+			} else { //跳转订单确认页
+				model.addAttribute("price", info.getPrice());
+				String important;
+				if (info.getImportant() == 0) {
+					important = "普通";
+				} else if (info.getImportant() == 1) {
+					important = "置顶";
+				} else if (info.getImportant() == 2) {
+					important = "推荐";
+				} else {
+					important = "精华";
+				}
+				model.addAttribute("important", important);
+				model.addAttribute("title", info.getName());
+				model.addAttribute("summary", info.getSummary());
+				model.addAttribute("author", user.getNickname());
+				model.addAttribute("sellerid", info.getUserid());
+				model.addAttribute("informationid", info.getInformationid());
+				return "order/confirm";	
+			}
+		}
 	}
 	
 	@ResponseBody

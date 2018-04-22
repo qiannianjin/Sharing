@@ -48,5 +48,21 @@ public interface OrderService {
 	 * @param orderid
 	 */
 	public void updateOrder(Order order, String orderid);
+
+	/**
+	 * 保存订单同时生成订单明细
+	 * @param userid
+	 * @param sellerid
+	 * @param informationid
+	 */
+	public void saveOrder(String userid, String sellerid, String informationid);
+
+	/**
+	 * 查询指定用户，指定信息的订单
+	 * @param buyerid
+	 * @param informationid
+	 * @return
+	 */
+	public CustomerOrder findOrderByBuyeridAndInformationid(String buyerid, String informationid);
 	
 }
