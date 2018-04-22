@@ -1,12 +1,8 @@
 package top.arexstorm.sharing.controller.user;
 
-import java.io.IOException;
 import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -20,13 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import top.arexstorm.sharing.bean.user.CustomerUser;
-import top.arexstorm.sharing.config.Constants;
 import top.arexstorm.sharing.service.user.UserService;
 import top.arexstorm.sharing.utils.AppResponse;
-import top.arexstorm.sharing.utils.FastDFSUtils;
 import top.arexstorm.sharing.utils.JSONUtils;
 
 @Controller
@@ -269,4 +262,15 @@ public class UserController {
 		}
 	}
 	
+	@ResponseBody
+	@PostMapping(value="checkuser/{userid}")
+	public AppResponse checkUser(@PathVariable String userid) throws Exception {
+		
+		CustomerUser customerUser = userService.findUserById(userid);
+		if (customerUser == null) {
+			return AppResponse.okData(0, "该邮箱未注册");
+		} else {
+			return AppResponse.okData(-1, "该邮箱已被注册，请更换新的邮箱");
+		}
+	}
 }
