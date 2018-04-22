@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
-  <title>404 - Fly社区</title>
+  <title>提示页面</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="keywords" content="fly,layui,前端社区">
   <meta name="description" content="Fly社区是模块化前端UI框架Layui的官网社区，致力于为web开发提供强劲动力">
@@ -14,16 +14,16 @@
 	<div th:include="@{common/header.html}"></div>
 	<!-- column  -->
 	<div th:include="@{common/column.html}"></div>
-	
+
 	<div class="layui-container fly-marginTop">
 		<div class="fly-panel">
 		  <div class="fly-none">
-		    <h2><i class="iconfont icon-404"></i></h2>
-		    <p>页面或者数据被<a href="http://fly.layui.com/u/336" target="_blank"> 纸飞机 </a>运到火星了，啥都看不到了…</p>
+		    <h2><i class="iconfont icon-tishilian"></i></h2>
+	      <p>服务器出错，请稍后再试！</p>
 		  </div>
 		</div>
 	</div>
-	
+
 	<div th:include="@{common/footer.html}"></div>
 	<script th:src="@{/js/other/error.js}"></script>
 </body>

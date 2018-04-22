@@ -111,7 +111,7 @@ public class InformationController {
 		CustomerUser customerUser = (CustomerUser) session.getAttribute("user");
 		CustomerInformation info = informationService.findInformationById(informationid);
 		CustomerUser user = userService.findUserById(info.getUserid());
-		if (customerUser!=null && customerUser.getUserid().equals(info.getUserid())) {
+		if (customerUser!=null && customerUser.getUserid().equals(info.getUserid())) { //作者本身
 			model.addAttribute("info", info);
 			model.addAttribute("user", customerUser);
 			return "jie/detail";
@@ -121,6 +121,10 @@ public class InformationController {
 			model.addAttribute("user", user);
 			return "jie/detail";
 		} else { //付费信息 跳转确认页面
+			//判断是否登录 付费肯定是需要登录的
+			if (customerUser == null) {
+				return "user/login";
+			}
 			//确认是否已经购买过
 			//结合用户id，informationid综合查询订单
 			CustomerOrder order = orderService.findOrderByBuyeridAndInformationid(customerUser.getUserid(), informationid);
