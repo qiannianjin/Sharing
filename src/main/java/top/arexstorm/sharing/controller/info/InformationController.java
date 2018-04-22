@@ -46,8 +46,9 @@ public class InformationController {
 	 * @return
 	 */
 	@GetMapping(value="/index")
-	public String index() {
+	public String index(String type, Model model) {
 		
+		model.addAttribute("type", type);
 		return "jie/index";
 	}
 
@@ -123,7 +124,7 @@ public class InformationController {
 		} else { //付费信息 跳转确认页面
 			//判断是否登录 付费肯定是需要登录的
 			if (customerUser == null) {
-				return "user/login";
+				return "redirect:/user/login";
 			}
 			//确认是否已经购买过
 			//结合用户id，informationid综合查询订单
@@ -164,4 +165,23 @@ public class InformationController {
 		
 		return AppResponse.okList(infoList);
 	}
+	
+	/**
+	 * 查询购买的信息
+	 * @param status
+	 * @param session
+	 * @return
+	 */
+	@ResponseBody
+	@PostMapping(value = "/buylist")
+	public AppResponse buyList(Short status, HttpSession session) {
+		CustomerUser customerUser = (CustomerUser) session.getAttribute("user");
+		if (customerUser != null) {
+			List<CustomerInformation> infoList = informationService.findAllBuyInformation(customerUser.getUserid(), status);
+			return AppResponse.okList(infoList);
+		} else {
+			return AppResponse.okData(null, -1, "请登录", "/user/login");
+		}
+	}
+	
 }

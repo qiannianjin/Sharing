@@ -50,4 +50,19 @@
   	</if> 
   </update>
   
+  <select id="findAllBuyInformation" parameterType="java.util.Map" resultType="top.arexstorm.sharing.bean.info.CustomerInformation">
+ 	select <include refid="Base_Column_List"/> from s_information, s_order, s_orderdetail
+	<where>
+		and s_order.orderid = s_orderdetail.orderid
+		<if test="buyerid != null">
+			and s_order.buyerid = #{buyerid}
+		</if>
+		<if test="status != null">
+			and s_order.status = #{status}
+		</if>
+		and s_orderdetail.informationid = s_information.informationid
+	</where> 
+	order by s_order.createtime desc
+  </select>
+  
   </mapper>

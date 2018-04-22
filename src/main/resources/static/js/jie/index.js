@@ -1,44 +1,14 @@
 ﻿$(function() {
 	
-	$.get("/type/common?status=1", function(data){
-		var list = data.dataList || {};
-		if (data.status == 0) {
-			var sourceNode = document.getElementById("model");
-			$.each(list, function(i, n) {
-				var li = $(sourceNode.cloneNode(true)).attr({"class":"li_" + n.informationtypeid, "style":"", "id":"li_" + n.informationtypeid});
-				li.find("a").attr("href", "/jie/index?informationtypeid=" + n.informationtypeid).text(n.name);
-				$("div.layui-container>ul.layui-clear li#model").before(li);
-			});
-			
-			//控制页面显示内容，在查出分类后再操作
-			var informationtypeid = GetQueryString("informationtypeid");
-			var title = $("div.fly-panel-title>a.layui-this");
-			if (informationtypeid) { //分类查询共享信息
-				var params = {status:1, informationtypeid:informationtypeid};
-				title.text($("#li_" + informationtypeid + " a").text() + " 信息");
-				findInformation(params, $("ul.fly-list:eq(0)"), document.getElementById("info_model"));
-			} else { //查询我发布的共享信息
-				var params = {status:1};
-				var userCookie = $.cookie("user");
-				if (userCookie) {
-					var user = JSON.parse(decodeURIComponent(userCookie));
-					params.userid = user.userid;
-				}
-				title.text("我发布的共享信息");
-				findInformation(params, $("ul.fly-list:eq(0)"), document.getElementById("info_model"));
-			}
-		}
-	});
-	
 	function GetQueryString(name){
 	     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
 	     var r = window.location.search.substr(1).match(reg);
 	     if(r!=null)return  unescape(r[2]); return null;
 	}
 	
-	function findInformation(params, container, sourceNode) {
+	function findInformation(url, params, container, sourceNode) {
 		
-		$.post("/jie/list", params, function(data){
+		$.post(url, params, function(data){
 			var list = data.dataList || {};
 			if (data.status == 0) {
 //				var sourceNode = document.getElementById("info_model");
@@ -74,4 +44,40 @@
 			}
 		});
 	}
+	
+	$.get("/type/common?status=1", function(data){
+		var list = data.dataList || {};
+		if (data.status == 0) {
+			var sourceNode = document.getElementById("model");
+			$.each(list, function(i, n) {
+				var li = $(sourceNode.cloneNode(true)).attr({"class":"li_" + n.informationtypeid, "style":"", "id":"li_" + n.informationtypeid});
+				li.find("a").attr("href", "/jie/index?informationtypeid=" + n.informationtypeid).text(n.name);
+				$("div.layui-container>ul.layui-clear li#model").before(li);
+			});
+			
+			//控制页面显示内容，在查出分类后再操作
+			var informationtypeid = GetQueryString("informationtypeid");
+			var type = GetQueryString("type");
+			var title = $("div.fly-panel-title>a.layui-this");
+			if (informationtypeid) { //分类查询共享信息
+				var params = {status:1, informationtypeid:informationtypeid};
+				title.text($("#li_" + informationtypeid + " a").text() + " 信息");
+				findInformation("/jie/list", params, $("ul.fly-list:eq(0)"), document.getElementById("info_model"));
+			} 
+			if (type != null && type == 'pub') { //查询我发布的共享信息
+				var params = {status:1};
+				var userCookie = $.cookie("user");
+				if (userCookie) {
+					var user = JSON.parse(decodeURIComponent(userCookie));
+					params.userid = user.userid;
+				}
+				title.text("我发布的共享信息");
+				findInformation("/jie/list", params, $("ul.fly-list:eq(0)"), document.getElementById("info_model"));
+			} else if (type != null && type == 'buy') {
+				var params = {status:1};
+				title.text("我购买的共享信息");
+				findInformation("/jie/buylist", params, $("ul.fly-list:eq(0)"), document.getElementById("info_model"));
+			}
+		}
+	});
 })

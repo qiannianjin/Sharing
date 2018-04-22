@@ -1,7 +1,9 @@
 package top.arexstorm.sharing.service.info.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,8 @@ import top.arexstorm.sharing.bean.info.Information;
 import top.arexstorm.sharing.mapper.CustomerInformationMapper;
 import top.arexstorm.sharing.mapper.InformationMapper;
 import top.arexstorm.sharing.service.info.InformationService;
+
+
 
 @Service(value="informationService")
 @Transactional
@@ -98,6 +102,18 @@ public class InformationServiceImpl implements InformationService {
 			CustomerInformation find = customerInformationMapper.findInformationById(informationid);
 			informationMapper.deleteByPrimaryKey(find.getId());
 		}
+	}
+
+	@Override
+	public List<CustomerInformation> findAllBuyInformation(String buyerid, Short status) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		if (StringUtils.isNotBlank(buyerid)) {
+			paramMap.put("buyerid", buyerid);
+		}
+		if (status != null) {
+			paramMap.put("status", status);
+		}
+		return customerInformationMapper.findAllBuyInformation(paramMap);
 	}
 
 }

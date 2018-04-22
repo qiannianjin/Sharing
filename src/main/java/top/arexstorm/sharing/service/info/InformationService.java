@@ -57,4 +57,12 @@ public interface InformationService {
 	 * @param informationid
 	 */
 	public void deleteInformationByInfomationId(String informationid);
+
+	/**
+	 * 查询指定用户购买的所有共享信息
+	 * @param userid
+	 * @param status
+	 * @return
+	 */
+	public List<CustomerInformation> findAllBuyInformation(String userid, Short status);
 }

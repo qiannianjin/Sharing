@@ -91,4 +91,13 @@ public class InformationServiceTest {
 		informationService.deleteInformationByInfomationId(informationid);
 	}
 
+	@Test
+	public void testFindAllBuyInformation() {
+		String userid = "xiebo";
+		Short status = 0;
+		List<CustomerInformation> infoList = informationService.findAllBuyInformation(userid, status);
+		for (CustomerInformation customerInformation : infoList) {
+			System.err.println(customerInformation);
+		}
+	}
 }
