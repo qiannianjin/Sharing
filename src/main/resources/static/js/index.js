@@ -29,7 +29,7 @@
 					if ((now.getTime() - createtime.getTime()) < 10 * 60 * 1000) {
 						var showtime  = "刚刚"
 					} else {
-						var showtime = createtime.getFullYear() + "-" + createtime.getMonth()+1 + "-" + createtime.getDate();
+						var showtime = createtime.getFullYear() + "-" + (createtime.getMonth()+1) + "-" + createtime.getDate();
 					}
 					li.find("div.fly-list-info span:eq(0)").text(showtime);
 					li.find("div.fly-list-info>span.fly-list-kiss").html('<i class="iconfont icon-kiss"></i> ' + n.price);
