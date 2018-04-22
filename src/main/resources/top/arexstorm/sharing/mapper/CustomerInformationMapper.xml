@@ -28,6 +28,9 @@
   		<if test="important != null">
   			and s_information.important = #{important}
   		</if>
+  		<if test="typeid != null">
+  			and s_information.typeid = #{typeid}
+  		</if>
   	</where>
   	order by s_information.createtime desc
   </select>

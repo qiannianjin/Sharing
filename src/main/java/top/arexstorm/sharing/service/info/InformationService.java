@@ -20,9 +20,10 @@ public interface InformationService {
 	 * @param status
 	 * @param important
 	 * @param userid
+	 * @param informationtypeid
 	 * @return
 	 */
-	public List<CustomerInformation> findAllInformation(Short status, Short important, String userid);
+	public List<CustomerInformation> findAllInformation(Short status, Short important, String userid, String informationtypeid);
 	
 	/**
 	 * 根据信息id(informationid) 来查询相关的信息类型信息

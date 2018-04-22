@@ -5,13 +5,36 @@
 		if (data.status == 0) {
 			var sourceNode = document.getElementById("model");
 			$.each(list, function(i, n) {
-				var li = $(sourceNode.cloneNode(true)).attr({"class":"li_" + n.id, "style":"", "id":"li_" + n.id});
-				li.find("a").attr("href", "jie/index.html").text(n.name);
+				var li = $(sourceNode.cloneNode(true)).attr({"class":"li_" + n.informationtypeid, "style":"", "id":"li_" + n.informationtypeid});
+				li.find("a").attr("href", "/jie/index?informationtypeid=" + n.informationtypeid).text(n.name);
 				$("div.layui-container>ul.layui-clear li#model").before(li);
 			});
+			
+			//控制页面显示内容，在查出分类后再操作
+			var informationtypeid = GetQueryString("informationtypeid");
+			var title = $("div.fly-panel-title>a.layui-this");
+			if (informationtypeid) { //分类查询共享信息
+				var params = {status:1, informationtypeid:informationtypeid};
+				title.text($("#li_" + informationtypeid + " a").text() + " 信息");
+				findInformation(params, $("ul.fly-list:eq(0)"), document.getElementById("info_model"));
+			} else { //查询我发布的共享信息
+				var params = {status:1};
+				var userCookie = $.cookie("user");
+				if (userCookie) {
+					var user = JSON.parse(decodeURIComponent(userCookie));
+					params.userid = user.userid;
+				}
+				title.text("我发布的共享信息");
+				findInformation(params, $("ul.fly-list:eq(0)"), document.getElementById("info_model"));
+			}
 		}
 	});
 	
+	function GetQueryString(name){
+	     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+	     var r = window.location.search.substr(1).match(reg);
+	     if(r!=null)return  unescape(r[2]); return null;
+	}
 	
 	function findInformation(params, container, sourceNode) {
 		
@@ -32,7 +55,7 @@
 					} else {
 						var showtime = createtime.getFullYear() + "-" + createtime.getMonth()+1 + "-" + createtime.getDate();
 					}
-					li.find("div.fly-list-info span:eq(0)").text(showtime);
+					li.find("div.fly-list-info span:eq(0)").text(showtime);					
 					li.find("div.fly-list-info span.fly-list-kill").html('<i class="iconfont icon-kiss"></i> ' + n.price);
 					if (n.price && n.price == 0) {
 						li.find("a.wealth").text("免费");
@@ -51,13 +74,4 @@
 			}
 		});
 	}
-	
-	//查询我发布的共享信息
-	var params = {status:1};
-	var userCookie = $.cookie("user");
-	if (userCookie) {
-		var user = JSON.parse(decodeURIComponent(userCookie));
-		params.userid = user.userid;
-	}
-	findInformation(params, $("ul.fly-list:eq(0)"), document.getElementById("info_model"));
 })
