@@ -24,5 +24,5 @@ public interface VerifyCodeService {
 	 * @param userid
 	 * @param status
 	 */
-	public void updateVerifyCodeStatus(String userid, String type, Short status);
+	public void updateVerifyCodeStatus(String userid, Short type, Short status);
 }

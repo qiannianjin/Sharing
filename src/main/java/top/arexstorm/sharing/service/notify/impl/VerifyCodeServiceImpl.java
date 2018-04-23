@@ -40,12 +40,12 @@ public class VerifyCodeServiceImpl implements VerifyCodeService {
 	}
 
 	@Override
-	public void updateVerifyCodeStatus(String userid, String type, Short status) {
+	public void updateVerifyCodeStatus(String userid, Short type, Short status) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		if (StringUtils.isNotBlank(userid)) {
 			paramMap.put("userid", userid);
 		}
-		if (StringUtils.isNotBlank(type)) {
+		if (type != null) {
 			paramMap.put("type", type);
 		}
 		if (status != null) {

@@ -30,7 +30,7 @@ public class VerifyCodeServiceTest {
 		VerifyCode verifyCode = new VerifyCode();
 		verifyCode.setCode(UUIDUtils.generateUUIDString());
 		verifyCode.setEmail("islambao@126.com");
-		verifyCode.setType(Short.parseShort("1"));
+		verifyCode.setType(Short.parseShort("0"));
 		verifyCode.setUserid("islambao@126.com");
 		
 		verifyCodeService.addVerifyCode(verifyCode);
@@ -40,7 +40,7 @@ public class VerifyCodeServiceTest {
 	public void testUpdateVerifyCodeStatus() {
 		
 		String userid = "islambao@126.com";
-		String type = "email";
+		Short type = 0;
 		Short status = Short.parseShort("1");
 		
 		verifyCodeService.updateVerifyCodeStatus(userid, type, status);

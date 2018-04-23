@@ -13,6 +13,9 @@ import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
 
+import top.arexstorm.sharing.config.Template;
+import top.arexstorm.sharing.utils.UUIDUtils;
+
 @Service(value="emailService")
 public class EmailService {
 
@@ -21,11 +24,22 @@ public class EmailService {
 	 private static final String accessKeySecret = bundle.getString("accessKeySecret");
 	
 	
-//	public static void main(String[] args) {
+	public static void main(String[] args) {
 //		SingleSendMailResponse response = sendEmail("sandiegoe@126.com", "hi", "what is the matter?");
 //		System.out.println(response.getEnvId());
 //		System.out.println(response.getRequestId());
-//	}
+		
+		String toAddress = "islambao@126.com";
+		String subject = "Sharing邮箱激活";
+		String code = UUIDUtils.generateUUIDString();
+		String content = Template.EmailTemplate.replace("{nickname}", "shenzhaoquan")
+				.replace("{userid}", "dd47e3c60200473ba40b6e535bd1a439")
+				.replace("{code}", code)
+				.replace("{email}", "islambao@126.com")
+				.replace("{type}", "0");
+		SingleSendMailResponse response = sendEmail(toAddress, subject, content);
+		System.out.println(content);
+	}
 	
 	/**
 	 * 

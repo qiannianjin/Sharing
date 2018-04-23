@@ -17,6 +17,7 @@
   			and type = #{type}
   		</if>
   	</where>
+  	order by createtime desc limit 0, 1
   </select>
   
   <select id="updateVerifyCodeStatus" parameterType="java.util.Map">
