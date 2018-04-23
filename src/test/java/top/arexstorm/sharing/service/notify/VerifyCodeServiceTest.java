@@ -19,7 +19,7 @@ public class VerifyCodeServiceTest {
 	@Test
 	public void testFindVerifyCodeByUserid() {
 		String userid = "islambao@126.com";
-		String type = "email";
+		Short type = 0;
 		
 		VerifyCode verifyCode = verifyCodeService.findVerifyCodeByUserid(userid, type);
 		System.err.println(verifyCode);
@@ -30,7 +30,7 @@ public class VerifyCodeServiceTest {
 		VerifyCode verifyCode = new VerifyCode();
 		verifyCode.setCode(UUIDUtils.generateUUIDString());
 		verifyCode.setEmail("islambao@126.com");
-		verifyCode.setType("email");
+		verifyCode.setType(Short.parseShort("1"));
 		verifyCode.setUserid("islambao@126.com");
 		
 		verifyCodeService.addVerifyCode(verifyCode);

@@ -6,9 +6,9 @@ import java.util.Date;
 public class VerifyCode implements Serializable {
     private Long id;
 
-    private String type;
-
     private String userid;
+
+    private Short type;
 
     private String email;
 
@@ -36,20 +36,20 @@ public class VerifyCode implements Serializable {
         this.id = id;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type == null ? null : type.trim();
-    }
-
     public String getUserid() {
         return userid;
     }
 
     public void setUserid(String userid) {
         this.userid = userid == null ? null : userid.trim();
+    }
+
+    public Short getType() {
+        return type;
+    }
+
+    public void setType(Short type) {
+        this.type = type;
     }
 
     public String getEmail() {
@@ -123,8 +123,8 @@ public class VerifyCode implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", type=").append(type);
         sb.append(", userid=").append(userid);
+        sb.append(", type=").append(type);
         sb.append(", email=").append(email);
         sb.append(", phone=").append(phone);
         sb.append(", code=").append(code);

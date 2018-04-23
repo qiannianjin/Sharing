@@ -21,13 +21,13 @@ public class VerifyCodeServiceImpl implements VerifyCodeService {
 	private VerifyCodeMapper verifyCodeMapper;
 
 	@Override
-	public VerifyCode findVerifyCodeByUserid(String userid, String type) {
+	public VerifyCode findVerifyCodeByUserid(String userid, Short type) {
 
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		if (StringUtils.isNotBlank(userid)) {
 			paramMap.put("userid", userid);
 		}
-		if (StringUtils.isNotBlank(type)) {
+		if (type != null) {
 			paramMap.put("type", type);
 		}
 

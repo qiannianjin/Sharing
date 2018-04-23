@@ -1,7 +1,5 @@
 package top.arexstorm.sharing.service.user;
 
-import static org.junit.Assert.fail;
-
 import java.util.List;
 
 import org.junit.Test;

@@ -10,7 +10,7 @@ public interface VerifyCodeService {
 	 * @param type
 	 * @return
 	 */
-	public VerifyCode findVerifyCodeByUserid(String userid, String type);
+	public VerifyCode findVerifyCodeByUserid(String userid, Short type);
 	
 	
 	/**

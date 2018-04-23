@@ -1,7 +1,5 @@
 package top.arexstorm.sharing.service.email;
 
-import java.rmi.ServerException;
-
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
 import com.aliyuncs.dm.model.v20151123.SingleSendMailRequest;

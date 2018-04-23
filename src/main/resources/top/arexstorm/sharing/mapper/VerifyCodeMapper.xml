@@ -3,8 +3,8 @@
 <mapper namespace="top.arexstorm.sharing.mapper.VerifyCodeMapper">
   <resultMap id="BaseResultMap" type="top.arexstorm.sharing.bean.notify.VerifyCode">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="userid" jdbcType="VARCHAR" property="userid" />
+    <result column="type" jdbcType="SMALLINT" property="type" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="code" jdbcType="VARCHAR" property="code" />
@@ -73,7 +73,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, type, userid, email, phone, code, times, validtime, status, createtime, lasttime
+    id, userid, type, email, phone, code, times, validtime, status, createtime, lasttime
   </sql>
   <select id="selectByExample" parameterType="top.arexstorm.sharing.bean.notify.VerifyCodeQuery" resultMap="BaseResultMap">
     select
@@ -106,11 +106,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="top.arexstorm.sharing.bean.notify.VerifyCode">
-    insert into s_verifycode (id, type, userid, 
+    insert into s_verifycode (id, userid, type, 
       email, phone, code, 
       times, validtime, status, 
       createtime, lasttime)
-    values (#{id,jdbcType=BIGINT}, #{type,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{userid,jdbcType=VARCHAR}, #{type,jdbcType=SMALLINT}, 
       #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
       #{times,jdbcType=SMALLINT}, #{validtime,jdbcType=TIMESTAMP}, #{status,jdbcType=SMALLINT}, 
       #{createtime,jdbcType=TIMESTAMP}, #{lasttime,jdbcType=TIMESTAMP})
@@ -121,11 +121,11 @@
       <if test="id != null">
         id,
       </if>
-      <if test="type != null">
-        type,
-      </if>
       <if test="userid != null">
         userid,
+      </if>
+      <if test="type != null">
+        type,
       </if>
       <if test="email != null">
         email,
@@ -156,11 +156,11 @@
       <if test="id != null">
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="type != null">
-        #{type,jdbcType=VARCHAR},
-      </if>
       <if test="userid != null">
         #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=SMALLINT},
       </if>
       <if test="email != null">
         #{email,jdbcType=VARCHAR},
@@ -200,11 +200,11 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.type != null">
-        type = #{record.type,jdbcType=VARCHAR},
-      </if>
       <if test="record.userid != null">
         userid = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=SMALLINT},
       </if>
       <if test="record.email != null">
         email = #{record.email,jdbcType=VARCHAR},
@@ -238,8 +238,8 @@
   <update id="updateByExample" parameterType="map">
     update s_verifycode
     set id = #{record.id,jdbcType=BIGINT},
-      type = #{record.type,jdbcType=VARCHAR},
       userid = #{record.userid,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=SMALLINT},
       email = #{record.email,jdbcType=VARCHAR},
       phone = #{record.phone,jdbcType=VARCHAR},
       code = #{record.code,jdbcType=VARCHAR},
@@ -255,11 +255,11 @@
   <update id="updateByPrimaryKeySelective" parameterType="top.arexstorm.sharing.bean.notify.VerifyCode">
     update s_verifycode
     <set>
-      <if test="type != null">
-        type = #{type,jdbcType=VARCHAR},
-      </if>
       <if test="userid != null">
         userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=SMALLINT},
       </if>
       <if test="email != null">
         email = #{email,jdbcType=VARCHAR},
@@ -290,8 +290,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="top.arexstorm.sharing.bean.notify.VerifyCode">
     update s_verifycode
-    set type = #{type,jdbcType=VARCHAR},
-      userid = #{userid,jdbcType=VARCHAR},
+    set userid = #{userid,jdbcType=VARCHAR},
+      type = #{type,jdbcType=SMALLINT},
       email = #{email,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       code = #{code,jdbcType=VARCHAR},
