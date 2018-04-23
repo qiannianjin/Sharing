@@ -3,7 +3,7 @@
 <mapper namespace="top.arexstorm.sharing.mapper.CustomerUserMapper">
    <sql id="Base_Column_List">
     id, userid, nickname, createtime, lasttime, status, summary, password, avatar, credit, 
-    sex, city
+    sex, city, email, phone
   </sql>
   <select id="findUserList" parameterType="top.arexstorm.sharing.bean.user.CustomerUser" resultType="top.arexstorm.sharing.bean.user.CustomerUser">
   	select 
@@ -39,4 +39,16 @@
 	  	</where>
   	</if>
   </update>
+  
+  <select id="findUserByEmailOrPhone" parameterType="java.util.Map" resultType="top.arexstorm.sharing.bean.user.CustomerUser">
+  	select  <include refid="Base_Column_List" /> from s_user
+  	<where>
+  		<if test="phone != null">
+  			and phone = #{phone}
+  		</if>
+  		<if test="email != null">
+  			and email = #{email}
+  		</if>
+  	</where>
+  </select>
 </mapper>

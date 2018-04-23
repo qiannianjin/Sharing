@@ -29,6 +29,10 @@ public class User implements Serializable {
 
     private String city;
 
+    private String email;
+
+    private String phone;
+
     private static final long serialVersionUID = 1L;
 
     public Long getId() {
@@ -127,6 +131,22 @@ public class User implements Serializable {
         this.city = city == null ? null : city.trim();
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone == null ? null : phone.trim();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -145,6 +165,8 @@ public class User implements Serializable {
         sb.append(", credit=").append(credit);
         sb.append(", sex=").append(sex);
         sb.append(", city=").append(city);
+        sb.append(", email=").append(email);
+        sb.append(", phone=").append(phone);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

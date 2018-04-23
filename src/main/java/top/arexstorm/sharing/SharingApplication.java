@@ -9,7 +9,7 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 @SpringBootApplication
 @ComponentScan(basePackages= {"top.arexstorm.sharing"})
 @MapperScan(value="top.arexstorm.sharing.mapper")
-@EnableRedisHttpSession
+//@EnableRedisHttpSession
 public class SharingApplication {
 
 	public static void main(String[] args) {

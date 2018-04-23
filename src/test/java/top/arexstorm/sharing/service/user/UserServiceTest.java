@@ -65,4 +65,14 @@ public class UserServiceTest {
 		}
 	}
 
+	@Test
+	public void testFindUserByEmailOrPhone() {
+//		String email = "islambao@126.com";
+		String email = null;
+//		String phone = null;
+		String phone = "15956949297";
+		
+		CustomerUser customerUser = userService.findUserByEmailOrPhone(email, phone);
+		System.err.println(customerUser);
+	}
 }

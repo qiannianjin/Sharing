@@ -1,6 +1,8 @@
 package top.arexstorm.sharing.service.user.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +83,20 @@ public class UserServiceImpl implements UserService {
 		List<CustomerUser> customerUserList = customerUserMapper.findUserList(customerUser);
 		
 		return customerUserList;
+	}
+
+	@Override
+	public CustomerUser findUserByEmailOrPhone(String email, String phone) {
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		if (StringUtils.isNotBlank(email)) {
+			paramMap.put("email", email);
+		}
+		if (StringUtils.isNotBlank(phone)) {
+			paramMap.put("phone", phone);
+		}
+		
+		return customerUserMapper.findUserByEmailOrPhone(paramMap);
 	}
 
 }

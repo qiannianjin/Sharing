@@ -52,4 +52,13 @@ public interface UserService {
 	 * @throws Exception
 	 */
 	public void deleteUserTrue(String userId) throws Exception;
+	
+	
+	/**
+	 * 通过邮箱或者手机号码查找用户
+	 * @param email
+	 * @param phone
+	 * @return
+	 */
+	public CustomerUser findUserByEmailOrPhone(String email, String phone);
 }

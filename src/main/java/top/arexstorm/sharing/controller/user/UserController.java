@@ -81,14 +81,18 @@ public class UserController {
 	 */
 	@PostMapping(value="/login")
 	@ResponseBody
-	public AppResponse login(@RequestParam(required=true) String userid, @RequestParam(required=true) String password,
+	public AppResponse login(@RequestParam(required=true) String loginName, @RequestParam(required=true) String password,
 			Model model, HttpSession session, HttpServletResponse resp) throws Exception {
 		
-		CustomerUser findUser = userService.findUserById(userid);
+		//两次查询   可能是邮箱或者手机号
+		CustomerUser findUser = userService.findUserByEmailOrPhone(loginName, null);
+		if (findUser == null) {
+			findUser = userService.findUserByEmailOrPhone(null, loginName);
+		}
 		
 		if (findUser == null) {
 			
-			return AppResponse.okData(-1, "请输入正确的用户名");
+			return AppResponse.okData(-1, "请输入正确的登陆名");
 		} else {
 			if (findUser.getPassword().equals(password)) {
 				//添加session
@@ -140,8 +144,12 @@ public class UserController {
 		String password = customerUser.getPassword();
 		String repassword = customerUser.getRepassword();
 		if (password != null && repassword!=null && password.equals(repassword)) {
-			if (customerUser.getUserid() != null) {
-				CustomerUser findUser = userService.findUserById(customerUser.getUserid());
+			if (customerUser.getLoginName() != null) {
+				//两次查询   可能是邮箱或者手机号
+				CustomerUser findUser = userService.findUserByEmailOrPhone(customerUser.getLoginName(), null);
+				if (findUser == null) {
+					findUser = userService.findUserByEmailOrPhone(null, customerUser.getLoginName());
+				}
 				if (findUser == null) {
 					userService.addUser(customerUser);
 					return AppResponse.okData(null, 0, "注册成功", "/user/login");
@@ -263,14 +271,18 @@ public class UserController {
 	}
 	
 	@ResponseBody
-	@PostMapping(value="checkuser/{userid}")
-	public AppResponse checkUser(@PathVariable String userid) throws Exception {
+	@PostMapping(value="checkuser/{loginName}")
+	public AppResponse checkUser(@PathVariable String loginName) throws Exception {
 		
-		CustomerUser customerUser = userService.findUserById(userid);
-		if (customerUser == null) {
-			return AppResponse.okData(0, "该邮箱未注册");
+		//两次查询   可能是邮箱或者手机号
+		CustomerUser findUser = userService.findUserByEmailOrPhone(loginName, null);
+		if (findUser == null) {
+			findUser = userService.findUserByEmailOrPhone(null, loginName);
+		}
+		if (findUser == null) {
+			return AppResponse.okData(0, "该登陆名未注册");
 		} else {
-			return AppResponse.okData(-1, "该邮箱已被注册，请更换新的邮箱");
+			return AppResponse.okData(-1, "该登录名已被注册，请更换新的登陆名");
 		}
 	}
 }

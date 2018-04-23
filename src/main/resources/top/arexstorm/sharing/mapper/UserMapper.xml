@@ -14,6 +14,8 @@
     <result column="credit" jdbcType="DECIMAL" property="credit" />
     <result column="sex" jdbcType="VARCHAR" property="sex" />
     <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -75,7 +77,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, userid, nickname, createtime, lasttime, status, summary, password, avatar, credit, 
-    sex, city
+    sex, city, email, phone
   </sql>
   <select id="selectByExample" parameterType="top.arexstorm.sharing.bean.user.UserQuery" resultMap="BaseResultMap">
     select
@@ -111,11 +113,13 @@
     insert into s_user (id, userid, nickname, 
       createtime, lasttime, status, 
       summary, password, avatar, 
-      credit, sex, city)
+      credit, sex, city, 
+      email, phone)
     values (#{id,jdbcType=BIGINT}, #{userid,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
       #{createtime,jdbcType=TIMESTAMP}, #{lasttime,jdbcType=TIMESTAMP}, #{status,jdbcType=TINYINT}, 
       #{summary,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, 
-      #{credit,jdbcType=DECIMAL}, #{sex,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR})
+      #{credit,jdbcType=DECIMAL}, #{sex,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="top.arexstorm.sharing.bean.user.User">
     insert into s_user
@@ -156,6 +160,12 @@
       <if test="city != null">
         city,
       </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -193,6 +203,12 @@
       </if>
       <if test="city != null">
         #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -241,6 +257,12 @@
       <if test="record.city != null">
         city = #{record.city,jdbcType=VARCHAR},
       </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -259,7 +281,9 @@
       avatar = #{record.avatar,jdbcType=VARCHAR},
       credit = #{record.credit,jdbcType=DECIMAL},
       sex = #{record.sex,jdbcType=VARCHAR},
-      city = #{record.city,jdbcType=VARCHAR}
+      city = #{record.city,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -300,6 +324,12 @@
       <if test="city != null">
         city = #{city,jdbcType=VARCHAR},
       </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -315,7 +345,9 @@
       avatar = #{avatar,jdbcType=VARCHAR},
       credit = #{credit,jdbcType=DECIMAL},
       sex = #{sex,jdbcType=VARCHAR},
-      city = #{city,jdbcType=VARCHAR}
+      city = #{city,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

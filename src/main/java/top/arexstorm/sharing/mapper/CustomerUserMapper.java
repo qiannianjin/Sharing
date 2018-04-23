@@ -1,12 +1,9 @@
 package top.arexstorm.sharing.mapper;
 
 import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
+import java.util.Map;
 
 import top.arexstorm.sharing.bean.user.CustomerUser;
-import top.arexstorm.sharing.bean.user.User;
-import top.arexstorm.sharing.bean.user.UserQuery;
 
 public interface CustomerUserMapper {
 	
@@ -32,4 +29,11 @@ public interface CustomerUserMapper {
 	 * @return
 	 */
 	List<CustomerUser> findUserList(CustomerUser customerUser);
+
+	/**
+	 * 通过邮箱或者手机号来查找用户
+	 * @param paramMap
+	 * @return
+	 */
+	CustomerUser findUserByEmailOrPhone(Map<String, Object> paramMap);
 }
