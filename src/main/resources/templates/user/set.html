@@ -162,6 +162,14 @@
                 <a href="" class="acc-weibo" type="weibo_id"  onclick="layer.msg('正在绑定微博', {icon:16, shade: 0.1, time:0})" >立即绑定</a>
                 <span>，即可使用微博帐号登录Fly社区</span>
               </li>
+              <li class="fly-msg">
+                <i class="iconfont icon-email"></i>
+                <!-- <span>已成功绑定，您可以使用微博直接登录Fly社区，当然，您也可以</span>
+                <a href="javascript:;" class="acc-unbind" type="weibo_id">解除绑定</a> -->
+                
+                <a href="javascript:;" class="acc-email" type="email_id" id="email_id">立即绑定</a>
+                <span>，绑定邮箱即可完成找回密码等功能</span>
+              </li>
             </ul>
           </div>
         </div>
@@ -172,5 +180,6 @@
 </div>
 
 <div th:include="@{common/footer.html}"></div>
+<script type="text/javascript" th:src="@{/js/user/set.js}"></script>
 </body>
 </html>

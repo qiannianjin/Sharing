@@ -3,6 +3,8 @@ package top.arexstorm.sharing.service.email;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import org.springframework.stereotype.Service;
+
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
 import com.aliyuncs.dm.model.v20151123.SingleSendMailRequest;
@@ -11,18 +13,19 @@ import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
 
-public class DMUtils {
+@Service(value="emailService")
+public class EmailService {
 
-	 private static ResourceBundle bundle = ResourceBundle.getBundle("DM", Locale.CHINA);
+	 private static ResourceBundle bundle = ResourceBundle.getBundle("email", Locale.CHINA);
 	 private static final String accessKeyId = bundle.getString("accessKeyId");
 	 private static final String accessKeySecret = bundle.getString("accessKeySecret");
 	
 	
-	public static void main(String[] args) {
-		SingleSendMailResponse response = sendEmail("sandiegoe@126.com", "hi", "what is the matter?");
-		System.out.println(response.getEnvId());
-		System.out.println(response.getRequestId());
-	}
+//	public static void main(String[] args) {
+//		SingleSendMailResponse response = sendEmail("sandiegoe@126.com", "hi", "what is the matter?");
+//		System.out.println(response.getEnvId());
+//		System.out.println(response.getRequestId());
+//	}
 	
 	/**
 	 * 
@@ -31,7 +34,7 @@ public class DMUtils {
 	 * @param content  发送email的内容
 	 * @return
 	 */
-	private static SingleSendMailResponse sendEmail(String toAddress, String subject, String content) {
+	public static SingleSendMailResponse sendEmail(String toAddress, String subject, String content) {
 		SingleSendMailResponse response = null;
 		IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", accessKeyId, accessKeySecret);
 	        IAcsClient client = new DefaultAcsClient(profile);
