@@ -550,23 +550,10 @@ layui.define(['layer', 'laytpl', 'form', 'element', 'upload', 'util'], function(
 
   //表单提交
   form.on('submit(*)', function(data){
-//	  console.log(data.elem) //被执行事件的元素DOM对象，一般为button对象
-//	  console.log(data.form) //被执行提交的form对象，一般在存在form标签时才会返回
-//	  console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
-//	  return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
     var action = $(data.form).attr('action'), button = $(data.elem);
     fly.json(action, data.field, function(res){
       var end = function(){
         if(res.action){
-//          var test = window.location.pathname;
-//          if (res.action == '/' && window.location.pathname == '/user/login') {
-//        	  $.cookie("user1", res.data.userid, {expires:1, path:'/'})
-//          }
-        	
-        	 /*layer.msg(res.msg, {
-        	        time: 10000, //20s后自动关闭
-        	 });
-        	 sleep(1000);*/
           location.href = res.action;
         } else {
           fly.form[action||button.attr('key')](data.field, data.form);

@@ -36,4 +36,12 @@ public interface CustomerUserMapper {
 	 * @return
 	 */
 	CustomerUser findUserByEmailOrPhone(Map<String, Object> paramMap);
+
+	/**
+	 * 查询激活用户的邮箱
+	 * 关联查询用户绑定表，判断用户是否绑定邮箱
+	 * @param userid
+	 * @return
+	 */
+	String findEnabledUserEmail(String userid);
 }

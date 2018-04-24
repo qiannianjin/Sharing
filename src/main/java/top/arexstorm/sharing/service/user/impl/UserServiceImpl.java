@@ -99,4 +99,14 @@ public class UserServiceImpl implements UserService {
 		return customerUserMapper.findUserByEmailOrPhone(paramMap);
 	}
 
+	@Override
+	public int findUserEmailStatus(String userid) {
+		String email = customerUserMapper.findEnabledUserEmail(userid);
+		if (email != null) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
+
 }

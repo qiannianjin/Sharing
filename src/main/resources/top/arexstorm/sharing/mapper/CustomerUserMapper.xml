@@ -51,4 +51,14 @@
   		</if>
   	</where>
   </select>
+  
+  <select id="findEnabledUserEmail" parameterType="java.lang.String" resultType="java.lang.String">	
+  	select s_user.email from s_user, s_user_bind
+  	<where>
+  		and s_user.userid = s_user_bind.userid and s_user.email = s_user_bind.email and s_user_bind.type = 0
+  		<if test="value != null">
+  			and s_user.userid = #{value}
+  		</if>
+  	</where>
+  </select>
 </mapper>

@@ -61,4 +61,11 @@ public interface UserService {
 	 * @return
 	 */
 	public CustomerUser findUserByEmailOrPhone(String email, String phone);
+
+	/**
+	 * 查找用户邮箱的状态
+	 * @param string 
+	 * @return
+	 */
+	public int findUserEmailStatus(String string);
 }

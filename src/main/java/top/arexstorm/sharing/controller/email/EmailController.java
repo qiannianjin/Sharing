@@ -48,7 +48,7 @@ public class EmailController {
 					.replace("{userid}", customerUser.getUserid())
 					.replace("{code}", code)
 					.replace("{email}", customerUser.getEmail())
-					.replace("{type}", "1");
+					.replace("{type}", "0"); //邮箱类型
 			SingleSendMailResponse response = emailService.sendEmail(toAddress, subject, content);
 			
 			//插入邮箱验证记录，状态设置为待验证
@@ -59,7 +59,7 @@ public class EmailController {
 			verifyCode.setUserid(customerUser.getUserid());
 			verifyCode.setStatus(Short.parseShort("0"));
 			verifyCodeService.addVerifyCode(verifyCode);
-			return AppResponse.okData(null, 0, "已向您的邮箱发送验证邮件，请打开邮箱验证", "/user/set");
+			return AppResponse.okData(null, 0, "已向您的邮箱发送验证邮件，请打开邮箱验证", "/user/activate");
 		} else {
 			return AppResponse.okData(null, -1, "请登录", "/user/login");
 		}

@@ -1,6 +1,8 @@
 package top.arexstorm.sharing.controller.user;
 
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -284,5 +286,27 @@ public class UserController {
 		} else {
 			return AppResponse.okData(-1, "该登录名已被注册，请更换新的登陆名");
 		}
+	}
+	
+	@GetMapping(value="/activate")
+	public String activate() {
+		return "user/activate";
+	}
+	
+	@ResponseBody
+	@PostMapping(value="/checkUserEmail")
+	public AppResponse checkUserEmail(HttpSession session) {
+		
+		CustomerUser user = (CustomerUser) session.getAttribute("user");
+		if (user != null) {
+			Map<String, Object> param = new HashMap<String, Object>();
+			int status = userService.findUserEmailStatus(user.getUserid());
+			param.put("email", user.getEmail());
+			param.put("stats", status);
+			return AppResponse.okData(param, 0, "已激活", null);
+		} else {
+			return AppResponse.okData(null, -1, "请先登陆", "/user/login");
+		}
+		
 	}
 }
