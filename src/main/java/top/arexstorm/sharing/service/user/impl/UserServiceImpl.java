@@ -102,9 +102,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int findUserEmailStatus(String userid) {
 		String email = customerUserMapper.findEnabledUserEmail(userid);
-		if (email != null) {
+		if (email != null) { //已经绑定过了
 			return 1;
-		} else {
+		} else { //还没有绑定
 			return 0;
 		}
 	}
