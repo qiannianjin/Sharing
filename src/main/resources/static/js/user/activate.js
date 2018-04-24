@@ -11,7 +11,7 @@ layui.use('layer', function(){
 				if (data.status == 1) { //已经激活
 					$("#enable").show();
 					$("#disable").hide();
-				} else { //为激活
+				} else { //未激活
 					$("#enable").hide();
 					$("#disable").show();
 				}

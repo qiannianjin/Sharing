@@ -302,7 +302,7 @@ public class UserController {
 			Map<String, Object> param = new HashMap<String, Object>();
 			int status = userService.findUserEmailStatus(user.getUserid());
 			param.put("email", user.getEmail());
-			param.put("stats", status);
+			param.put("status", status);
 			return AppResponse.okData(param, 0, "已激活", null);
 		} else {
 			return AppResponse.okData(null, -1, "请先登陆", "/user/login");
