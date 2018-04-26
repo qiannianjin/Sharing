@@ -57,7 +57,7 @@ public class CommentsController {
                 comments.setOrerid(null);
                 comments.setCommentid(UUIDUtils.generateUUIDString());
                 commentsService.addComment(comments);
-                return AppResponse.okData(null, 0, "添加成功", "/");
+                return AppResponse.okData(null, 0, "添加成功", "/jie/detail?informationid=" + comments.getInformationid());
             }
 
         }
