@@ -2,7 +2,9 @@ package top.arexstorm.sharing.utils;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
+import java.util.Properties;
 
 import org.apache.commons.io.FilenameUtils;
 import org.csource.common.MyException;
@@ -27,18 +29,23 @@ public class FastDFSUtils {
 	 */
 	public static String savePic(byte[] file_buff, String file_ext_name, MultipartFile pic) {
 
-		ClassPathResource resource = new ClassPathResource("fdfs_client.conf");
-		String path = resource.getClassLoader().getResource("fdfs_client.conf").getPath();
-		System.out.println(path);
+		ClassPathResource resource = new ClassPathResource("fdfs_client.properties");
+//		String path = resource.getClassLoader().getResource("fdfs_client.conf").getPath();
+//		System.out.println(path);
+//
+//		System.out.println(FastDFSUtils.class.getResource("").getPath());
+//		try {
+//			System.out.println(FastDFSUtils.class.getResource("/").toURI().getPath());
+//		} catch (URISyntaxException e) {
+//			e.printStackTrace();
+//		}
 
-		System.out.println(FastDFSUtils.class.getResource("").getPath());
 		try {
-			System.out.println(FastDFSUtils.class.getResource("/").toURI().getPath());
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
-		try {
-			ClientGlobal.init(path);
+			InputStream in = resource.getClassLoader().getResourceAsStream("fdfs_client.properties");
+			Properties prop = new Properties();
+			prop.load(in);
+//			ClientGlobal.init(path);
+			ClientGlobal.initByProperties(prop);
 			TrackerClient trackerClient = new TrackerClient();
 			TrackerServer trackerServer = trackerClient.getConnection();
 			
