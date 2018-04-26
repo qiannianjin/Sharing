@@ -20,6 +20,8 @@ public class Comments implements Serializable {
 
     private Date createtime;
 
+    private String commentid;
+
     private static final long serialVersionUID = 1L;
 
     public Long getId() {
@@ -86,6 +88,14 @@ public class Comments implements Serializable {
         this.createtime = createtime;
     }
 
+    public String getCommentid() {
+        return commentid;
+    }
+
+    public void setCommentid(String commentid) {
+        this.commentid = commentid == null ? null : commentid.trim();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -100,6 +110,7 @@ public class Comments implements Serializable {
         sb.append(", pics=").append(pics);
         sb.append(", status=").append(status);
         sb.append(", createtime=").append(createtime);
+        sb.append(", commentid=").append(commentid);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
