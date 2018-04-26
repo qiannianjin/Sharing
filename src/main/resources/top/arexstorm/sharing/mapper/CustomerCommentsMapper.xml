@@ -13,30 +13,31 @@
   </resultMap>
 
   <sql id="Base_Column_List">
-    id, userid, orerid, informationid, content, pics, status, createtime, commentid
+    s_comments.id, s_comments.userid, s_comments.orerid, s_comments.informationid, s_comments.content, s_comments.pics, s_comments.status, s_comments.createtime, s_comments.commentid
   </sql>
 
   <select id="findCommentById" parameterType="java.lang.String" resultType="top.arexstorm.sharing.bean.info.CustomerComments">
-    select <include refid="Base_Column_List"/> from s_comments
+    select <include refid="Base_Column_List"/>, nickname, avatar from s_comments , s_user
     <where>
+      and s_user.userid = s_comments.userid and s_comments.status != 9
       <if test="value != null">
-        and commentid = #{commentid}
+        and s_comments.commentid = #{commentid}
       </if>
     </where>
   </select>
 
   <select id="findAllComments" parameterType="top.arexstorm.sharing.bean.info.CustomerComments" resultType="top.arexstorm.sharing.bean.info.CustomerComments">
-    select <include refid="Base_Column_List"/> from s_comments
+    select <include refid="Base_Column_List"/>, nickname, avatar from s_comments , s_user
     <where>
-      and status != 9
+      and s_user.userid = s_comments.userid and s_comments.status != 9
       <if test="status != null">
-        and status = #{status}
+        and s_comments.status = #{status}
       </if>
       <if test="userid != null">
-        and userid = #{userid}
+        and s_comments.userid = #{userid}
       </if>
       <if test="informationid != null">
-        and informationid = #{informationid}
+        and s_comments.informationid = #{informationid}
       </if>
     </where>
   </select>

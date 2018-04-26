@@ -111,7 +111,7 @@ public class InformationController {
 
 		CustomerUser customerUser = (CustomerUser) session.getAttribute("user");
 		CustomerInformation info = informationService.findInformationById(informationid);
-		CustomerUser user = userService.findUserById(info.getUserid());
+		CustomerUser user = userService.findUserById(info.getUserid()); //作者信息
 		if (customerUser!=null && customerUser.getUserid().equals(info.getUserid())) { //作者本身
 			model.addAttribute("info", info);
 			model.addAttribute("user", customerUser);
