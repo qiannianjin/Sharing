@@ -2,6 +2,7 @@ package top.arexstorm.sharing.utils;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import org.apache.commons.io.FilenameUtils;
 import org.csource.common.MyException;
@@ -28,6 +29,14 @@ public class FastDFSUtils {
 
 		ClassPathResource resource = new ClassPathResource("fdfs_client.conf");
 		String path = resource.getClassLoader().getResource("fdfs_client.conf").getPath();
+		System.out.println(path);
+
+		System.out.println(FastDFSUtils.class.getResource("").getPath());
+		try {
+			System.out.println(FastDFSUtils.class.getResource("/").toURI().getPath());
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
 		try {
 			ClientGlobal.init(path);
 			TrackerClient trackerClient = new TrackerClient();

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.arexstorm.sharing.mapper.CustomerCommentsMapper">
+  <resultMap id="BaseResultMap" type="top.arexstorm.sharing.bean.info.Comments">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="userid" jdbcType="VARCHAR" property="userid" />
+    <result column="orerid" jdbcType="VARCHAR" property="orerid" />
+    <result column="informationid" jdbcType="VARCHAR" property="informationid" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="pics" jdbcType="VARCHAR" property="pics" />
+    <result column="status" jdbcType="SMALLINT" property="status" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, userid, orerid, informationid, content, pics, status, createtime, commentid
+  </sql>
+
+  <select id="findCommentById" parameterType="java.lang.String" resultType="top.arexstorm.sharing.bean.info.CustomerComments">
+    select <include refid="Base_Column_List"/> from s_comments
+    <where>
+      <if test="value != null">
+        and commentid = #{commentid}
+      </if>
+    </where>
+  </select>
+
+  <select id="findAllComments" parameterType="top.arexstorm.sharing.bean.info.CustomerComments" resultType="top.arexstorm.sharing.bean.info.CustomerComments">
+    select <include refid="Base_Column_List"/> from s_comments
+    <where>
+      and status != 9
+      <if test="status != null">
+        and status = #{status}
+      </if>
+      <if test="userid != null">
+        and userid = #{userid}
+      </if>
+      <if test="informationid != null">
+        and informationid = #{informationid}
+      </if>
+    </where>
+  </select>
+</mapper>

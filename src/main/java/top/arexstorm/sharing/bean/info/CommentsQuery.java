@@ -634,6 +634,76 @@ public class CommentsQuery {
             addCriterion("createtime not between", value1, value2, "createtime");
             return (Criteria) this;
         }
+
+        public Criteria andCommentidIsNull() {
+            addCriterion("commentid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentidIsNotNull() {
+            addCriterion("commentid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentidEqualTo(String value) {
+            addCriterion("commentid =", value, "commentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentidNotEqualTo(String value) {
+            addCriterion("commentid <>", value, "commentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentidGreaterThan(String value) {
+            addCriterion("commentid >", value, "commentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentidGreaterThanOrEqualTo(String value) {
+            addCriterion("commentid >=", value, "commentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentidLessThan(String value) {
+            addCriterion("commentid <", value, "commentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentidLessThanOrEqualTo(String value) {
+            addCriterion("commentid <=", value, "commentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentidLike(String value) {
+            addCriterion("commentid like", value, "commentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentidNotLike(String value) {
+            addCriterion("commentid not like", value, "commentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentidIn(List<String> values) {
+            addCriterion("commentid in", values, "commentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentidNotIn(List<String> values) {
+            addCriterion("commentid not in", values, "commentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentidBetween(String value1, String value2) {
+            addCriterion("commentid between", value1, value2, "commentid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentidNotBetween(String value1, String value2) {
+            addCriterion("commentid not between", value1, value2, "commentid");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

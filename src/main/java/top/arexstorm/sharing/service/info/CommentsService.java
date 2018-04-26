@@ -13,15 +13,15 @@ public interface CommentsService {
 	 * @return
 	 */
 	public CustomerComments findCommentById(String commentid);
-	
+
 	/**
 	 * 根据条件查找一系列的评论
 	 * @param status
 	 * @param userid
-	 * @param informationtypeid
+	 * @param informationid
 	 * @return
 	 */
-	public List<CustomerComments> findAllComments(Short status, String userid, String informationtypeid);
+	public List<CustomerComments> findAllComments(Short status, String userid, String informationid);
 	
 	/**
 	 * 添加一条评论

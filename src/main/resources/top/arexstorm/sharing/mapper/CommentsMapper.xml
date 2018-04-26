@@ -10,6 +10,7 @@
     <result column="pics" jdbcType="VARCHAR" property="pics" />
     <result column="status" jdbcType="SMALLINT" property="status" />
     <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="commentid" jdbcType="VARCHAR" property="commentid" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -70,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, userid, orerid, informationid, content, pics, status, createtime
+    id, userid, orerid, informationid, content, pics, status, createtime, commentid
   </sql>
   <select id="selectByExample" parameterType="top.arexstorm.sharing.bean.info.CommentsQuery" resultMap="BaseResultMap">
     select
@@ -105,10 +106,12 @@
   <insert id="insert" parameterType="top.arexstorm.sharing.bean.info.Comments">
     insert into s_comments (id, userid, orerid, 
       informationid, content, pics, 
-      status, createtime)
+      status, createtime, commentid
+      )
     values (#{id,jdbcType=BIGINT}, #{userid,jdbcType=VARCHAR}, #{orerid,jdbcType=VARCHAR}, 
       #{informationid,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{pics,jdbcType=VARCHAR}, 
-      #{status,jdbcType=SMALLINT}, #{createtime,jdbcType=TIMESTAMP})
+      #{status,jdbcType=SMALLINT}, #{createtime,jdbcType=TIMESTAMP}, #{commentid,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="top.arexstorm.sharing.bean.info.Comments">
     insert into s_comments
@@ -137,6 +140,9 @@
       <if test="createtime != null">
         createtime,
       </if>
+      <if test="commentid != null">
+        commentid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -162,6 +168,9 @@
       </if>
       <if test="createtime != null">
         #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="commentid != null">
+        #{commentid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -198,6 +207,9 @@
       <if test="record.createtime != null">
         createtime = #{record.createtime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.commentid != null">
+        commentid = #{record.commentid,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -212,7 +224,8 @@
       content = #{record.content,jdbcType=VARCHAR},
       pics = #{record.pics,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=SMALLINT},
-      createtime = #{record.createtime,jdbcType=TIMESTAMP}
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      commentid = #{record.commentid,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -241,6 +254,9 @@
       <if test="createtime != null">
         createtime = #{createtime,jdbcType=TIMESTAMP},
       </if>
+      <if test="commentid != null">
+        commentid = #{commentid,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -252,7 +268,8 @@
       content = #{content,jdbcType=VARCHAR},
       pics = #{pics,jdbcType=VARCHAR},
       status = #{status,jdbcType=SMALLINT},
-      createtime = #{createtime,jdbcType=TIMESTAMP}
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      commentid = #{commentid,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>
