@@ -40,5 +40,6 @@
         and s_comments.informationid = #{informationid}
       </if>
     </where>
+    order by s_comments.createtime desc
   </select>
 </mapper>

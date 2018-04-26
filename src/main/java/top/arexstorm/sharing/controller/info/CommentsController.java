@@ -46,9 +46,9 @@ public class CommentsController {
                 CustomerComments customerComments = commentsService.findCommentById(comments.getCommentid());
                 if (customerComments != null) {
                     commentsService.updateComment(comments, comments.getCommentid());
-                    return AppResponse.okData(null, 0, "更新成功", "/");
+                    return AppResponse.okData(null, 0, "更新成功", "/jie/detail?informationid=" + comments.getInformationid());
                 } else {
-                    return AppResponse.okData(-1, "更新的信息不存在");
+                    return AppResponse.okData(null, "更新的信息不存在", "/jie/detail?informationid=" + comments.getInformationid());
                 }
             } else { // 添加
                 comments.setStatus(Short.parseShort("1"));
@@ -71,6 +71,10 @@ public class CommentsController {
     public AppResponse changeCommentsStatus(String commentid, Short status) {
         commentsService.updateCommentStatus(status, commentid);
 
-        return AppResponse.okData(0, "修改成功!");
+        String msg = "修改成功！";
+        if (status == 9) {
+            msg = "删除成功！";
+        }
+        return AppResponse.okData(0, msg);
     }
 }
