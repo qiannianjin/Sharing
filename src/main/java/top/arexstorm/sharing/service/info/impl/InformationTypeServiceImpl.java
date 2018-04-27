@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import top.arexstorm.sharing.annotation.TargetDataSource;
 import top.arexstorm.sharing.bean.info.CustomerInformation;
 import top.arexstorm.sharing.bean.info.CustomerInformationType;
 import top.arexstorm.sharing.bean.info.InformationType;
@@ -23,7 +24,8 @@ public class InformationTypeServiceImpl implements InformationTypeService {
 	private InformationTypeMapper informationTypeMapper;
 	@Autowired
 	private CustomerInformationTypeMapper customerInformationTypeMapper;
-	
+
+	@TargetDataSource("slave")
 	@Override
 	public CustomerInformationType findInformationTypeById(String informationTypeId) {
 		CustomerInformationType customerInformationType = null;
@@ -36,6 +38,7 @@ public class InformationTypeServiceImpl implements InformationTypeService {
 	/**
 	 * 该方法还可以扩展 参数
 	 */
+	@TargetDataSource("slave")
 	@Override
 	public List<CustomerInformationType> findAllInformaionType(Integer status) {
 		
@@ -54,6 +57,7 @@ public class InformationTypeServiceImpl implements InformationTypeService {
 		informationTypeMapper.insertSelective(informationType);
 	}
 
+	@TargetDataSource("slave")
 	@Override
 //	TODO
 	public List<CustomerInformation> findAllInfomationByInformationTypeId(String informationTypeId) {

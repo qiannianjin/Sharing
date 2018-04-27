@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import top.arexstorm.sharing.annotation.TargetDataSource;
 import top.arexstorm.sharing.bean.info.Comments;
 import top.arexstorm.sharing.bean.info.CustomerComments;
 import top.arexstorm.sharing.mapper.CommentsMapper;
@@ -21,7 +22,8 @@ public class CustomerCommentsServiceImpl implements CommentsService {
 	private CommentsMapper commentsMapper;
 	@Autowired
 	private CustomerCommentsMapper customerCommentsMapper;
-	
+
+	@TargetDataSource("slave")
 	@Override
 	public CustomerComments findCommentById(String commentid) {
 		CustomerComments customerComments = null;
@@ -32,6 +34,7 @@ public class CustomerCommentsServiceImpl implements CommentsService {
 		return customerComments;
 	}
 
+	@TargetDataSource("slave")
 	@Override
 	public List<CustomerComments> findAllComments(Short status, String userid, String informationid) {
 		CustomerComments customerComments = new CustomerComments();

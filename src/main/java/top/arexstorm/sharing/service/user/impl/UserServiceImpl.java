@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import top.arexstorm.sharing.annotation.TargetDataSource;
 import top.arexstorm.sharing.bean.user.CustomerUser;
 import top.arexstorm.sharing.mapper.CustomerUserMapper;
 import top.arexstorm.sharing.mapper.UserMapper;
@@ -22,7 +23,8 @@ public class UserServiceImpl implements UserService {
 	private UserMapper userMapper;
 	@Autowired
 	private CustomerUserMapper customerUserMapper;
-	
+
+    @TargetDataSource("slave")
 	@Override
 	public CustomerUser findUserById(String userId) throws Exception {
 		
@@ -40,6 +42,7 @@ public class UserServiceImpl implements UserService {
 		userMapper.insertSelective(customerUser);
 	}
 
+
 	@Override
 	public void updateUser(String userId, CustomerUser customerUser) throws Exception {
 		
@@ -49,6 +52,7 @@ public class UserServiceImpl implements UserService {
 			userMapper.updateByPrimaryKeySelective(customerUser);
 		}
 	}
+
 
 	@Override
 	public void updateUserStatus(String userId, Integer status) throws Exception {
@@ -72,6 +76,7 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
+    @TargetDataSource("slave")
 	@Override
 	public List<CustomerUser> findUserList(Integer status) throws Exception {
 		
@@ -85,6 +90,7 @@ public class UserServiceImpl implements UserService {
 		return customerUserList;
 	}
 
+	@TargetDataSource("slave")
 	@Override
 	public CustomerUser findUserByEmailOrPhone(String email, String phone) {
 		
@@ -99,6 +105,7 @@ public class UserServiceImpl implements UserService {
 		return customerUserMapper.findUserByEmailOrPhone(paramMap);
 	}
 
+    @TargetDataSource("slave")
 	@Override
 	public int findUserEmailStatus(String userid) {
 		String email = customerUserMapper.findEnabledUserEmail(userid);

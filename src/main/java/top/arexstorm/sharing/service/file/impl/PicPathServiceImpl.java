@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import top.arexstorm.sharing.annotation.TargetDataSource;
 import top.arexstorm.sharing.bean.file.CustomerPicPath;
 import top.arexstorm.sharing.bean.file.PicPath;
 import top.arexstorm.sharing.mapper.CustomerPicPathMapper;
@@ -21,13 +22,15 @@ public class PicPathServiceImpl implements PicPathService {
 	private PicPathMapper picPathMapper;
 	@Autowired
 	private CustomerPicPathMapper customerPicPathMapper;
-	
+
+	@TargetDataSource("slave")
 	@Override
 	public CustomerPicPath findPicPathById(String picpathid) {
 		CustomerPicPath customerPicPath = customerPicPathMapper.findPicPathById(picpathid);
 		return customerPicPath;
 	}
 
+	@TargetDataSource("slave")
 	@Override
 	public List<CustomerPicPath> findAllPicPath(Integer status, String type) {
 		CustomerPicPath customerPicPath = new CustomerPicPath();

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import top.arexstorm.sharing.annotation.TargetDataSource;
 import top.arexstorm.sharing.bean.info.CustomerInformation;
 import top.arexstorm.sharing.bean.info.CustomerInformationType;
 import top.arexstorm.sharing.bean.info.Information;
@@ -27,7 +28,8 @@ public class InformationServiceImpl implements InformationService {
 	private InformationMapper informationMapper;
 	@Autowired
 	private CustomerInformationMapper customerInformationMapper;
-	
+
+	@TargetDataSource("slave")
 	@Override
 	public CustomerInformation findInformationById(String informationid) {
 		CustomerInformation customerInformation = null;
@@ -37,6 +39,7 @@ public class InformationServiceImpl implements InformationService {
 		return customerInformation;
 	}
 
+	@TargetDataSource("slave")
 	@Override
 	public List<CustomerInformation> findAllInformation(Short status, Short important, String userid, String informationtypeid) {
 		
@@ -59,6 +62,7 @@ public class InformationServiceImpl implements InformationService {
 		return list;
 	}
 
+	@TargetDataSource("slave")
 	@Override
 	public CustomerInformationType findInformationTypeByInformationId(String informationid) {
 		CustomerInformationType find = null;
@@ -66,7 +70,8 @@ public class InformationServiceImpl implements InformationService {
 			find = customerInformationMapper.findInformationTypeByInformationId(informationid);
 		}
 		
-		return find;	}
+		return find;
+	}
 
 	@Override
 	public void addInformation(Information information) {
@@ -104,6 +109,7 @@ public class InformationServiceImpl implements InformationService {
 		}
 	}
 
+	@TargetDataSource("slave")
 	@Override
 	public List<CustomerInformation> findAllBuyInformation(String buyerid, Short status) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();

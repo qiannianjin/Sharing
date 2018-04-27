@@ -7,6 +7,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import top.arexstorm.sharing.annotation.TargetDataSource;
 import top.arexstorm.sharing.bean.notify.VerifyCode;
 import top.arexstorm.sharing.mapper.CustomerVerifyCodeMapper;
 import top.arexstorm.sharing.mapper.VerifyCodeMapper;
@@ -20,6 +21,7 @@ public class VerifyCodeServiceImpl implements VerifyCodeService {
 	@Autowired
 	private VerifyCodeMapper verifyCodeMapper;
 
+	@TargetDataSource("slave")
 	@Override
 	public VerifyCode findVerifyCodeByUserid(String userid, Short type) {
 
@@ -33,6 +35,7 @@ public class VerifyCodeServiceImpl implements VerifyCodeService {
 
 		return customerVerifyCodeMapper.findVerifyCodeByUserid(paramMap);
 	}
+
 
 	@Override
 	public void addVerifyCode(VerifyCode verifyCode) {

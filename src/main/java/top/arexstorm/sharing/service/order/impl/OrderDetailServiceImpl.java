@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import top.arexstorm.sharing.annotation.TargetDataSource;
 import top.arexstorm.sharing.bean.order.CustomerOrderDetail;
 import top.arexstorm.sharing.bean.order.OrderDetail;
 import top.arexstorm.sharing.mapper.CustomerOrderDetailMapper;
@@ -21,12 +22,14 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	private OrderDetailMapper orderdetailMapper;
 	@Autowired
 	private CustomerOrderDetailMapper customerOrderDetailMapper;
-	
+
+	@TargetDataSource("slave")
 	@Override
 	public CustomerOrderDetail findOrderDetailById(String orderdetailid) {
 		return customerOrderDetailMapper.findOrderDetailById(orderdetailid);
 	}
 
+	@TargetDataSource("slave")
 	@Override
 	public List<CustomerOrderDetail> findAllOrderDetail(Short status, String orderid) {
 		CustomerOrderDetail orderDetail = new CustomerOrderDetail();
