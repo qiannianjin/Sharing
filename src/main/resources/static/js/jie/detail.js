@@ -31,7 +31,7 @@
         var userCookie = $.cookie("user");
         if (!userCookie) { //没有登陆
             $("#LAY_jieAdmin span.layui-btn").hide();
-            return;
+           //return;
         }
 
         //加载评论
@@ -83,7 +83,6 @@
 
 					var input_comments_id = $('<input />').attr("type", "hidden")
 						.attr("name", "commentid").attr("value", comments_id);
-					alert(input_comments_id.val());
 					$("#informationid").before(input_comments_id);
                 });
                 $('li[id^=li_] .del').click(function(){ //删除
