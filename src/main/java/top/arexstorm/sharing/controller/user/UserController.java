@@ -8,6 +8,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +25,7 @@ import top.arexstorm.sharing.service.user.UserService;
 import top.arexstorm.sharing.utils.AppResponse;
 import top.arexstorm.sharing.utils.JSONUtils;
 
+@Slf4j
 @Controller
 @RequestMapping(value="/user")
 public class UserController {
@@ -33,19 +35,21 @@ public class UserController {
 	
 	@GetMapping(value="helloworld/{username}")
 	public String helloWorld(@PathVariable("username") String username) {
+		log.debug("测试日志数出 {}", "2018-04-27");
 		return "Hello world " + username;
 	}
-	
+
 	/**
 	 * 个人中心
 	 * @param userId
-	 * @param map
+	 * @param session
+	 * @param model
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping(value="findUser/{userId}")
 	public String findtUser(@PathVariable(value="userId") String userId, HttpSession session, Model model) throws Exception {
-		
+		log.error("测试日志数出 {}", "2018-04-27");
 		String sessionid = session.getId();
 		model.addAttribute("sessionid", sessionid);
 		CustomerUser customerUser = userService.findUserById(userId);
@@ -70,10 +74,10 @@ public class UserController {
 	public String regUI() {
 		return "user/reg";
 	}
-	
+
 	/**
 	 * 用户登录
-	 * @param userid
+	 * @param loginName
 	 * @param password
 	 * @param model
 	 * @param session
