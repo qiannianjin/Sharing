@@ -24,6 +24,7 @@ import top.arexstorm.sharing.bean.user.CustomerUser;
 import top.arexstorm.sharing.service.user.UserService;
 import top.arexstorm.sharing.utils.AppResponse;
 import top.arexstorm.sharing.utils.JSONUtils;
+import top.arexstorm.sharing.utils.PasswordUtils;
 
 @Slf4j
 @Controller
@@ -100,8 +101,10 @@ public class UserController {
 			
 			return AppResponse.okData(-1, "请输入正确的登陆名");
 		} else {
-			if (findUser.getPassword().equals(password)) {
+			String encryptPass = PasswordUtils.getEncodedPassword(password);
+			if (findUser.getPassword().equals(encryptPass)) {
 				//添加session
+				findUser.setPassword(null);
 				session.setAttribute("user", findUser);
 				
 				Cookie cookie = new Cookie("user", URLEncoder.encode(JSONUtils.toJSON(findUser), "utf-8"));
@@ -157,6 +160,7 @@ public class UserController {
 					findUser = userService.findUserByEmailOrPhone(null, customerUser.getLoginName());
 				}
 				if (findUser == null) {
+					customerUser.setPassword(PasswordUtils.getEncodedPassword(customerUser.getPassword()));
 					userService.addUser(customerUser);
 					return AppResponse.okData(null, 0, "注册成功", "/user/login");
 				} else {
@@ -256,13 +260,14 @@ public class UserController {
 	
 	@PostMapping(value="/repass")
 	@ResponseBody
-	public AppResponse repass(HttpSession session, @RequestParam(required=true) String nowpass, @RequestParam(required=true) String pass, 
+	public AppResponse repass(HttpSession session, @RequestParam(required=true) String nowpass, @RequestParam(required=true) String pass,
 			@RequestParam(required=true) String repass) throws Exception {
 		if (pass.equals(repass)) {
 			CustomerUser user = (CustomerUser) session.getAttribute("user");
 			if (user != null) {
-				if (user.getPassword().equals(nowpass)) {
-					user.setPassword(pass);
+				String encryptPass = PasswordUtils.getEncodedPassword(nowpass);
+				if (user.getPassword().equals(encryptPass)) {
+					user.setPassword(encryptPass);
 					userService.updateUser(user.getUserid(), user);
 					return AppResponse.okData(null, 0, "修改成功", "/user/login");
 				} else {
