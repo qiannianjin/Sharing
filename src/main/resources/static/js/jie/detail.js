@@ -29,8 +29,9 @@
 
         //控制编译此信息按钮
         var userCookie = $.cookie("user");
-        if (!userCookie) { //没有登陆
-            $("#LAY_jieAdmin span.layui-btn").hide();
+        if (userCookie && JSON.parse(decodeURIComponent(userCookie)).userid == $("#userid").val()) { //登陆 并且是作者 才显示编辑信息
+            $("#LAY_jieAdmin span.layui-btn a").attr("href", "/jie/add?informationid=" + $("#informationid").val());
+            $("#LAY_jieAdmin span.layui-btn").show();
            //return;
         }
 
