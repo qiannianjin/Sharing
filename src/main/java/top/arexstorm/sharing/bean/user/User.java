@@ -9,13 +9,17 @@ public class User implements Serializable {
 
     private String userid;
 
+    private String phone;
+
+    private String email;
+
     private String nickname;
 
     private Date createtime;
 
     private Date lasttime;
 
-    private Byte status;
+    private Short status;
 
     private String summary;
 
@@ -29,9 +33,9 @@ public class User implements Serializable {
 
     private String city;
 
-    private String email;
+    private String roleid;
 
-    private String phone;
+    private String token;
 
     private static final long serialVersionUID = 1L;
 
@@ -49,6 +53,22 @@ public class User implements Serializable {
 
     public void setUserid(String userid) {
         this.userid = userid == null ? null : userid.trim();
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone == null ? null : phone.trim();
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
     }
 
     public String getNickname() {
@@ -75,11 +95,11 @@ public class User implements Serializable {
         this.lasttime = lasttime;
     }
 
-    public Byte getStatus() {
+    public Short getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(Short status) {
         this.status = status;
     }
 
@@ -131,20 +151,20 @@ public class User implements Serializable {
         this.city = city == null ? null : city.trim();
     }
 
-    public String getEmail() {
-        return email;
+    public String getRoleid() {
+        return roleid;
     }
 
-    public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
+    public void setRoleid(String roleid) {
+        this.roleid = roleid == null ? null : roleid.trim();
     }
 
-    public String getPhone() {
-        return phone;
+    public String getToken() {
+        return token;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone == null ? null : phone.trim();
+    public void setToken(String token) {
+        this.token = token == null ? null : token.trim();
     }
 
     @Override
@@ -155,6 +175,8 @@ public class User implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", userid=").append(userid);
+        sb.append(", phone=").append(phone);
+        sb.append(", email=").append(email);
         sb.append(", nickname=").append(nickname);
         sb.append(", createtime=").append(createtime);
         sb.append(", lasttime=").append(lasttime);
@@ -165,8 +187,8 @@ public class User implements Serializable {
         sb.append(", credit=").append(credit);
         sb.append(", sex=").append(sex);
         sb.append(", city=").append(city);
-        sb.append(", email=").append(email);
-        sb.append(", phone=").append(phone);
+        sb.append(", roleid=").append(roleid);
+        sb.append(", token=").append(token);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

@@ -3,7 +3,9 @@ package top.arexstorm.sharing.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import top.arexstorm.sharing.bean.user.CustomerUser;
+import top.arexstorm.sharing.bean.user.User;
 
 public interface CustomerUserMapper {
 	
@@ -44,4 +46,20 @@ public interface CustomerUserMapper {
 	 * @return
 	 */
 	String findEnabledUserEmail(String userid);
+
+	/**
+	 * 根据状态 和指定关键字 和 值 来选择
+	 * @param status
+	 * @param searchKey
+	 * @param searchValue
+	 * @return
+	 */
+	public List<User> selectUsers(@Param("status") Short status, @Param("searchKey") String searchKey, @Param("searchValue") String searchValue);
+
+	/**
+	 * 根据用户账户 也就是邮箱来查询
+	 * @param userAccount
+	 * @return
+	 */
+	public User selectUserByAccount(String userAccount);
 }

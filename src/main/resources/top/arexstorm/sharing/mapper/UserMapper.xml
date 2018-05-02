@@ -4,18 +4,20 @@
   <resultMap id="BaseResultMap" type="top.arexstorm.sharing.bean.user.User">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="userid" jdbcType="VARCHAR" property="userid" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="nickname" jdbcType="VARCHAR" property="nickname" />
     <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
     <result column="lasttime" jdbcType="TIMESTAMP" property="lasttime" />
-    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="status" jdbcType="SMALLINT" property="status" />
     <result column="summary" jdbcType="VARCHAR" property="summary" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="avatar" jdbcType="VARCHAR" property="avatar" />
     <result column="credit" jdbcType="DECIMAL" property="credit" />
     <result column="sex" jdbcType="VARCHAR" property="sex" />
     <result column="city" jdbcType="VARCHAR" property="city" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="roleid" jdbcType="VARCHAR" property="roleid" />
+    <result column="token" jdbcType="VARCHAR" property="token" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -76,8 +78,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, userid, nickname, createtime, lasttime, status, summary, password, avatar, credit, 
-    sex, city, email, phone
+    id, userid, phone, email, nickname, createtime, lasttime, status, summary, password, 
+    avatar, credit, sex, city, roleid, token
   </sql>
   <select id="selectByExample" parameterType="top.arexstorm.sharing.bean.user.UserQuery" resultMap="BaseResultMap">
     select
@@ -110,16 +112,18 @@
     </if>
   </delete>
   <insert id="insert" parameterType="top.arexstorm.sharing.bean.user.User">
-    insert into s_user (id, userid, nickname, 
-      createtime, lasttime, status, 
-      summary, password, avatar, 
-      credit, sex, city, 
-      email, phone)
-    values (#{id,jdbcType=BIGINT}, #{userid,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
-      #{createtime,jdbcType=TIMESTAMP}, #{lasttime,jdbcType=TIMESTAMP}, #{status,jdbcType=TINYINT}, 
-      #{summary,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, 
-      #{credit,jdbcType=DECIMAL}, #{sex,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
-      #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR})
+    insert into s_user (id, userid, phone, 
+      email, nickname, createtime, 
+      lasttime, status, summary, 
+      password, avatar, credit, 
+      sex, city, roleid, 
+      token)
+    values (#{id,jdbcType=BIGINT}, #{userid,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{lasttime,jdbcType=TIMESTAMP}, #{status,jdbcType=SMALLINT}, #{summary,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, #{credit,jdbcType=DECIMAL}, 
+      #{sex,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{roleid,jdbcType=VARCHAR}, 
+      #{token,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="top.arexstorm.sharing.bean.user.User">
     insert into s_user
@@ -129,6 +133,12 @@
       </if>
       <if test="userid != null">
         userid,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="email != null">
+        email,
       </if>
       <if test="nickname != null">
         nickname,
@@ -160,11 +170,11 @@
       <if test="city != null">
         city,
       </if>
-      <if test="email != null">
-        email,
+      <if test="roleid != null">
+        roleid,
       </if>
-      <if test="phone != null">
-        phone,
+      <if test="token != null">
+        token,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -173,6 +183,12 @@
       </if>
       <if test="userid != null">
         #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
       </if>
       <if test="nickname != null">
         #{nickname,jdbcType=VARCHAR},
@@ -184,7 +200,7 @@
         #{lasttime,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null">
-        #{status,jdbcType=TINYINT},
+        #{status,jdbcType=SMALLINT},
       </if>
       <if test="summary != null">
         #{summary,jdbcType=VARCHAR},
@@ -204,11 +220,11 @@
       <if test="city != null">
         #{city,jdbcType=VARCHAR},
       </if>
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
+      <if test="roleid != null">
+        #{roleid,jdbcType=VARCHAR},
       </if>
-      <if test="phone != null">
-        #{phone,jdbcType=VARCHAR},
+      <if test="token != null">
+        #{token,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -227,6 +243,12 @@
       <if test="record.userid != null">
         userid = #{record.userid,jdbcType=VARCHAR},
       </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
       <if test="record.nickname != null">
         nickname = #{record.nickname,jdbcType=VARCHAR},
       </if>
@@ -237,7 +259,7 @@
         lasttime = #{record.lasttime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.status != null">
-        status = #{record.status,jdbcType=TINYINT},
+        status = #{record.status,jdbcType=SMALLINT},
       </if>
       <if test="record.summary != null">
         summary = #{record.summary,jdbcType=VARCHAR},
@@ -257,11 +279,11 @@
       <if test="record.city != null">
         city = #{record.city,jdbcType=VARCHAR},
       </if>
-      <if test="record.email != null">
-        email = #{record.email,jdbcType=VARCHAR},
+      <if test="record.roleid != null">
+        roleid = #{record.roleid,jdbcType=VARCHAR},
       </if>
-      <if test="record.phone != null">
-        phone = #{record.phone,jdbcType=VARCHAR},
+      <if test="record.token != null">
+        token = #{record.token,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -272,18 +294,20 @@
     update s_user
     set id = #{record.id,jdbcType=BIGINT},
       userid = #{record.userid,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
       nickname = #{record.nickname,jdbcType=VARCHAR},
       createtime = #{record.createtime,jdbcType=TIMESTAMP},
       lasttime = #{record.lasttime,jdbcType=TIMESTAMP},
-      status = #{record.status,jdbcType=TINYINT},
+      status = #{record.status,jdbcType=SMALLINT},
       summary = #{record.summary,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
       avatar = #{record.avatar,jdbcType=VARCHAR},
       credit = #{record.credit,jdbcType=DECIMAL},
       sex = #{record.sex,jdbcType=VARCHAR},
       city = #{record.city,jdbcType=VARCHAR},
-      email = #{record.email,jdbcType=VARCHAR},
-      phone = #{record.phone,jdbcType=VARCHAR}
+      roleid = #{record.roleid,jdbcType=VARCHAR},
+      token = #{record.token,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -293,6 +317,12 @@
     <set>
       <if test="userid != null">
         userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
       </if>
       <if test="nickname != null">
         nickname = #{nickname,jdbcType=VARCHAR},
@@ -304,7 +334,7 @@
         lasttime = #{lasttime,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null">
-        status = #{status,jdbcType=TINYINT},
+        status = #{status,jdbcType=SMALLINT},
       </if>
       <if test="summary != null">
         summary = #{summary,jdbcType=VARCHAR},
@@ -324,11 +354,11 @@
       <if test="city != null">
         city = #{city,jdbcType=VARCHAR},
       </if>
-      <if test="email != null">
-        email = #{email,jdbcType=VARCHAR},
+      <if test="roleid != null">
+        roleid = #{roleid,jdbcType=VARCHAR},
       </if>
-      <if test="phone != null">
-        phone = #{phone,jdbcType=VARCHAR},
+      <if test="token != null">
+        token = #{token,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -336,18 +366,20 @@
   <update id="updateByPrimaryKey" parameterType="top.arexstorm.sharing.bean.user.User">
     update s_user
     set userid = #{userid,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
       nickname = #{nickname,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=TIMESTAMP},
       lasttime = #{lasttime,jdbcType=TIMESTAMP},
-      status = #{status,jdbcType=TINYINT},
+      status = #{status,jdbcType=SMALLINT},
       summary = #{summary,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       avatar = #{avatar,jdbcType=VARCHAR},
       credit = #{credit,jdbcType=DECIMAL},
       sex = #{sex,jdbcType=VARCHAR},
       city = #{city,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR}
+      roleid = #{roleid,jdbcType=VARCHAR},
+      token = #{token,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

@@ -55,12 +55,12 @@ public class UserServiceImpl implements UserService {
 
 
 	@Override
-	public void updateUserStatus(String userId, Integer status) throws Exception {
+	public void updateUserStatus(String userId, Short status) throws Exception {
 		
 		if (userId!=null && status!=null) {
 			CustomerUser customerUser = new CustomerUser();
 			customerUser.setUserid(userId);
-			customerUser.setStatus(Byte.parseByte(status.toString()));
+			customerUser.setStatus(status);
 			customerUserMapper.updateUserStatus(customerUser);			
 		}
 	}
@@ -78,11 +78,11 @@ public class UserServiceImpl implements UserService {
 
     @TargetDataSource("slave")
 	@Override
-	public List<CustomerUser> findUserList(Integer status) throws Exception {
+	public List<CustomerUser> findUserList(Short status) throws Exception {
 		
 		CustomerUser customerUser = new CustomerUser();
 		if (status != null) {
-			customerUser.setStatus(Byte.parseByte(status.toString()));
+			customerUser.setStatus(status);
 		}
 		
 		List<CustomerUser> customerUserList = customerUserMapper.findUserList(customerUser);

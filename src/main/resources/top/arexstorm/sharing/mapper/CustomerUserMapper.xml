@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.arexstorm.sharing.mapper.CustomerUserMapper">
-   <sql id="Base_Column_List">
-    id, userid, nickname, createtime, lasttime, status, summary, password, avatar, credit, 
-    sex, city, email, phone
+	<sql id="Base_Column_List">
+    id, userid, phone, email, nickname, createtime, lasttime, status, summary, password,
+    avatar, credit, sex, city, roleid, token
   </sql>
   <select id="findUserList" parameterType="top.arexstorm.sharing.bean.user.CustomerUser" resultType="top.arexstorm.sharing.bean.user.CustomerUser">
   	select 
@@ -61,4 +61,16 @@
   		</if>
   	</where>
   </select>
+
+	<select id="selectUserByAccount" parameterType="java.lang.String" resultType="top.arexstorm.sharing.bean.user.CustomerUser">
+		SELECT a.*,b.role_name as rolename FROM s_user a LEFT JOIN sys_role b ON a.roleid=b.role_id WHERE a.email=#{value}
+	</select>
+
+	<!-- 查询所有的user -->
+	<select id="selectUsers" resultType="top.arexstorm.sharing.bean.user.CustomerUser">
+		SELECT a.*,b.role_name as rolename FROM s_user a,sys_role b WHERE a.roleid = b.role_id
+		<if test="status!=null">AND a.status=#{status} </if>
+		<if test="searchKey!=null and searchKey!='' and searchValue!=null and searchValue!=''">AND a.${searchKey} like '%${searchValue}%' </if>
+		ORDER BY a.createtime ASC
+	</select>
 </mapper>

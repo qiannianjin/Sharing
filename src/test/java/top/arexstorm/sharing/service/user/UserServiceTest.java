@@ -43,7 +43,7 @@ public class UserServiceTest {
 	@Test
 	public void testUpdateUserStatus() throws Exception {
 		String userId = "谢波";
-		Integer status = 1;
+		Short status = 1;
 		userService.updateUserStatus(userId, status);
 	}
 
@@ -56,7 +56,7 @@ public class UserServiceTest {
 	@Test
 	public void testFindUserList() throws Exception {
 //		Integer status = null;
-		Integer status = 1;
+		Short status = 1;
 		List<CustomerUser> findUserList = userService.findUserList(status);
 		for (CustomerUser customerUser : findUserList) {
 			System.err.println(customerUser);

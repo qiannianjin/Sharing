@@ -19,7 +19,7 @@ public interface UserService {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<CustomerUser> findUserList(Integer status) throws Exception;
+	public List<CustomerUser> findUserList(Short status) throws Exception;
 	
 	/**
 	 * 根据user的扩展对象来 添加一个用户
@@ -44,7 +44,7 @@ public interface UserService {
 	 * @param usreId
 	 * @throws Exception
 	 */
-	public void updateUserStatus(String usreId, Integer status) throws Exception;
+	public void updateUserStatus(String usreId, Short status) throws Exception;
 	
 	/**
 	 * 真正删除指定的用户
@@ -64,8 +64,8 @@ public interface UserService {
 
 	/**
 	 * 查找用户邮箱的状态
-	 * @param string 
+	 * @param userid
 	 * @return
 	 */
-	public int findUserEmailStatus(String string);
+	public int findUserEmailStatus(String userid);
 }
