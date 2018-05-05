@@ -5,9 +5,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.wf.captcha.utils.CaptchaUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -91,7 +93,13 @@ public class UserController {
 	@PostMapping(value="/login")
 	@ResponseBody
 	public AppResponse login(@RequestParam(required=true) String loginName, @RequestParam(required=true) String password,
-			Model model, HttpSession session, HttpServletResponse resp) throws Exception {
+                             @RequestParam(required = true) String vercode, @RequestParam(required = true) String verkey,
+                             Model model, HttpServletRequest req, HttpSession session, HttpServletResponse resp) throws Exception {
+
+        //验证验证码是否输入正确
+        if(!CaptchaUtil.isVerified(verkey, vercode, req)){
+            return AppResponse.okData(-1, "验证码输入错误，请重新输入");
+        }
 		
 		//两次查询   可能是邮箱或者手机号
 		CustomerUser findUser = userService.findUserByEmailOrPhone(loginName, null);
@@ -149,8 +157,15 @@ public class UserController {
 	 */
 	@PostMapping(value="/reg")
 	@ResponseBody
-	public AppResponse reg(@ModelAttribute(value="customerUser") CustomerUser customerUser, Model model) throws Exception {
-		
+	public AppResponse reg(@ModelAttribute(value="customerUser") CustomerUser customerUser,
+                           @RequestParam(required = true) String vercode, @RequestParam(required = true) String verkey,
+                           Model model, HttpServletRequest req) throws Exception {
+
+	    //验证验证码是否输入正确
+        if(!CaptchaUtil.isVerified(verkey, vercode, req)){
+            return AppResponse.okData(-1, "验证码输入错误，请重新输入");
+        }
+
 		//验证用户输入的密码是否一致
 		String password = customerUser.getPassword();
 		String repassword = customerUser.getRepassword();
