@@ -168,6 +168,7 @@ public class UserController {
 					customerUser.setEmail(customerUser.getLoginName());
 					customerUser.setStatus(Short.parseShort("1"));
 					customerUser.setAvatar(Constants.DEFAULT_AVATAR);
+					customerUser.setRoleid("user");
 					userService.addUser(customerUser);
 					return AppResponse.okData(null, 0, "注册成功", "/user/login");
 				} else {
