@@ -21,10 +21,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import top.arexstorm.sharing.bean.user.CustomerUser;
+import top.arexstorm.sharing.config.Constants;
 import top.arexstorm.sharing.service.user.UserService;
 import top.arexstorm.sharing.utils.AppResponse;
 import top.arexstorm.sharing.utils.JSONUtils;
 import top.arexstorm.sharing.utils.PasswordUtils;
+import top.arexstorm.sharing.utils.UUIDUtils;
 
 @Slf4j
 @Controller
@@ -161,6 +163,11 @@ public class UserController {
 				}
 				if (findUser == null) {
 					customerUser.setPassword(PasswordUtils.getEncodedPassword(customerUser.getPassword()));
+					customerUser.setUserid(UUIDUtils.generateUUIDString());
+					//TODO 写死邮箱
+					customerUser.setEmail(customerUser.getLoginName());
+					customerUser.setStatus(Short.parseShort("1"));
+					customerUser.setAvatar(Constants.DEFAULT_AVATAR);
 					userService.addUser(customerUser);
 					return AppResponse.okData(null, 0, "注册成功", "/user/login");
 				} else {
