@@ -4,6 +4,7 @@ import java.util.List;
 
 import top.arexstorm.sharing.bean.order.CustomerOrder;
 import top.arexstorm.sharing.bean.order.Order;
+import top.arexstorm.sharing.utils.PageResult;
 
 public interface OrderService {
 
@@ -64,5 +65,15 @@ public interface OrderService {
 	 * @return
 	 */
 	public CustomerOrder findOrderByBuyeridAndInformationid(String buyerid, String informationid);
-	
+
+	/**
+	 * 分页 查找所有订单
+	 * @param pageNum
+	 * @param pageSize
+	 * @param searchKey
+	 * @param searchValue
+	 * @param status
+	 * @return
+	 */
+	PageResult<CustomerOrder> findAllInformaionTypeWithPage(Integer pageNum, Integer pageSize, String searchKey, String searchValue, Short status) throws Exception;
 }

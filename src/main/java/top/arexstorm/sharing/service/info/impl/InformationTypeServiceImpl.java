@@ -3,6 +3,8 @@ package top.arexstorm.sharing.service.info.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ import top.arexstorm.sharing.bean.info.InformationType;
 import top.arexstorm.sharing.mapper.CustomerInformationTypeMapper;
 import top.arexstorm.sharing.mapper.InformationTypeMapper;
 import top.arexstorm.sharing.service.info.InformationTypeService;
+import top.arexstorm.sharing.utils.PageResult;
 
 @Service(value="informationTypeService")
 @Transactional
@@ -103,6 +106,17 @@ public class InformationTypeServiceImpl implements InformationTypeService {
 			informationType.setId(find.getId());
 			informationTypeMapper.updateByPrimaryKeySelective(informationType);
 		}
+	}
+
+	@Override
+	public PageResult<CustomerInformationType> findAllInformaionTypeWithPage(Integer pageNum, Integer pageSize, String searchKey, String searchValue, Short status) {
+
+		Page<Object> startPage = PageHelper.startPage(pageNum, pageSize);
+		List<CustomerInformationType> types = customerInformationTypeMapper.findAllInformaionTypeWithPage(status, searchKey, searchValue);
+		PageResult<CustomerInformationType> result = new PageResult<CustomerInformationType>();
+		result.setData(types);
+		result.setCount(startPage.getTotal());
+		return result;
 	}
 
 }

@@ -2,6 +2,8 @@ package top.arexstorm.sharing.service.order.impl;
 
 import java.util.List;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,10 +13,13 @@ import top.arexstorm.sharing.annotation.TargetDataSource;
 import top.arexstorm.sharing.bean.order.CustomerOrder;
 import top.arexstorm.sharing.bean.order.Order;
 import top.arexstorm.sharing.bean.order.OrderDetail;
+import top.arexstorm.sharing.bean.user.User;
 import top.arexstorm.sharing.mapper.CustomerOrderMapper;
 import top.arexstorm.sharing.mapper.OrderMapper;
 import top.arexstorm.sharing.service.order.OrderDetailService;
 import top.arexstorm.sharing.service.order.OrderService;
+import top.arexstorm.sharing.service.user.UserService;
+import top.arexstorm.sharing.utils.PageResult;
 import top.arexstorm.sharing.utils.UUIDUtils;
 
 @Service(value = "orderService")
@@ -27,6 +32,8 @@ public class OrderServiceImpl implements OrderService {
 	private CustomerOrderMapper customerOrderMapper;
 	@Autowired
 	private OrderDetailService orderDetailService;
+	@Autowired
+    private UserService userService;
 
 	@TargetDataSource("slave")
 	@Override
@@ -120,4 +127,26 @@ public class OrderServiceImpl implements OrderService {
 		return customerOrderMapper.findOrderByBuyeridAndInformationid(search);
 	}
 
+	@Override
+	public PageResult<CustomerOrder> findAllInformaionTypeWithPage(Integer pageNum, Integer pageSize, String searchKey, String searchValue, Short status) throws Exception {
+		Page<Object> startPage = PageHelper.startPage(pageNum, pageSize);
+		List<CustomerOrder> orders = customerOrderMapper.findAllInformaionTypeWithPage(status, searchKey, searchValue);
+		for (CustomerOrder customerOrder : orders) {
+			if (customerOrder.getBack() == 0) {
+				customerOrder.setBackstr("购买");
+			} else if (customerOrder.getBack() == 1) {
+				customerOrder.setBackstr("退货");
+			} else if (customerOrder.getBack() == 0) {
+				customerOrder.setBackstr("换货");
+			}
+			User buyUser = userService.findUserById(customerOrder.getBuyerid());
+			User sellUser = userService.findUserById(customerOrder.getSellerid());
+			customerOrder.setBuyname(buyUser!=null ? buyUser.getNickname() : "");
+			customerOrder.setSellname(sellUser!=null ? sellUser.getNickname() : "");
+		}
+		PageResult<CustomerOrder> result = new PageResult<CustomerOrder>();
+		result.setData(orders);
+		result.setCount(startPage.getTotal());
+		return result;
+	}
 }

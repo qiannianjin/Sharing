@@ -4,6 +4,7 @@ import java.util.List;
 
 import top.arexstorm.sharing.bean.info.Comments;
 import top.arexstorm.sharing.bean.info.CustomerComments;
+import top.arexstorm.sharing.utils.PageResult;
 
 public interface CommentsService {
 
@@ -48,4 +49,7 @@ public interface CommentsService {
 	 * @param commentid
 	 */
 	public void deleteCommentById(String commentid);
+
+	PageResult<CustomerComments> findAllCommentsWithPage(Integer pageNum, Integer pageSize, String searchKey, String searchValue, Short status);
+
 }

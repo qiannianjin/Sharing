@@ -62,4 +62,6 @@ public interface CustomerUserMapper {
 	 * @return
 	 */
 	public User selectUserByAccount(String userAccount);
+
+
 }

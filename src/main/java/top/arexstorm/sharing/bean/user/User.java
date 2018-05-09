@@ -19,7 +19,7 @@ public class User implements Serializable {
 
     private Date lasttime;
 
-    private Short status;
+    private Short status; //1正常，0冻结
 
     private String summary;
 
@@ -38,6 +38,16 @@ public class User implements Serializable {
     private String token;
 
     private static final long serialVersionUID = 1L;
+
+    private String rolename;  //角色名
+
+    public String getRolename() {
+        return rolename;
+    }
+
+    public void setRolename(String rolename) {
+        this.rolename = rolename;
+    }
 
     public Long getId() {
         return id;

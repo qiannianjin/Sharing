@@ -42,4 +42,15 @@
   		</if>
   	</where>
   </select>
+
+	<!-- 分页查找 查询所有的信息 -->
+	<select id="findAllInformaionTypeWithPage" resultType="top.arexstorm.sharing.bean.order.CustomerOrder">
+		SELECT s_order.*, s_orderdetail.informationid FROM s_order s_order, s_orderdetail s_orderdetail
+		<where>
+			and s_order.orderid = s_orderdetail.orderid
+			<if test="status!=null">AND s_order.status=#{status} </if>
+			<if test="searchKey!=null and searchKey!='' and searchValue!=null and searchValue!=''">AND s_order.${searchKey} like '%${searchValue}%' </if>
+		</where>
+		ORDER BY s_order.createtime ASC
+	</select>
 </mapper>

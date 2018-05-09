@@ -42,4 +42,15 @@
     </where>
     order by s_comments.createtime desc
   </select>
+
+  <!-- 分页查找 查询所有的信息 -->
+  <select id="findAllCommentsWithPage" resultType="top.arexstorm.sharing.bean.info.CustomerComments">
+    SELECT s_comments.*, s_user.nickname, s_user.avatar FROM s_comments , s_user
+    <where>
+      and s_user.userid = s_comments.userid and s_comments.status != 9
+      <if test="status!=null">AND s_comments.status=#{status} </if>
+      <if test="searchKey!=null and searchKey!='' and searchValue!=null and searchValue!=''">AND s_comments.${searchKey} like '%${searchValue}%' </if>
+    </where>
+    ORDER BY s_comments.createtime ASC
+  </select>
 </mapper>

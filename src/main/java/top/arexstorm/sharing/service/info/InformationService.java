@@ -5,6 +5,7 @@ import java.util.List;
 import top.arexstorm.sharing.bean.info.CustomerInformation;
 import top.arexstorm.sharing.bean.info.CustomerInformationType;
 import top.arexstorm.sharing.bean.info.Information;
+import top.arexstorm.sharing.utils.PageResult;
 
 public interface InformationService {
 
@@ -65,4 +66,15 @@ public interface InformationService {
 	 * @return
 	 */
 	public List<CustomerInformation> findAllBuyInformation(String userid, Short status);
+
+	/**
+	 * 分页查找 共享信息
+	 * @param page
+	 * @param limit
+	 * @param status
+	 * @param searchKey
+	 * @param searchValue
+	 * @return
+	 */
+	PageResult<CustomerInformation> findAllInformationWithPage(Integer page, Integer limit, Short status, String searchKey, String searchValue);
 }

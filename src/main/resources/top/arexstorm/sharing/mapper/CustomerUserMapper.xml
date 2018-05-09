@@ -2,65 +2,65 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.arexstorm.sharing.mapper.CustomerUserMapper">
 	<sql id="Base_Column_List">
-    id, userid, phone, email, nickname, createtime, lasttime, status, summary, password,
-    avatar, credit, sex, city, roleid, token
-  </sql>
-  <select id="findUserList" parameterType="top.arexstorm.sharing.bean.user.CustomerUser" resultType="top.arexstorm.sharing.bean.user.CustomerUser">
-  	select 
-  	<include refid="Base_Column_List" />
-  	from s_user
-  	<where>
-  		<if test="status!=null">
-  			and status = #{status}
-  		</if>
-  	</where>
-  </select>
-  <select id="selectByUserId" parameterType="java.lang.String" resultType="top.arexstorm.sharing.bean.user.CustomerUser">
-  	select 
-  	<include refid="Base_Column_List" />
-  	from s_user
-  	<where>
-  		<if test="value!=null">
-  			and userid = #{userid}
-  		</if>
-  	</where>
-  </select>
-  
-  <update id="updateUserStatus" parameterType="top.arexstorm.sharing.bean.user.CustomerUser">
-  	<if test="userid!=null">
-	  	update s_user
-	  	<set>
-	  		<if test="status!=null">
-	  			status = #{status}
-	  		</if>
-	  	</set>
-	  	<where>
-	  		and userid = #{userid}
-	  	</where>
-  	</if>
-  </update>
-  
-  <select id="findUserByEmailOrPhone" parameterType="java.util.Map" resultType="top.arexstorm.sharing.bean.user.CustomerUser">
-  	select  <include refid="Base_Column_List" /> from s_user
-  	<where>
-  		<if test="phone != null">
-  			and phone = #{phone}
-  		</if>
-  		<if test="email != null">
-  			and email = #{email}
-  		</if>
-  	</where>
-  </select>
-  
-  <select id="findEnabledUserEmail" parameterType="java.lang.String" resultType="java.lang.String">	
-  	select s_user.email from s_user, s_user_bind
-  	<where>
-  		and s_user.userid = s_user_bind.userid and s_user.email = s_user_bind.email and s_user_bind.type = 0
-  		<if test="value != null">
-  			and s_user.userid = #{value}
-  		</if>
-  	</where>
-  </select>
+		id, userid, phone, email, nickname, createtime, lasttime, status, summary, password,
+		avatar, credit, sex, city, roleid, token
+	</sql>
+	<select id="findUserList" parameterType="top.arexstorm.sharing.bean.user.CustomerUser" resultType="top.arexstorm.sharing.bean.user.CustomerUser">
+		select
+		<include refid="Base_Column_List" />
+		from s_user
+		<where>
+			<if test="status!=null">
+				and status = #{status}
+			</if>
+		</where>
+	</select>
+	<select id="selectByUserId" parameterType="java.lang.String" resultType="top.arexstorm.sharing.bean.user.CustomerUser">
+		select
+		<include refid="Base_Column_List" />
+		from s_user
+		<where>
+			<if test="value!=null">
+				and userid = #{userid}
+			</if>
+		</where>
+	</select>
+
+	<update id="updateUserStatus" parameterType="top.arexstorm.sharing.bean.user.CustomerUser">
+		<if test="userid!=null">
+			update s_user
+			<set>
+				<if test="status!=null">
+					status = #{status}
+				</if>
+			</set>
+			<where>
+				and userid = #{userid}
+			</where>
+		</if>
+	</update>
+
+	<select id="findUserByEmailOrPhone" parameterType="java.util.Map" resultType="top.arexstorm.sharing.bean.user.CustomerUser">
+		select  <include refid="Base_Column_List" /> from s_user
+		<where>
+			<if test="phone != null">
+				and phone = #{phone}
+			</if>
+			<if test="email != null">
+				and email = #{email}
+			</if>
+		</where>
+	</select>
+
+	<select id="findEnabledUserEmail" parameterType="java.lang.String" resultType="java.lang.String">
+		select s_user.email from s_user, s_user_bind
+		<where>
+			and s_user.userid = s_user_bind.userid and s_user.email = s_user_bind.email and s_user_bind.type = 0
+			<if test="value != null">
+				and s_user.userid = #{value}
+			</if>
+		</where>
+	</select>
 
 	<select id="selectUserByAccount" parameterType="java.lang.String" resultType="top.arexstorm.sharing.bean.user.CustomerUser">
 		SELECT a.*,b.role_name as rolename FROM s_user a LEFT JOIN sys_role b ON a.roleid=b.role_id WHERE a.email=#{value}
@@ -73,4 +73,6 @@
 		<if test="searchKey!=null and searchKey!='' and searchValue!=null and searchValue!=''">AND a.${searchKey} like '%${searchValue}%' </if>
 		ORDER BY a.createtime ASC
 	</select>
+
+
 </mapper>

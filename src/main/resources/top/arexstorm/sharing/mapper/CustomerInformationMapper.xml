@@ -64,5 +64,12 @@
 	</where> 
 	order by s_order.createtime desc
   </select>
-  
+
+	<!-- 分页查找 查询所有的信息 -->
+	<select id="findAllInformationWithPage" resultType="top.arexstorm.sharing.bean.info.CustomerInformation">
+		SELECT a.*, b.nickname, b.avatar FROM s_information a, s_user b where a.userid = b.userid
+		<if test="status!=null">AND a.status=#{status} </if>
+		<if test="searchKey!=null and searchKey!='' and searchValue!=null and searchValue!=''">AND a.${searchKey} like '%${searchValue}%' </if>
+		ORDER BY a.createtime ASC
+	</select>
   </mapper>

@@ -5,6 +5,7 @@ import java.util.List;
 import top.arexstorm.sharing.bean.info.CustomerInformation;
 import top.arexstorm.sharing.bean.info.CustomerInformationType;
 import top.arexstorm.sharing.bean.info.InformationType;
+import top.arexstorm.sharing.utils.PageResult;
 
 public interface InformationTypeService {
 
@@ -49,5 +50,15 @@ public interface InformationTypeService {
 	public void updateInformationTypeStatus(String informationTypeId, String status);
 	
 	public void updateInformationType(InformationType informationType, String informationTypeId);
-	
+
+	/**
+	 * 分页查找 信息类型
+	 * @param page
+	 * @param limit
+	 * @param searchKey
+	 * @param searchValue
+	 * @param status
+	 * @return
+	 */
+	PageResult<CustomerInformationType> findAllInformaionTypeWithPage(Integer page, Integer limit, String searchKey, String searchValue, Short status);
 }

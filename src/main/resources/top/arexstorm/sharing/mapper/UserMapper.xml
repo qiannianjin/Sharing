@@ -78,7 +78,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, userid, phone, email, nickname, createtime, lasttime, status, summary, password, 
+    id, userid, phone, email, nickname, createtime, lasttime, status, summary, password,
     avatar, credit, sex, city, roleid, token
   </sql>
   <select id="selectByExample" parameterType="top.arexstorm.sharing.bean.user.UserQuery" resultMap="BaseResultMap">
@@ -96,7 +96,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from s_user
     where id = #{id,jdbcType=BIGINT}
@@ -112,18 +112,18 @@
     </if>
   </delete>
   <insert id="insert" parameterType="top.arexstorm.sharing.bean.user.User">
-    insert into s_user (id, userid, phone, 
-      email, nickname, createtime, 
-      lasttime, status, summary, 
-      password, avatar, credit, 
-      sex, city, roleid, 
-      token)
-    values (#{id,jdbcType=BIGINT}, #{userid,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
-      #{email,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
-      #{lasttime,jdbcType=TIMESTAMP}, #{status,jdbcType=SMALLINT}, #{summary,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, #{credit,jdbcType=DECIMAL}, 
-      #{sex,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{roleid,jdbcType=VARCHAR}, 
-      #{token,jdbcType=VARCHAR})
+    insert into s_user (id, userid, phone,
+    email, nickname, createtime,
+    lasttime, status, summary,
+    password, avatar, credit,
+    sex, city, roleid,
+    token)
+    values (#{id,jdbcType=BIGINT}, #{userid,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
+    #{email,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP},
+    #{lasttime,jdbcType=TIMESTAMP}, #{status,jdbcType=SMALLINT}, #{summary,jdbcType=VARCHAR},
+    #{password,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, #{credit,jdbcType=DECIMAL},
+    #{sex,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{roleid,jdbcType=VARCHAR},
+    #{token,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="top.arexstorm.sharing.bean.user.User">
     insert into s_user
@@ -293,21 +293,21 @@
   <update id="updateByExample" parameterType="map">
     update s_user
     set id = #{record.id,jdbcType=BIGINT},
-      userid = #{record.userid,jdbcType=VARCHAR},
-      phone = #{record.phone,jdbcType=VARCHAR},
-      email = #{record.email,jdbcType=VARCHAR},
-      nickname = #{record.nickname,jdbcType=VARCHAR},
-      createtime = #{record.createtime,jdbcType=TIMESTAMP},
-      lasttime = #{record.lasttime,jdbcType=TIMESTAMP},
-      status = #{record.status,jdbcType=SMALLINT},
-      summary = #{record.summary,jdbcType=VARCHAR},
-      password = #{record.password,jdbcType=VARCHAR},
-      avatar = #{record.avatar,jdbcType=VARCHAR},
-      credit = #{record.credit,jdbcType=DECIMAL},
-      sex = #{record.sex,jdbcType=VARCHAR},
-      city = #{record.city,jdbcType=VARCHAR},
-      roleid = #{record.roleid,jdbcType=VARCHAR},
-      token = #{record.token,jdbcType=VARCHAR}
+    userid = #{record.userid,jdbcType=VARCHAR},
+    phone = #{record.phone,jdbcType=VARCHAR},
+    email = #{record.email,jdbcType=VARCHAR},
+    nickname = #{record.nickname,jdbcType=VARCHAR},
+    createtime = #{record.createtime,jdbcType=TIMESTAMP},
+    lasttime = #{record.lasttime,jdbcType=TIMESTAMP},
+    status = #{record.status,jdbcType=SMALLINT},
+    summary = #{record.summary,jdbcType=VARCHAR},
+    password = #{record.password,jdbcType=VARCHAR},
+    avatar = #{record.avatar,jdbcType=VARCHAR},
+    credit = #{record.credit,jdbcType=DECIMAL},
+    sex = #{record.sex,jdbcType=VARCHAR},
+    city = #{record.city,jdbcType=VARCHAR},
+    roleid = #{record.roleid,jdbcType=VARCHAR},
+    token = #{record.token,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -366,20 +366,20 @@
   <update id="updateByPrimaryKey" parameterType="top.arexstorm.sharing.bean.user.User">
     update s_user
     set userid = #{userid,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-      nickname = #{nickname,jdbcType=VARCHAR},
-      createtime = #{createtime,jdbcType=TIMESTAMP},
-      lasttime = #{lasttime,jdbcType=TIMESTAMP},
-      status = #{status,jdbcType=SMALLINT},
-      summary = #{summary,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      avatar = #{avatar,jdbcType=VARCHAR},
-      credit = #{credit,jdbcType=DECIMAL},
-      sex = #{sex,jdbcType=VARCHAR},
-      city = #{city,jdbcType=VARCHAR},
-      roleid = #{roleid,jdbcType=VARCHAR},
-      token = #{token,jdbcType=VARCHAR}
+    phone = #{phone,jdbcType=VARCHAR},
+    email = #{email,jdbcType=VARCHAR},
+    nickname = #{nickname,jdbcType=VARCHAR},
+    createtime = #{createtime,jdbcType=TIMESTAMP},
+    lasttime = #{lasttime,jdbcType=TIMESTAMP},
+    status = #{status,jdbcType=SMALLINT},
+    summary = #{summary,jdbcType=VARCHAR},
+    password = #{password,jdbcType=VARCHAR},
+    avatar = #{avatar,jdbcType=VARCHAR},
+    credit = #{credit,jdbcType=DECIMAL},
+    sex = #{sex,jdbcType=VARCHAR},
+    city = #{city,jdbcType=VARCHAR},
+    roleid = #{roleid,jdbcType=VARCHAR},
+    token = #{token,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

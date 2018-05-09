@@ -32,7 +32,12 @@
             <version>1.16.20</version>
             <scope>provided</scope>
         </dependency>
-
+		<!-- pagehelper -->
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper-spring-boot-starter</artifactId>
+			<version>1.2.5</version>
+		</dependency>
         <!-- DirectMail -->
 		<dependency>
 			<groupId>com.aliyun</groupId>

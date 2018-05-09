@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +19,7 @@ import top.arexstorm.sharing.bean.info.Information;
 import top.arexstorm.sharing.mapper.CustomerInformationMapper;
 import top.arexstorm.sharing.mapper.InformationMapper;
 import top.arexstorm.sharing.service.info.InformationService;
-
+import top.arexstorm.sharing.utils.PageResult;
 
 
 @Service(value="informationService")
@@ -122,4 +124,14 @@ public class InformationServiceImpl implements InformationService {
 		return customerInformationMapper.findAllBuyInformation(paramMap);
 	}
 
+	@Override
+	public PageResult<CustomerInformation> findAllInformationWithPage(Integer pageNum, Integer pageSize, Short status, String searchKey, String searchValue) {
+
+		Page<Object> startPage = PageHelper.startPage(pageNum, pageSize);
+		List<CustomerInformation> infos = customerInformationMapper.findAllInformationWithPage(status, searchKey, searchValue);
+		PageResult<CustomerInformation> result = new PageResult<CustomerInformation>();
+		result.setData(infos);
+		result.setCount(startPage.getTotal());
+		return result;
+	}
 }

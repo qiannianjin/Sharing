@@ -30,6 +30,15 @@
   		 	and typeid = #{informationtypeid}
   		</if>
   	</where>
-  
   </select>
+
+	<!-- 分页查找 查询所有的信息类型 -->
+	<select id="findAllInformaionTypeWithPage" resultType="top.arexstorm.sharing.bean.info.CustomerInformationType">
+		SELECT <include refid="Base_Column_List"/> FROM  s_informationtype
+		<where>
+			<if test="status!=null">AND s_informationtype.status=#{status} </if>
+			<if test="searchKey!=null and searchKey!='' and searchValue!=null and searchValue!=''">AND s_informationtype.${searchKey} like '%${searchValue}%' </if>
+		</where>
+		ORDER BY s_informationtype.createtime ASC
+	</select>
 </mapper>
