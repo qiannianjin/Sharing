@@ -126,6 +126,7 @@ public class InformationController {
 			if (customerUser == null) {
 				return "redirect:/user/login";
 			}
+
 			//确认是否已经购买过
 			//结合用户id，informationid综合查询订单
 			CustomerOrder order = orderService.findOrderByBuyeridAndInformationid(customerUser.getUserid(), informationid);

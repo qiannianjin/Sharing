@@ -3,7 +3,7 @@
 <mapper namespace="top.arexstorm.sharing.mapper.CustomerUserMapper">
 	<sql id="Base_Column_List">
 		id, userid, phone, email, nickname, createtime, lasttime, status, summary, password,
-		avatar, credit, sex, city, roleid, token
+		avatar, credit, sex, city, roleid, token, amount
 	</sql>
 	<select id="findUserList" parameterType="top.arexstorm.sharing.bean.user.CustomerUser" resultType="top.arexstorm.sharing.bean.user.CustomerUser">
 		select

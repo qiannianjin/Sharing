@@ -1,5 +1,6 @@
 package top.arexstorm.sharing.service.order;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import top.arexstorm.sharing.bean.order.CustomerOrder;
@@ -55,8 +56,9 @@ public interface OrderService {
 	 * @param userid
 	 * @param sellerid
 	 * @param informationid
+	 * @param price
 	 */
-	public void saveOrder(String userid, String sellerid, String informationid);
+	public void saveOrder(String userid, String sellerid, String informationid, BigDecimal price) throws Exception;
 
 	/**
 	 * 查询指定用户，指定信息的订单

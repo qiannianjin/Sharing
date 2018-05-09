@@ -1,5 +1,6 @@
 package top.arexstorm.sharing.service.order.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.github.pagehelper.Page;
@@ -13,6 +14,7 @@ import top.arexstorm.sharing.annotation.TargetDataSource;
 import top.arexstorm.sharing.bean.order.CustomerOrder;
 import top.arexstorm.sharing.bean.order.Order;
 import top.arexstorm.sharing.bean.order.OrderDetail;
+import top.arexstorm.sharing.bean.user.CustomerUser;
 import top.arexstorm.sharing.bean.user.User;
 import top.arexstorm.sharing.mapper.CustomerOrderMapper;
 import top.arexstorm.sharing.mapper.OrderMapper;
@@ -90,7 +92,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public void saveOrder(String buyerid, String sellerid, String informationid) {
+	public void saveOrder(String buyerid, String sellerid, String informationid, BigDecimal price) throws Exception {
 		// 形成订单
 		Order order = new Order();
 		order.setBuyerid(buyerid);
@@ -111,6 +113,11 @@ public class OrderServiceImpl implements OrderService {
 		detail.setOrderid(orderid);
 		detail.setSellerid(sellerid);
 		orderDetailService.saveOrderDetail(detail);
+
+		//扣钱
+        CustomerUser user = userService.findUserById(buyerid);
+        user.setAmount(user.getAmount().subtract(price));
+        userService.updateUser(user.getUserid(), user);
 	}
 
 	@TargetDataSource("slave")

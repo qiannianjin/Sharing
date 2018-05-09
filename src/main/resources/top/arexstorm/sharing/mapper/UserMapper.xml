@@ -18,6 +18,7 @@
     <result column="city" jdbcType="VARCHAR" property="city" />
     <result column="roleid" jdbcType="VARCHAR" property="roleid" />
     <result column="token" jdbcType="VARCHAR" property="token" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -79,7 +80,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, userid, phone, email, nickname, createtime, lasttime, status, summary, password,
-    avatar, credit, sex, city, roleid, token
+    avatar, credit, sex, city, roleid, token, amount
   </sql>
   <select id="selectByExample" parameterType="top.arexstorm.sharing.bean.user.UserQuery" resultMap="BaseResultMap">
     select
@@ -117,13 +118,13 @@
     lasttime, status, summary,
     password, avatar, credit,
     sex, city, roleid,
-    token)
+    token, amount)
     values (#{id,jdbcType=BIGINT}, #{userid,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
     #{email,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP},
     #{lasttime,jdbcType=TIMESTAMP}, #{status,jdbcType=SMALLINT}, #{summary,jdbcType=VARCHAR},
     #{password,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, #{credit,jdbcType=DECIMAL},
     #{sex,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{roleid,jdbcType=VARCHAR},
-    #{token,jdbcType=VARCHAR})
+    #{token,jdbcType=VARCHAR}, #{amount,jdbcType=DECIMAL})
   </insert>
   <insert id="insertSelective" parameterType="top.arexstorm.sharing.bean.user.User">
     insert into s_user
@@ -176,6 +177,9 @@
       <if test="token != null">
         token,
       </if>
+      <if test="amount != null">
+        amount,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -225,6 +229,9 @@
       </if>
       <if test="token != null">
         #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>
@@ -285,6 +292,9 @@
       <if test="record.token != null">
         token = #{record.token,jdbcType=VARCHAR},
       </if>
+      <if test="record.amount != null">
+        amount = #{record.amount,jdbcType=DECIMAL},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -307,7 +317,8 @@
     sex = #{record.sex,jdbcType=VARCHAR},
     city = #{record.city,jdbcType=VARCHAR},
     roleid = #{record.roleid,jdbcType=VARCHAR},
-    token = #{record.token,jdbcType=VARCHAR}
+    token = #{record.token,jdbcType=VARCHAR},
+    amount = #{record.amount,jdbcType=DECIMAL}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -360,26 +371,30 @@
       <if test="token != null">
         token = #{token,jdbcType=VARCHAR},
       </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="top.arexstorm.sharing.bean.user.User">
     update s_user
     set userid = #{userid,jdbcType=VARCHAR},
-    phone = #{phone,jdbcType=VARCHAR},
-    email = #{email,jdbcType=VARCHAR},
-    nickname = #{nickname,jdbcType=VARCHAR},
-    createtime = #{createtime,jdbcType=TIMESTAMP},
-    lasttime = #{lasttime,jdbcType=TIMESTAMP},
-    status = #{status,jdbcType=SMALLINT},
-    summary = #{summary,jdbcType=VARCHAR},
-    password = #{password,jdbcType=VARCHAR},
-    avatar = #{avatar,jdbcType=VARCHAR},
-    credit = #{credit,jdbcType=DECIMAL},
-    sex = #{sex,jdbcType=VARCHAR},
-    city = #{city,jdbcType=VARCHAR},
-    roleid = #{roleid,jdbcType=VARCHAR},
-    token = #{token,jdbcType=VARCHAR}
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      lasttime = #{lasttime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=SMALLINT},
+      summary = #{summary,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      avatar = #{avatar,jdbcType=VARCHAR},
+      credit = #{credit,jdbcType=DECIMAL},
+      sex = #{sex,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      roleid = #{roleid,jdbcType=VARCHAR},
+      token = #{token,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=DECIMAL}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

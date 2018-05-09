@@ -12,6 +12,16 @@ public class CustomerUser extends User implements Serializable{
 	private String repassword;
 	private String loginName; //邮箱或者手机号
 
+	private String rolename;  //角色名
+
+	public String getRolename() {
+		return rolename;
+	}
+
+	public void setRolename(String rolename) {
+		this.rolename = rolename;
+	}
+
 	public String getRepassword() {
 		return repassword;
 	}

@@ -19,7 +19,7 @@ public class User implements Serializable {
 
     private Date lasttime;
 
-    private Short status; //1正常，0冻结
+    private Short status;
 
     private String summary;
 
@@ -37,17 +37,9 @@ public class User implements Serializable {
 
     private String token;
 
+    private BigDecimal amount;
+
     private static final long serialVersionUID = 1L;
-
-    private String rolename;  //角色名
-
-    public String getRolename() {
-        return rolename;
-    }
-
-    public void setRolename(String rolename) {
-        this.rolename = rolename;
-    }
 
     public Long getId() {
         return id;
@@ -177,6 +169,14 @@ public class User implements Serializable {
         this.token = token == null ? null : token.trim();
     }
 
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -199,6 +199,7 @@ public class User implements Serializable {
         sb.append(", city=").append(city);
         sb.append(", roleid=").append(roleid);
         sb.append(", token=").append(token);
+        sb.append(", amount=").append(amount);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
