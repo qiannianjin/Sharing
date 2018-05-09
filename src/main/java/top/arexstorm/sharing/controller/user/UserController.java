@@ -339,9 +339,15 @@ public class UserController {
 		if (user != null) {
 			Map<String, Object> param = new HashMap<String, Object>();
 			int status = userService.findUserEmailStatus(user.getUserid());
+			String msg;
+			if (status == 1) { //已绑定
+				msg = "已激活";		
+			} else {//未激活
+				msg = "未激活";
+			}
 			param.put("email", user.getEmail());
 			param.put("status", status);
-			return AppResponse.okData(param, 0, "已激活", null);
+			return AppResponse.okData(param, 0, msg, null);
 		} else {
 			return AppResponse.okData(null, -1, "请先登陆", "/user/login");
 		}

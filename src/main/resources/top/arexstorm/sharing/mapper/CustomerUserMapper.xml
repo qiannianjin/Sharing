@@ -60,6 +60,7 @@
 				and s_user.userid = #{value}
 			</if>
 		</where>
+		order by s_user_bind.createtime desc limit 0, 1
 	</select>
 
 	<select id="selectUserByAccount" parameterType="java.lang.String" resultType="top.arexstorm.sharing.bean.user.CustomerUser">

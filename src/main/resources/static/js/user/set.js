@@ -14,11 +14,11 @@
             if (data.status == 0) {
                 data = data.data;
                 if (data.status == 1) { //已经激活
-                    $("#enable").show();
-                    $("#disable").hide();
+                    $(".enable").show();
+                    $(".disable").hide();
                 } else { //未激活
-                    $("#enable").hide();
-                    $("#disable").show();
+                    $(".enable").hide();
+                    $(".disable").show();
                 }
             } else {
                 layer.msg(data.msg, {

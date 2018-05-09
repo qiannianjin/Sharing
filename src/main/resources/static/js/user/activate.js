@@ -25,6 +25,14 @@ layui.use('layer', function(){
 			}
 			
 		});
+		
+		//重新发送邮件
+		$("#email_id").click(function(){
+			$.post("/email/send", {}, function(data){
+				layer.msg(data.msg, {icon:16, shade: 0.1, time:0});
+				window.location.href = data.action;
+			});
+		});
 	})
 })
 	
