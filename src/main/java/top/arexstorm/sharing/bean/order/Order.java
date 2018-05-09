@@ -1,6 +1,7 @@
 package top.arexstorm.sharing.bean.order;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class Order implements Serializable {
@@ -21,6 +22,8 @@ public class Order implements Serializable {
     private String buyerid;
 
     private String sellerid;
+
+    private BigDecimal amount;
 
     private static final long serialVersionUID = 1L;
 
@@ -96,6 +99,14 @@ public class Order implements Serializable {
         this.sellerid = sellerid == null ? null : sellerid.trim();
     }
 
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -111,6 +122,7 @@ public class Order implements Serializable {
         sb.append(", status=").append(status);
         sb.append(", buyerid=").append(buyerid);
         sb.append(", sellerid=").append(sellerid);
+        sb.append(", amount=").append(amount);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

@@ -101,6 +101,7 @@ public class OrderServiceImpl implements OrderService {
 		order.setOrderid(orderid);
 		order.setSellerid(sellerid);
 		order.setStatus(Short.parseShort("1"));
+		order.setAmount(price);
 		this.saveOrder(order);
 		
 		//生成订单明细
