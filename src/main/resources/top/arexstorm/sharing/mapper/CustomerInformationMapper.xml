@@ -51,16 +51,17 @@
   </update>
   
   <select id="findAllBuyInformation" parameterType="java.util.Map" resultType="top.arexstorm.sharing.bean.info.CustomerInformation">
- 	select <include refid="Base_Column_List"/> from s_information, s_order, s_orderdetail
+ 	select <include refid="Base_Column_List"/>, s_user.nickname, s_user.avatar from s_information, s_order, s_orderdetail, s_user
 	<where>
-		and s_order.orderid = s_orderdetail.orderid and s_order.status != 9
+		and s_order.orderid = s_orderdetail.orderid and s_order.buyerid = s_user.userid 
+		and s_orderdetail.informationid = s_information.informationid
+		and s_order.status != 9
 		<if test="buyerid != null">
 			and s_order.buyerid = #{buyerid}
 		</if>
 		<if test="status != null">
 			and s_order.status = #{status}
 		</if>
-		and s_orderdetail.informationid = s_information.informationid
 	</where> 
 	order by s_order.createtime desc
   </select>
