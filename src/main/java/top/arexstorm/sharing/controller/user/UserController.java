@@ -11,6 +11,8 @@ import javax.servlet.http.HttpSession;
 
 import com.wf.captcha.utils.CaptchaUtil;
 import lombok.extern.slf4j.Slf4j;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -112,10 +114,10 @@ public class UserController {
 			return AppResponse.okData(-1, "请输入正确的登陆名");
 		} else {
 			String encryptPass = PasswordUtils.getEncodedPassword(password);
-			if (findUser.getPassword().equals(encryptPass)) {
+			if (findUser.getPassword().equals(encryptPass)) { 
 				//添加session
-				findUser.setPassword(null);
 				session.setAttribute("user", findUser);
+				findUser.setPassword(null);
 				
 				Cookie cookie = new Cookie("user", URLEncoder.encode(JSONUtils.toJSON(findUser), "utf-8"));
 				cookie.setPath("/");
@@ -286,11 +288,12 @@ public class UserController {
 	public AppResponse repass(HttpSession session, @RequestParam(required=true) String nowpass, @RequestParam(required=true) String pass,
 			@RequestParam(required=true) String repass) throws Exception {
 		if (pass.equals(repass)) {
-			CustomerUser user = (CustomerUser) session.getAttribute("user");
+			CustomerUser user = (CustomerUser) session.getAttribute("user"); //此时的密码
 			if (user != null) {
 				String encryptPass = PasswordUtils.getEncodedPassword(nowpass);
-				if (user.getPassword().equals(encryptPass)) {
-					user.setPassword(encryptPass);
+				CustomerUser cu = userService.findUserById(user.getUserid());
+				if (cu!=null && StringUtils.isNotBlank(cu.getPassword()) && cu.getPassword().equals(encryptPass)) {
+					user.setPassword(PasswordUtils.getEncodedPassword(pass));
 					userService.updateUser(user.getUserid(), user);
 					return AppResponse.okData(null, 0, "修改成功", "/user/login");
 				} else {
