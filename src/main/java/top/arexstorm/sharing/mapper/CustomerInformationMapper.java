@@ -15,7 +15,7 @@ public interface CustomerInformationMapper {
 	
 	public CustomerInformationType findInformationTypeByInformationId(String informationid);
 	
-	public void updateInformationStatus(CustomerInformation customerInformation);
+	public int updateInformationStatus(CustomerInformation customerInformation);
 
 	public List<CustomerInformation> findAllBuyInformation(Map<String, Object> paramMap);
 

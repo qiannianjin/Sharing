@@ -34,7 +34,7 @@
   	select s_order.* from s_order, s_orderdetail
   	<where>
   		and s_order.orderid = s_orderdetail.orderid
-  		<if test="buyerid != null">
+  		<if test="buyerid != null">DESC
   			and s_order.buyerid = #{buyerid}
   		</if>
   		<if test="informationid != null">
@@ -51,6 +51,6 @@
 			<if test="status!=null">AND s_order.status=#{status} </if>
 			<if test="searchKey!=null and searchKey!='' and searchValue!=null and searchValue!=''">AND s_order.${searchKey} like '%${searchValue}%' </if>
 		</where>
-		ORDER BY s_order.createtime ASC
+		ORDER BY s_order.createtime
 	</select>
 </mapper>

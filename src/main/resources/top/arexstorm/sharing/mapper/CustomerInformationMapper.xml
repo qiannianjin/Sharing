@@ -53,7 +53,7 @@
   <select id="findAllBuyInformation" parameterType="java.util.Map" resultType="top.arexstorm.sharing.bean.info.CustomerInformation">
  	select <include refid="Base_Column_List"/> from s_information, s_order, s_orderdetail
 	<where>
-		and s_order.orderid = s_orderdetail.orderid
+		and s_order.orderid = s_orderdetail.orderid and s_order.status != 9
 		<if test="buyerid != null">
 			and s_order.buyerid = #{buyerid}
 		</if>
@@ -67,7 +67,7 @@
 
 	<!-- 分页查找 查询所有的信息 -->
 	<select id="findAllInformationWithPage" resultType="top.arexstorm.sharing.bean.info.CustomerInformation">
-		SELECT a.*, b.nickname, b.avatar FROM s_information a, s_user b where a.userid = b.userid
+		SELECT a.*, b.nickname, b.avatar FROM s_information a, s_user b where a.userid = b.userid and a.status != 9
 		<if test="status!=null">AND a.status=#{status} </if>
 		<if test="searchKey!=null and searchKey!='' and searchValue!=null and searchValue!=''">AND a.${searchKey} like '%${searchValue}%' </if>
 		ORDER BY a.createtime ASC

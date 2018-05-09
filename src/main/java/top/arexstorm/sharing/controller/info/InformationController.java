@@ -9,12 +9,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import top.arexstorm.sharing.bean.info.CustomerInformation;
 import top.arexstorm.sharing.bean.info.CustomerInformationType;
@@ -184,5 +179,18 @@ public class InformationController {
 			return AppResponse.okData(null, -1, "请登录", "/user/login");
 		}
 	}
-	
+
+	@ResponseBody
+	@PostMapping(value = "/change")
+	public AppResponse changeInformationStatus(String informationid, Short status) {
+		String msg = "修改";
+		if (status == 9) {
+			msg = "删除";
+		}
+		if (informationService.updateInformationStatus(informationid, status) > 0) {
+			return AppResponse.okData(null, 1, msg + "成功!", "/");
+		} else {
+			return AppResponse.okData(-1, msg + "失败!");
+		}
+	}
 }

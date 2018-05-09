@@ -121,7 +121,7 @@ public class UserController {
 				cookie.setPath("/");
 				cookie.setMaxAge(60*60);
 				resp.addCookie(cookie);
-				
+//				TODO 优化登陆成功跳转
 				return AppResponse.okData(findUser, "登陆成功", "/");
 						
 			} else {

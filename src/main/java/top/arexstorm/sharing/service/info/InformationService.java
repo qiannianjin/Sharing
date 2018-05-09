@@ -37,27 +37,27 @@ public interface InformationService {
 	 * 添加一个信息 选择性添加
 	 * @param information
 	 */
-	public void addInformation(Information information);
+	public int addInformation(Information information);
 	
 	/**
 	 * 更新指定信息的状态
 	 * @param informationid
 	 * @param status
 	 */
-	public void updateInformationStatus(String informationid, String status);
+	public int updateInformationStatus(String informationid, Short status);
 	
 	/**
 	 * 更新指定信息
 	 * @param information
 	 * @param informationid
 	 */
-	public void updateInformation(Information information, String informationid);
+	public int updateInformation(Information information, String informationid);
 	
 	/**
 	 * 删除指定信息id的信息
 	 * @param informationid
 	 */
-	public void deleteInformationByInfomationId(String informationid);
+	public int deleteInformationByInfomationId(String informationid);
 
 	/**
 	 * 查询指定用户购买的所有共享信息

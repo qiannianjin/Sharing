@@ -8,30 +8,66 @@
             return date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
         }
 
-        var changeStatus = function(cid, status){
+        var changeStatus = function(url, params){
 
-            $.post('/comments/change', {commentid:cid, status:status}, function(data){
+            $.post(url, params, function(data){
                 if (data && data.status == 0) {
                     layer.msg(data.msg, {time: 3 * 1000,
                         end: function(){
-                            window.location.href = window.location.href;
+                            if (data.action) {
+                                window.location.href = data.action;
+                            } else {
+                                window.location.href = window.location.href;
+                            }
                         }
                     });
                 } else {
 					layer.msg(data.msg, {time: 3 * 1000,
 						end: function(){
-							window.location.href = window.location.href;
+					        if (data.action) {
+                                window.location.href = data.action;
+                            } else {
+							    window.location.href = window.location.href;
+                            }
 						}
 					});
                 }
             });
         };
 
-        //控制编译此信息按钮
+        //控制信息状态  重要程度，0普通; 1置顶; 2推荐; 3精华
+        var important = $("#important").val();
+        if (important == 0) { //普通
+            $("#common").show();
+        } else if (important == 1) { //置顶
+            $("#stick").show();
+        } else if (important == 2) { //推荐
+            $("#recommend").show();
+        } else if (important == 3) { //精华
+            $("#essence").show();
+        }
+        var price = $("#price");
+        if (price && price > 0) {//付费
+            $("#fee").show();
+        } else { //免费
+            $("#free").show();
+        }
+
+        //控制编译和删除按钮
         var userCookie = $.cookie("user");
         if (userCookie && JSON.parse(decodeURIComponent(userCookie)).userid == $("#userid").val()) { //登陆 并且是作者 才显示编辑信息
             $("#LAY_jieAdmin span.layui-btn a").attr("href", "/jie/add?informationid=" + $("#informationid").val());
             $("#LAY_jieAdmin span.layui-btn").show();
+            $("#delInfo").show();
+            //给按钮添加点击事件
+            $("#delInfo").click(function(){
+                layer.confirm('删除提示', {btn: ['确认删除', '取消']}, function(index, layero){
+                    var params = {};
+                    params.informationid = $("#informationid").val();
+                    params.status = 9;
+                    changeStatus("/jie/change", params);
+                });
+            });
            //return;
         }
 
@@ -89,20 +125,12 @@
                 $('li[id^=li_] .del').click(function(){ //删除
                     var comments_id = $(this).parents("li[id^=li_]").find('.comments_id').val();
                    layer.confirm('删除提示', {btn: ['确认删除', '取消']}, function(index, layero){
-                       changeStatus(comments_id, 9);
+                       var params = {commentid:comments_id, status:9}
+                       changeStatus("/comments/change", params);
 				   });
                 });
                 $('li[id^=li_] .jieda-accept').click(function(){
 
-                });
-
-                $('tr[id^=tr_] .btn_stop').click(function(){
-                    var wid = $(this).parents('tr[id^=tr_]').find('.salevirtual_id').val();
-                    $.messager.confirm('停用提示：','确认停用？',function(r){
-                        if (r){
-                            changeStatus(wid, 0, '停用成功');
-                        }
-                    });
                 });
             } else { //加载评论失败
 

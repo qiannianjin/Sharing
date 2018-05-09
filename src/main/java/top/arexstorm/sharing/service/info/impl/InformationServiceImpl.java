@@ -76,39 +76,46 @@ public class InformationServiceImpl implements InformationService {
 	}
 
 	@Override
-	public void addInformation(Information information) {
+	public int addInformation(Information information) {
 		if (information != null) {
-			informationMapper.insertSelective(information);
+			return informationMapper.insertSelective(information);
 		}
+
+		return -1;
 	}
 
 	@Override
-	public void updateInformationStatus(String informationid, String status) {
+	public int updateInformationStatus(String informationid, Short status) {
 		
-		if (StringUtils.isNotBlank(informationid) && StringUtils.isNotBlank(status)) {
+		if (StringUtils.isNotBlank(informationid) && status != null) {
 			CustomerInformation customerInformation = new CustomerInformation();
 			customerInformation.setInformationid(informationid);
-			customerInformation.setStatus(Short.parseShort(status));
-			customerInformationMapper.updateInformationStatus(customerInformation);
+			customerInformation.setStatus(status);
+			return customerInformationMapper.updateInformationStatus(customerInformation);
 		}
 
+		return -1;
 	}
 
 	@Override
-	public void updateInformation(Information information, String informationid) {
+	public int updateInformation(Information information, String informationid) {
 		CustomerInformation find = customerInformationMapper.findInformationById(informationid);
 		if (find != null) {
 			information.setId(find.getId());
-			informationMapper.updateByPrimaryKeySelective(information);
+			return informationMapper.updateByPrimaryKeySelective(information);
 		}
+
+		return -1;
 	}
 
 	@Override
-	public void deleteInformationByInfomationId(String informationid) {
+	public int deleteInformationByInfomationId(String informationid) {
 		if (StringUtils.isNotBlank(informationid)) {
 			CustomerInformation find = customerInformationMapper.findInformationById(informationid);
-			informationMapper.deleteByPrimaryKey(find.getId());
+			return informationMapper.deleteByPrimaryKey(find.getId());
 		}
+
+		return -1;
 	}
 
 	@TargetDataSource("slave")

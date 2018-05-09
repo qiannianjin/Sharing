@@ -72,7 +72,7 @@ public class InformationServiceTest {
 	@Test
 	public void testUpdateInformationStatus() {
 		String informationid = "2";
-		String status = "0";
+		Short status = 0;
 		informationService.updateInformationStatus(informationid, status);
 	}
 
