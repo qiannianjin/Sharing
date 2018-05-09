@@ -60,7 +60,7 @@
         <li class="layui-this" lay-id="info">我的资料</li>
         <li lay-id="avatar">头像</li>
         <li lay-id="pass">密码</li>
-        <li lay-id="bind">帐号绑定</li>
+        <li lay-id="bind" id="bind">帐号绑定</li>
       </ul>
       <div class="layui-tab-content" style="padding: 20px 0;">
         <div class="layui-form layui-form-pane layui-tab-item layui-show">
@@ -164,10 +164,10 @@
               </li>-->
               <li class="fly-msg">
                 <i class="iconfont-sharing icon-sharing-youxiang" style="font-size: 28px; margin-right: 5px; top: 3px; position: relative"></i>
-                <!-- <span>已成功绑定，您可以使用微博直接登录Fly社区，当然，您也可以</span>
-                <a href="javascript:;" class="acc-unbind" type="weibo_id">解除绑定</a> -->
-                <a href="javascript:;" class="acc-email" type="email_id" id="email_id">立即绑定</a>
-                <span>，绑定邮箱即可完成找回密码等功能</span>
+                <span style="display: none;">已成功绑定，您可以使用邮箱登陆Sharing共享信息平台，当然，您也可以</span>
+                <a style="display: none;" href="javascript:;" class="acc-unbind" type="email_id">解除绑定</a>
+                <a style="display: none;" href="javascript:;" class="acc-email" type="email_id" id="email_id">立即绑定</a>
+                <span style="display: none;">，绑定邮箱即可完成找回密码等功能</span>
               </li>
             </ul>
           </div>

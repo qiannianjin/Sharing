@@ -303,7 +303,13 @@ public class UserController {
 			return AppResponse.okData(-1, "两次输入密码不一致");
 		}
 	}
-	
+
+	/**
+	 * 检测用户登陆名
+	 * @param loginName
+	 * @return
+	 * @throws Exception
+	 */
 	@ResponseBody
 	@PostMapping(value="checkuser/{loginName}")
 	public AppResponse checkUser(@PathVariable String loginName) throws Exception {

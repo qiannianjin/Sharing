@@ -34,7 +34,7 @@
   	select s_order.* from s_order, s_orderdetail
   	<where>
   		and s_order.orderid = s_orderdetail.orderid
-  		<if test="buyerid != null">DESC
+  		<if test="buyerid != null">
   			and s_order.buyerid = #{buyerid}
   		</if>
   		<if test="informationid != null">

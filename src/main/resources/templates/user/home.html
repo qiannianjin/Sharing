@@ -33,8 +33,7 @@
   <p style="padding: 10px 0; color: #5FB878;">认证信息：Sharing 会员</p>
 
   <p class="fly-home-info">
-    <!--<i class="iconfont icon-kiss" title="S币"></i><span style="color: #FF7200;" th:text="|${user.money}, 'S币'|"></span>-->
-    <i class="iconfont icon-kiss" title="S币"></i><span style="color: #FF7200;">66666 S币</span>
+    <i class="iconfont icon-kiss" title="S币"></i><span style="color: #FF7200;" th:text="|${user.amount} S币|"></span>
     <i class="iconfont icon-shijian"></i><span><span th:text="${#dates.format(user.createtime, 'yyyy-MM-dd')}"></span> 加入</span>
     <i class="iconfont icon-chengshi"></i><span>来自<span th:text=${user.city}></span></span>
   </p>
