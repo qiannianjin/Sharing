@@ -66,7 +66,7 @@
         //综合
         var comprehensiveParams = {status:1}
         var pageNum = 1;
-        var pageSize = 2;
+        var pageSize = 8;
         comprehensiveParams.pageNum = pageNum;
         comprehensiveParams.pageSize = pageSize;
         findInformation(comprehensiveParams, $("ul.fly-list:eq(1)"), document.getElementById("info_model"));
