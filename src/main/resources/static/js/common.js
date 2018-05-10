@@ -5,6 +5,7 @@
     if (!userCookie) {
         $(".fly-nav-user .layui-nav-item:lt(5)").show();
         $(".fly-nav-user .layui-nav-item:gt(4)").hide();
+        $("li.mypubinfo").hide();
         return;
     }
 
@@ -14,6 +15,7 @@
         $(".fly-nav-user .layui-nav-item:gt(4)").show();
         $(".nickname").text(user.nickname);
         $(".avatar").attr("src", user.avatar);
+        $("li.mypubinfo").show();
     }
 
     function GetQueryString(name){
