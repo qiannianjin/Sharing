@@ -30,7 +30,9 @@ public class InformationServiceTest {
 	public void testFindAllInformation() {
 		Short status = 1;
 		Short important = null;
-		List<CustomerInformation> list = informationService.findAllInformation(status, important, null, null);
+		Integer pageNum = 2;
+		Integer pageSize = 2;
+		List<CustomerInformation> list = informationService.findAllInformation(status, important, null, null, pageNum, pageSize);
 		for (CustomerInformation customerInformation : list) {
 			System.err.println(customerInformation);
 		}
@@ -41,7 +43,9 @@ public class InformationServiceTest {
 		Short status = 1;
 		Short important = null;
 		String userid = "1";
-		List<CustomerInformation> list = informationService.findAllInformation(status, important, userid, null);
+		Integer pageNum = 1;
+		Integer pageSize = 3;
+		List<CustomerInformation> list = informationService.findAllInformation(status, important, userid, null, pageNum, pageSize);
 		for (CustomerInformation customerInformation : list) {
 			System.err.println(customerInformation);
 		}

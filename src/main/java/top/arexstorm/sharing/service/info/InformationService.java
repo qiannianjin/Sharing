@@ -22,9 +22,11 @@ public interface InformationService {
 	 * @param important
 	 * @param userid
 	 * @param informationtypeid
+	 * @param pageNum
+	 * @param pageSize
 	 * @return
 	 */
-	public List<CustomerInformation> findAllInformation(Short status, Short important, String userid, String informationtypeid);
+	public List<CustomerInformation> findAllInformation(Short status, Short important, String userid, String informationtypeid, Integer pageNum, Integer pageSize);
 	
 	/**
 	 * 根据信息id(informationid) 来查询相关的信息类型信息

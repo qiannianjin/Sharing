@@ -154,10 +154,12 @@ public class InformationController {
 	
 	@ResponseBody
 	@PostMapping(value = "/list")
-	public AppResponse list(Short status, Short important, String userid, String informationtypeid) throws Exception {
+	public AppResponse list(Short status, Short important, String userid,
+							String informationtypeid, Integer pageNum,
+							Integer pageSize) throws Exception {
 		
 		//获取信息列表  返回包含  用户信息(头像, nickname) 信息 (标题, 时间) 
-		List<CustomerInformation> infoList = informationService.findAllInformation(status, important, userid, informationtypeid);
+		List<CustomerInformation> infoList = informationService.findAllInformation(status, important, userid, informationtypeid, pageNum, pageSize);
 		
 		return AppResponse.okList(infoList);
 	}

@@ -43,7 +43,7 @@ public class InformationServiceImpl implements InformationService {
 
 	@TargetDataSource("slave")
 	@Override
-	public List<CustomerInformation> findAllInformation(Short status, Short important, String userid, String informationtypeid) {
+	public List<CustomerInformation> findAllInformation(Short status, Short important, String userid, String informationtypeid, Integer pageNum, Integer pageSize) {
 		
 		List<CustomerInformation> list = new ArrayList<CustomerInformation>();
 		CustomerInformation customerInformation = new CustomerInformation();
@@ -58,6 +58,10 @@ public class InformationServiceImpl implements InformationService {
 		}
 		if (StringUtils.isNotBlank(informationtypeid)) {
 			customerInformation.setTypeid(informationtypeid);
+		}
+		if (pageNum != null && pageSize != null) {
+			customerInformation.setPageNum(pageNum);
+			customerInformation.setPageSize(pageSize);
 		}
 		list = customerInformationMapper.findAllInformation(customerInformation);
 		

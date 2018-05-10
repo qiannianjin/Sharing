@@ -33,6 +33,9 @@
   		</if>
   	</where>
   	order by s_information.createtime desc
+	  <if test="startRow!=null">
+		  limit #{startRow}, #{pageSize}
+	  </if>
   </select>
   
   <select id="findInformationTypeByInformationId" parameterType="java.lang.String" resultType="top.arexstorm.sharing.bean.info.CustomerInformationType">
