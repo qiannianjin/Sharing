@@ -23,7 +23,7 @@
       <div class="fly-panel" style="margin-bottom: 0;">
 
         <div class="fly-panel-title fly-filter">
-          <a href="" class="layui-this"></a>
+          <a href="" class="layui-this">搜索的信息</a>
           <span class="fly-mid"></span>
           <span class="fly-filter-right layui-hide-xs">
             <a href="" class="layui-this">按最新</a>
@@ -31,36 +31,47 @@
             <a href="">按热议</a>
           </span>
         </div>
-
+<!--			
+					var createtime = new Date(n.createtime);
+					var now = new Date();
+					if ((now.getTime() - createtime.getTime()) < 10 * 60 * 1000) {
+						var showtime  = "刚刚"
+					} else {
+						var showtime = createtime.getFullYear() + "-" + createtime.getMonth()+1 + "-" + createtime.getDate();
+					}
+					li.find("div.fly-list-info span:eq(0)").text(showtime);					
+ -->
        <ul class="fly-list">
-          <li id="info_model" style="display:none">
+       	  <!-- 循环开始 -->
+          <li id="info_model" th:each="info, infoStat : ${list}">
             <a href="/user/home" class="fly-avatar">
-              <img alt="">
+              <img th:src="${info.avatar}" th:alt="${info.nickname}">
             </a>
             <h2>
-              <a class="layui-badge wealth">动态</a>
-              <a></a>
+              <a class="layui-badge wealth" th:text="${info.price}==0 ? '免费' : '动态'"></a>
+              <a th:href="|/jie/detail?informationid=${info.informationid}|"><span th:text="${info.name}"></span></a>
             </h2>
             <div class="fly-list-info">
               <a href="/user/home" link>
-                <cite></cite>
+                <cite th:text="${info.nickname}"></cite>
                 <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
                 <i class="layui-badge fly-badge-vip">VIP3</i>
               </a>
               <span>刚刚</span>
 
-              <span class="fly-list-kiss layui-hide-xs" title="悬赏S币"><i class="iconfont icon-kiss"></i> </span>
+              <span class="fly-list-kiss layui-hide-xs" title="悬赏S币"><i class="iconfont icon-kiss"></i><span th:text="${info.price}"></span> </span>
               <span class="layui-badge fly-badge-accept layui-hide-xs">已结</span>
               <span class="fly-list-nums">
                 <i class="iconfont icon-pinglun1" title="回答"></i> 66
               </span>
             </div>
             <div class="fly-list-badge">
-               <span class="layui-badge layui-bg-black" style="display:none">置顶</span>
-              <span class="layui-badge layui-bg-red" style="display:none">推荐</span>
-              <span class="layui-badge layui-bg-orange" style="display:none">精华</span>
+              <span class="layui-badge layui-bg-black" th:style="${info.important} == 1 ? '' : 'display:none'">置顶</span>
+              <span class="layui-badge layui-bg-red" th:style="${info.important} == 2 ? '' : 'display:none'">推荐</span>
+              <span class="layui-badge layui-bg-orange" th:style="${info.important} ==3 ? '' : 'display:none'">精华</span> 
             </div>
           </li>
+          
         </ul>
 
         <!-- <div class="fly-none">没有相关数据</div> -->
