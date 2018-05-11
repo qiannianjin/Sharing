@@ -8,6 +8,24 @@
             return date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
         }
 
+        function findAnnouncement(params, container, sourceNode) {
+            $.post("/jie/list", params, function(data){
+                var list = data.dataList || {};
+                if (list.length == 0) {
+                    layer.msg("没有更多数据了!", {time: 3 * 1000});
+                    return;
+                }
+                if (data.status == 0) {
+                    $.each(list, function(i, n) {
+                        var li = $(sourceNode.cloneNode(true)).attr({"class":"li_" + n.id, "style":"", "id":"li_" + n.id});
+                        li.find("a").attr("href", "/jie/detail?informationid=" + n.informationid);
+                        li.find("a").text(n.name);
+                        container.append(li);
+                    })
+                }
+            });
+        }
+
         var changeStatus = function(url, params){
 
             $.post(url, params, function(data){
@@ -70,6 +88,9 @@
             });
            //return;
         }
+
+        //加载公告  温馨通道
+        findAnnouncement({status:4, important:4}, $("#announcementcontainer"), document.getElementById("announcement_model"));
 
         //加载评论
         var params = {};

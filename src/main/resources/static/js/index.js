@@ -59,17 +59,38 @@
             });
         }
 
+        function findAnnouncement(params, container, sourceNode) {
+            $.post("/jie/list", params, function(data){
+                var list = data.dataList || {};
+                if (list.length == 0) {
+                    layer.msg("没有更多数据了!", {time: 3 * 1000});
+                    return;
+                }
+                if (data.status == 0) {
+                    $.each(list, function(i, n) {
+                        var li = $(sourceNode.cloneNode(true)).attr({"class":"li_" + n.id, "style":"", "id":"li_" + n.id});
+                        li.find("a").attr("href", "/jie/detail?informationid=" + n.informationid);
+                        li.find("a").text(n.name);
+                        container.append(li);
+                    })
+                }
+            });
+        }
+
         //首页加载 置顶数据
         var params = {status:1, important:1};
-        findInformation(params, $("ul.fly-list:eq(0)"), document.getElementById("info_model"));
+        find(params, $("ul.fly-list:eq(0)"), document.getElementById("info_model"));
 
         //综合
-        var comprehensiveParams = {status:1}
+        var comprehensiveParams = {status:1};
         var pageNum = 1;
         var pageSize = 8;
         comprehensiveParams.pageNum = pageNum;
         comprehensiveParams.pageSize = pageSize;
         findInformation(comprehensiveParams, $("ul.fly-list:eq(1)"), document.getElementById("info_model"));
+
+        //加载公告  温馨通道
+        findAnnouncement({status:4, important:4}, $("#announcementcontainer"), document.getElementById("announcement_model"));
 
         //更多求解
         $(".laypage-next").click(function(){
@@ -121,4 +142,4 @@
             $("#essence").attr("class", "layui-this");
         });
     })
-})
+});
