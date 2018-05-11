@@ -21,6 +21,7 @@ import top.arexstorm.sharing.service.info.InformationTypeService;
 import top.arexstorm.sharing.service.order.OrderService;
 import top.arexstorm.sharing.service.user.UserService;
 import top.arexstorm.sharing.utils.AppResponse;
+import top.arexstorm.sharing.utils.PageResult;
 import top.arexstorm.sharing.utils.UUIDUtils;
 
 @Controller
@@ -194,5 +195,19 @@ public class InformationController {
 		} else {
 			return AppResponse.okData(-1, msg + "失败!");
 		}
+	}
+
+	@GetMapping(value = "/search")
+	public String search(String q, Model model) {
+
+	    //按照关键字搜索
+//        Integer pageNum, Integer pageSize, Short status, String searchKey, String searchValue
+        Integer pageNum = 1;
+        Integer pageSize = 100;
+        PageResult<CustomerInformation> result = informationService.findAllInformationWithPage(pageNum, pageSize, null, "name", q);
+        List<CustomerInformation> list = result.getData();
+        model.addAttribute("list", list);
+
+        return "other/search";
 	}
 }
