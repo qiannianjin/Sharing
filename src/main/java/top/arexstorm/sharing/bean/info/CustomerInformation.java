@@ -16,6 +16,8 @@ public class CustomerInformation extends Information {
     private Integer pageSize = 10;
     private Integer startRow;
 
+    private String showTime; //显示时间 对于时间格式化之后的内容
+
     public Integer getPageNum() {
         return pageNum;
     }
@@ -58,4 +60,11 @@ public class CustomerInformation extends Information {
 		this.avatar = avatar;
 	}
 
+    public String getShowTime() {
+        return showTime;
+    }
+
+    public void setShowTime(String showTime) {
+        this.showTime = showTime;
+    }
 }

@@ -1,16 +1,11 @@
 package top.arexstorm.sharing.controller.info;
 
-import java.math.BigDecimal;
-import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import top.arexstorm.sharing.bean.info.CustomerInformation;
 import top.arexstorm.sharing.bean.info.CustomerInformationType;
 import top.arexstorm.sharing.bean.info.Information;
@@ -23,6 +18,11 @@ import top.arexstorm.sharing.service.user.UserService;
 import top.arexstorm.sharing.utils.AppResponse;
 import top.arexstorm.sharing.utils.PageResult;
 import top.arexstorm.sharing.utils.UUIDUtils;
+
+import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/jie")
@@ -206,6 +206,17 @@ public class InformationController {
         Integer pageSize = 100;
         PageResult<CustomerInformation> result = informationService.findAllInformationWithPage(pageNum, pageSize, null, "name", q);
         List<CustomerInformation> list = result.getData();
+
+        //处理下日期显示  10分钟以内 显示 刚刚 否则 yyyy-MM-dd
+		Date now = new Date();
+		for (CustomerInformation ci : list) {
+			if ((now.getTime() - ci.getCreatetime().getTime()) < 10 * 60 * 1000) {
+				ci.setShowTime("刚刚");
+			} else {
+				ci.setShowTime(DateFormatUtils.format(ci.getCreatetime(), "yyyy-MM-dd"));
+			}
+		}
+
         model.addAttribute("list", list);
 
         return "other/search";
