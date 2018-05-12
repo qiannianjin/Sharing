@@ -79,7 +79,7 @@
 
         //首页加载 置顶数据
         var params = {status:1, important:1};
-        find(params, $("ul.fly-list:eq(0)"), document.getElementById("info_model"));
+        findInformation(params, $("ul.fly-list:eq(0)"), document.getElementById("info_model"));
 
         //综合
         var comprehensiveParams = {status:1};
