@@ -115,10 +115,15 @@ public class OrderServiceImpl implements OrderService {
 		detail.setSellerid(sellerid);
 		orderDetailService.saveOrderDetail(detail);
 
-		//扣钱
-        CustomerUser user = userService.findUserById(buyerid);
-        user.setAmount(user.getAmount().subtract(price));
-        userService.updateUser(user.getUserid(), user);
+		//买家扣钱
+        CustomerUser buyer = userService.findUserById(buyerid);
+		buyer.setAmount(buyer.getAmount().subtract(price));
+        userService.updateUser(buyer.getUserid(), buyer);
+
+        //卖家加钱
+		CustomerUser seller = userService.findUserById(sellerid);
+		seller.setAmount(seller.getAmount().add(price));
+		userService.updateUser(seller.getUserid(), seller);
 	}
 
 	@TargetDataSource("slave")
