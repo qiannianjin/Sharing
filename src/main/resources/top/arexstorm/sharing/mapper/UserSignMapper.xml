@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.arexstorm.sharing.mapper.UserSignMapper">
+  <resultMap id="BaseResultMap" type="top.arexstorm.sharing.bean.user.UserSign">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="userid" jdbcType="VARCHAR" property="userid" />
+    <result column="days" jdbcType="INTEGER" property="days" />
+    <result column="points" jdbcType="DECIMAL" property="points" />
+    <result column="sign" jdbcType="BIGINT" property="sign" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="lasttime" jdbcType="TIMESTAMP" property="lasttime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, userid, days, points, sign, createtime, lasttime
+  </sql>
+  <select id="selectByExample" parameterType="top.arexstorm.sharing.bean.user.UserSignQuery" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from s_user_sign
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from s_user_sign
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from s_user_sign
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="top.arexstorm.sharing.bean.user.UserSignQuery">
+    delete from s_user_sign
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="top.arexstorm.sharing.bean.user.UserSign">
+    insert into s_user_sign (id, userid, days,
+      points, sign, createtime,
+      lasttime)
+    values (#{id,jdbcType=BIGINT}, #{userid,jdbcType=VARCHAR}, #{days,jdbcType=INTEGER},
+      #{points,jdbcType=DECIMAL}, #{sign,jdbcType=BIGINT}, #{createtime,jdbcType=TIMESTAMP},
+      #{lasttime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="top.arexstorm.sharing.bean.user.UserSign">
+    insert into s_user_sign
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="days != null">
+        days,
+      </if>
+      <if test="points != null">
+        points,
+      </if>
+      <if test="sign != null">
+        sign,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="lasttime != null">
+        lasttime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="days != null">
+        #{days,jdbcType=INTEGER},
+      </if>
+      <if test="points != null">
+        #{points,jdbcType=DECIMAL},
+      </if>
+      <if test="sign != null">
+        #{sign,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lasttime != null">
+        #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="top.arexstorm.sharing.bean.user.UserSignQuery" resultType="java.lang.Long">
+    select count(*) from s_user_sign
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update s_user_sign
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.userid != null">
+        userid = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.days != null">
+        days = #{record.days,jdbcType=INTEGER},
+      </if>
+      <if test="record.points != null">
+        points = #{record.points,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sign != null">
+        sign = #{record.sign,jdbcType=BIGINT},
+      </if>
+      <if test="record.createtime != null">
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lasttime != null">
+        lasttime = #{record.lasttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update s_user_sign
+    set id = #{record.id,jdbcType=BIGINT},
+      userid = #{record.userid,jdbcType=VARCHAR},
+      days = #{record.days,jdbcType=INTEGER},
+      points = #{record.points,jdbcType=DECIMAL},
+      sign = #{record.sign,jdbcType=BIGINT},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      lasttime = #{record.lasttime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="top.arexstorm.sharing.bean.user.UserSign">
+    update s_user_sign
+    <set>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="days != null">
+        days = #{days,jdbcType=INTEGER},
+      </if>
+      <if test="points != null">
+        points = #{points,jdbcType=DECIMAL},
+      </if>
+      <if test="sign != null">
+        sign = #{sign,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lasttime != null">
+        lasttime = #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="top.arexstorm.sharing.bean.user.UserSign">
+    update s_user_sign
+    set userid = #{userid,jdbcType=VARCHAR},
+      days = #{days,jdbcType=INTEGER},
+      points = #{points,jdbcType=DECIMAL},
+      sign = #{sign,jdbcType=BIGINT},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      lasttime = #{lasttime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

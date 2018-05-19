@@ -314,17 +314,19 @@ layui.define(['layer', 'laytpl', 'form', 'element', 'upload', 'util'], function(
   //签到
   var tplSignin = ['{{# if(d.signed){ }}'
     ,'<button class="layui-btn layui-btn-disabled">今日已签到</button>'
-    ,'<span>获得了<cite>{{ d.experience }}</cite>飞吻</span>'
+    ,'<span>获得了<cite>{{ d.points }}</cite>S币</span>'
   ,'{{# } else { }}'
     ,'<button class="layui-btn layui-btn-danger" id="LAY_signin">今日签到</button>'
-    ,'<span>可获得<cite>{{ d.experience }}</cite>飞吻</span>'
+    ,'<span>可获得<cite>{{ d.points }}</cite>S币</span>'
   ,'{{# } }}'].join('')
   ,tplSigninDay = '已连续签到<cite>{{ d.days }}</cite>天'
 
   ,signRender = function(data){
+    //渲染 今日签到
     laytpl(tplSignin).render(data, function(html){
       elemSigninMain.html(html);
     });
+    //渲染 连续签到天数
     laytpl(tplSigninDay).render(data, function(html){
       elemSigninDays.html(html);
     });
@@ -348,8 +350,32 @@ layui.define(['layer', 'laytpl', 'form', 'element', 'upload', 'util'], function(
     var othis = $(this);
     if(othis.hasClass(DISABLED)) return;
 
+    var userCookie = $.cookie("user");
+    if (!userCookie) {
+        layer.alert("请登陆", {
+            icon: 1,
+            time: 10*1000,
+            end: function(){
+                return;
+            }
+        });
+        return;
+    }
+
+    var user = JSON.parse(decodeURIComponent(userCookie));
+    if (!user.userid) {
+        layer.alert("请登陆", {
+            icon: 1,
+            time: 10*1000,
+            end: function(){
+                return;
+            }
+        });
+        return;
+    }
+
     fly.json('/sign/in', {
-      token: signRender.token || 1
+      userid : user.userid
     }, function(res){
       signRender(res.data);
     }, {

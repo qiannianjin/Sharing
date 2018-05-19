@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.arexstorm.sharing.mapper.CustomerUserSignMapper">
+  <resultMap id="BaseResultMap" type="top.arexstorm.sharing.bean.user.UserSign">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="userid" jdbcType="VARCHAR" property="userid" />
+    <result column="days" jdbcType="INTEGER" property="days" />
+    <result column="points" jdbcType="DECIMAL" property="points" />
+    <result column="sign" jdbcType="BIGINT" property="sign" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="lasttime" jdbcType="TIMESTAMP" property="lasttime" />
+  </resultMap>
+
+  <select id="findCustomerUserSignByUserId" parameterType="java.lang.String" resultType="top.arexstorm.sharing.bean.user.CustomerUserSign">
+    select * from s_user_sign
+      <where>
+          <if test="value != null">
+              and userid = #{value}
+          </if>
+      </where>
+  </select>
+  
+</mapper>
