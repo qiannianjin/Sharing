@@ -6,5 +6,5 @@ public interface UserSignService {
 
     CustomerUserSign doSign(String userid);
 
-    boolean checkUserSign(String userid);
+    CustomerUserSign checkUserSign(String userid);
 }

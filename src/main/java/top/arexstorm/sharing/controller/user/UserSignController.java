@@ -37,8 +37,8 @@ public class UserSignController {
      */
     @PostMapping(value = "/check")
     public AppResponse checkUserSign(@RequestParam(required = true) String userid) {
-        boolean flag = userSignService.checkUserSign(userid);
+        CustomerUserSign cus = userSignService.checkUserSign(userid);
 
-        return AppResponse.okData(flag, 0, null, null);
+        return AppResponse.okData(cus, 0, null, null);
     }
 }

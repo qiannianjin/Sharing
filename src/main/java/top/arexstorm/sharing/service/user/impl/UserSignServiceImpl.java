@@ -66,17 +66,20 @@ public class UserSignServiceImpl implements UserSignService {
     }
 
     @Override
-    public boolean checkUserSign(String userid) {
+    public CustomerUserSign checkUserSign(String userid) {
         CustomerUserSign userSign = customerUserSignMapper.findCustomerUserSignByUserId(userid);
         if (userSign == null) { //第一次签到
-            return false;
+//            Integer days, BigDecimal points, Boolean signed
+            return new CustomerUserSign(1, new BigDecimal(5), false);
         } else {
             Date lasttime = userSign.getLasttime();
             Date today = new Date();
             if (DateUtils.isSameDay(lasttime, today)) { //今天已经签到过了
-                return true;
+                userSign.setSigned(true);
+                return userSign;
             } else {
-                return false;
+               userSign.setSigned(false);
+               return userSign;
             }
         }
     }

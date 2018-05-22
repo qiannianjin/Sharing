@@ -2,7 +2,6 @@
     var layer = layui.layer;
 
     $(function() {
-
         $.get("/type/common?status=1", function(data){
             var list = data.dataList || {};
             if (data.status == 0) {
@@ -77,6 +76,29 @@
             });
         }
 
+        function checkUserSign() {
+            var userCookie = $.cookie("user");
+            if (userCookie) {
+                var user = JSON.parse(decodeURIComponent(userCookie));
+                if (user.userid) {  //登陆
+                    $.post("/sign/check", {userid: user.userid}, function(data){
+                        if (data && data.status == 0) {
+                            data = data.data;
+                            //设置 连续签到 天数 和 今日应该获取 S币值
+                            $("span.fly-signin-days cite").text(data.days);  //连续签到 天数
+                            $("div.fly-signin-main>span>cite").text(data.points);
+                            if (data.signed) { //已经签到过了
+                                $("#LAY_signin").addClass('layui-btn-disabled');
+                            } else { //今日还没有签到
+                                $("#LAY_signin").removeClass('layui-btn-disabled');
+                            }
+                        }
+                    });
+                }
+                return;
+            }
+        }
+
         //首页加载 置顶数据
         var params = {status:1, important:1};
         findInformation(params, $("ul.fly-list:eq(0)"), document.getElementById("info_model"));
@@ -91,6 +113,10 @@
 
         //加载公告  温馨通道
         findAnnouncement({status:4, important:4}, $("#announcementcontainer"), document.getElementById("announcement_model"));
+
+        //检测是否已经签到
+        checkUserSign();
+
 
         //更多求解
         $(".laypage-next").click(function(){
