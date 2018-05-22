@@ -32,7 +32,7 @@ public class UserSignServiceImpl implements UserSignService {
         if (userSign == null) { //第一次签到
             userSign = new CustomerUserSign();
             userSign.setSign(1l);
-            userSign.setPoints(new BigDecimal(10));
+            userSign.setPoints(new BigDecimal(5));
             userSign.setDays(1);
             userSign.setUserid(userid);
             userSignMapper.insertSelective(userSign);
@@ -50,6 +50,7 @@ public class UserSignServiceImpl implements UserSignService {
             }
             userSign.setPoints(getPointsByDays(userSign.getDays()));
             userSign.setSign(userSign.getSign() + 1);
+            userSign.setLasttime(new Date());
 
             userSignMapper.updateByPrimaryKeySelective(userSign);
         }
@@ -62,6 +63,22 @@ public class UserSignServiceImpl implements UserSignService {
         userSignLogMapper.insertSelective(userSignLog);
 
         return new CustomerUserSign(userSign.getDays(), userSign.getPoints(), false);
+    }
+
+    @Override
+    public boolean checkUserSign(String userid) {
+        CustomerUserSign userSign = customerUserSignMapper.findCustomerUserSignByUserId(userid);
+        if (userSign == null) { //第一次签到
+            return false;
+        } else {
+            Date lasttime = userSign.getLasttime();
+            Date today = new Date();
+            if (DateUtils.isSameDay(lasttime, today)) { //今天已经签到过了
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
     private BigDecimal getPointsByDays(Integer days) {

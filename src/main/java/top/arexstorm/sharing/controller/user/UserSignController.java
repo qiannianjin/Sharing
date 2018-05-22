@@ -16,11 +16,29 @@ public class UserSignController {
     @Autowired
     private UserSignService userSignService;
 
+    /**
+     * 用户的签到
+     * signed true 说明已经签到过了， false 为 签到成功
+     * @param userid
+     * @return
+     */
     @PostMapping(value = "/in")
     public AppResponse doSign(@RequestParam(required = true) String userid) {
 
         CustomerUserSign cus = userSignService.doSign(userid);
 
         return AppResponse.okData(cus, null);
+    }
+
+    /**
+     * 检测用户是否已经 签到  （Boolean, point）
+     * @param userid
+     * @return
+     */
+    @PostMapping(value = "/check")
+    public AppResponse checkUserSign(@RequestParam(required = true) String userid) {
+        boolean flag = userSignService.checkUserSign(userid);
+
+        return AppResponse.okData(flag, 0, null, null);
     }
 }
