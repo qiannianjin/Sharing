@@ -78,13 +78,14 @@
 
         function checkUserSign() {
             var userCookie = $.cookie("user");
-            if (userCookie) {
+            if (userCookie && JSON.parse(decodeURIComponent(userCookie))) {
                 var user = JSON.parse(decodeURIComponent(userCookie));
                 if (user.userid) {  //登陆
                     $.post("/sign/check", {userid: user.userid}, function(data){
                         if (data && data.status == 0) {
                             data = data.data;
                             //设置 连续签到 天数 和 今日应该获取 S币值
+                            $('div.fly-signin-days').show();
                             $("span.fly-signin-days cite").text(data.days);  //连续签到 天数
                             $("div.fly-signin-main>span>cite").text(data.points);
                             if (data.signed) { //已经签到过了
@@ -96,6 +97,9 @@
                     });
                 }
                 return;
+            } else {
+                //已连续签到天数
+                $('span.fly-signin-days').hide();
             }
         }
 
