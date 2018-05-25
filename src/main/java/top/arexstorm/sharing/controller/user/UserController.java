@@ -1,5 +1,6 @@
 package top.arexstorm.sharing.controller.user;
 
+import java.net.InetAddress;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
@@ -57,11 +58,14 @@ public class UserController {
 	@RequestMapping(value="findUser/{userId}")
 	public String findtUser(@PathVariable(value="userId") String userId, HttpSession session, Model model) throws Exception {
 		log.error("测试日志数出 {}", "2018-04-27");
+        InetAddress address = InetAddress.getLocalHost();
+        String host = address.getHostName() + "----" + address.getHostAddress();
 		String sessionid = session.getId();
 		model.addAttribute("sessionid", sessionid);
 		CustomerUser customerUser = userService.findUserById(userId);
 		model.addAttribute("customerUser", customerUser);
 		model.addAttribute("good", "nam");
+		model.addAttribute("host", host);
 		return "test";
 	}
 	
