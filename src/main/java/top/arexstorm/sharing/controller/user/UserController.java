@@ -150,7 +150,7 @@ public class UserController {
 		cookie.setMaxAge(0);
 		resp.addCookie(cookie);
 		
-		return "index";
+		return "redirect:index";
 	}
 	
 	/**
