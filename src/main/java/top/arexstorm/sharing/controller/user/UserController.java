@@ -149,8 +149,9 @@ public class UserController {
 		cookie.setPath("/");
 		cookie.setMaxAge(0);
 		resp.addCookie(cookie);
-		
-		return "index";
+
+		//用户退出 跳转到 首页
+		return "redirect:/";
 	}
 	
 	/**
