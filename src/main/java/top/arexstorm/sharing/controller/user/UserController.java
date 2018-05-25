@@ -151,7 +151,7 @@ public class UserController {
 		resp.addCookie(cookie);
 
 		//用户退出 跳转到 首页
-		return "redirect:/";
+		return "index";
 	}
 	
 	/**
