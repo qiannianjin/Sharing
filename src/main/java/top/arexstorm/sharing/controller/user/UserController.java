@@ -98,11 +98,14 @@ public class UserController {
                              @RequestParam(required = true) String vercode, @RequestParam(required = true) String verkey,
                              Model model, HttpServletRequest req, HttpSession session, HttpServletResponse resp) throws Exception {
 
-        //验证验证码是否输入正确
-        if(!CaptchaUtil.isVerified(verkey, vercode, req)){
-            return AppResponse.okData(-1, "验证码输入错误，请重新输入");
-        }
-		
+		//添加验证码的通过绕过策略
+		if (!"6e6e6e".equals(vercode)) {
+			//验证验证码是否输入正确
+			if(!CaptchaUtil.isVerified(verkey, vercode, req)){
+				return AppResponse.okData(-1, "验证码输入错误，请重新输入");
+			}
+		}
+
 		//两次查询   可能是邮箱或者手机号
 		CustomerUser findUser = userService.findUserByEmailOrPhone(loginName, null);
 		if (findUser == null) {
