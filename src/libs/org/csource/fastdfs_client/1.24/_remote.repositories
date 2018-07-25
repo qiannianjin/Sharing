@@ -1,0 +1,4 @@
+#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
+#Thu May 04 13:17:36 CST 2017
+fastdfs_client-1.24.pom>=
+fastdfs_client-1.24.jar>=
